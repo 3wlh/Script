@@ -1,0 +1,44 @@
+#!/bin/bash
+
+#========函数========
+function Unishare() {
+sed -i "s|option enabled .*|option enabled '1'|g" $Unishare
+sed -i "s|option webdav_port .*|option webdav_port '8888'|g" $Unishare
+
+if ! grep -q "username 'admin'" $Vssr; then
+cat >>$Unishare<<EOF
+
+config user
+	option password 'lh199711.'
+	option username 'admin'
+
+EOF
+
+if ! grep -q "name 'HDD'" $Vssr; then
+cat >>$Unishare<<EOF
+
+config share
+	option path '/HDD'
+	option name 'HDD'
+	list rw 'admin'
+	list proto 'samba'
+	list proto 'webdav'
+
+EOF	
+}
+
+#========变量========
+Unishare="/etc/config/unishare"
+
+
+#========函数入口========
+(cd / && {
+    [ -a $Unishare ] && Unishare && echo "Unishare配置......OK" &
+    sleep 2
+    echo  
+    echo '================================='
+    echo '=           配置完成            ='
+    echo '================================='
+    echo '=        重启软路由生效         ='
+    echo '================================='
+})
