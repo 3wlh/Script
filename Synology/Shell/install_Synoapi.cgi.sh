@@ -4,7 +4,7 @@ GREEN_COLOR='\e[1;32m' #绿色
 RES='\e[0m' #尾
 
 #下载路径
-Synoapi="https://raw.githubusercontent.com/3wking/Script/Synology/main/API/Synoapi.cgi"
+Synoapi="https://raw.githubusercontent.com/3wking/Script/main/Synology/API/Synoapi.cgi"
 #设置GitHub加速下载
 ip_info=$(curl -sk https://ip.cooluc.com)
 country_code=$(echo $ip_info | sed -r 's/.*country_code":"([^"]*).*/\1/')

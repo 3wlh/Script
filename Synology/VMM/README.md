@@ -2,5 +2,5 @@
 ## Shell
 ##### ssh
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/Synology/main/VMM/ssh.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/Synology/VMM/ssh.sh | bash
 ```
