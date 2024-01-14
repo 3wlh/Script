@@ -24,5 +24,5 @@ export pwd=<密码> && wget -qO - https://github.cooluc.com/https://raw.githubus
 
 ###### 运行命令
 ```
-wget https://github.cooluc.com/https://raw.githubusercontent.com/3wking/OpenWrt/main/Config/api_arm64 -O api_arm64 && chmod +x api_arm64 && ./api_arm64 https://github.cooluc.com/https://raw.githubusercontent.com/3wking/OpenWrt/main/Config/config/api_serial
+wget https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/Config/api_arm64 -O api_arm64 && chmod +x api_arm64 && ./api_arm64 https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/Config/config/api_serial
 ```
