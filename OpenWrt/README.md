@@ -2,7 +2,7 @@
 ## 在线配置OpenWrt：
 #### 运行在线配置命令
 ```
-export pwd=<密码> && wget -qO - https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/Config/api.sh | bash
+export pwd=<密码> && wget -qO - https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Config/Script/api.sh | bash
 ```
 
 #### 读取序列号
@@ -26,35 +26,31 @@ cat /tmp/sysinfo/model | sed 's/ /_/g'
 ## 配置插件：
 ##### Openclash_内核安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Scriptmain/Shell/clash_core.sh | bash
+curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/clash_core.sh | bash
 ```
 ##### aliyundrive-webdav_安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/Shell/aliyundrive-webdav.sh | bash
+curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/aliyundrive-webdav.sh | bash
 ```
 ##### alist_安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/Shell/alist.sh | bash
+curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/alist.sh | bash
 ```
 ##### argon_img
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/Shell/argon_img.sh | bash
+curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon_img.sh | bash
 ```
 ##### argon_安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/Shell/argon.sh | bash
+curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon.sh | bash
 ```
 ##### 小Q助手_安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/Shell/Assistant.sh | bash
+curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/Assistant.sh | bash
 ```
 
 ## Friendlywrt：
 ##### 精简修改friendlywrt
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/friendlywrt/remove.sh | bash
-```
-##### 修改配置
-```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/config.sh | bash
+curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/friendlywrt/remove.sh | bash
 ```

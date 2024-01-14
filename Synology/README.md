@@ -2,11 +2,11 @@
 ## DSM7.0 root权限的api
 ##### install_Synoapi.spk
 ```sh
-sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/Synology/main/Shell/install_Synoapi.spk.sh | bash
+sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/Synology/Shell/install_Synoapi.spk.sh | bash
 ```
 ##### install_Synoapi.cgi
 ```sh
-sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/Synology/main/Shell/install_Synoapi.cgi.sh | bash
+sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/Synology/Shell/install_Synoapi.cgi.sh | bash
 ```
 ##### 套件调用api
 ```sh
