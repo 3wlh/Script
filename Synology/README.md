@@ -50,7 +50,7 @@ else
 	fi
 ```
 ## 硬盘无法休眠
-#### 建立开机脚本，开机时将日志恢复到内存
+###### 建立开机脚本，开机时将日志恢复到内存
 ```
 if [ ! -d "/var/logbak" ]; then
      mkdir /var/logbak
@@ -59,7 +59,7 @@ fi
 cp -a -f /var/logbak/.  /tmp/log/
 mount -B /tmp/log  /var/log
 ```
-#### 建立关机脚本，关机时将日志从内存写到备份目录
+###### 建立关机脚本，关机时将日志从内存写到备份目录
 ```
 cp -a -f /tmp/log/.     /var/logbak
 ```
