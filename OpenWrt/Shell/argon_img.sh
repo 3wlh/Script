@@ -34,7 +34,8 @@ if [ $? -eq 0 ]; then
 	if [ $? -ne 0 ]; then
 		echo -e "${RED_COLOR}下载 $img 失败.${RES}\r\n"
 		exit 1
-	fi	
+	fi
+	sed -i "s|option online_wallpaper .*|	option online_wallpaper 'none'|g" /etc/config/argon
 	echo -e "\r\n${GREEN_COLOR}安装<argon_img>完成${RES}\r\n"
 else
 	echo -e "${RED_COLOR}删除原文件失败.${RES}\r\n"
