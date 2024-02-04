@@ -26,31 +26,31 @@ cat /tmp/sysinfo/model | sed 's/ /_/g'
 ## 配置插件：
 ##### Openclash_内核安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/clash_core.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/clash_core.sh | bash
 ```
 ##### aliyundrive-webdav_安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/aliyundrive-webdav.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/aliyundrive-webdav.sh | bash
 ```
 ##### alist_安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/alist.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/alist.sh | bash
 ```
 ##### argon_img
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon_img.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon_img.sh | bash
 ```
 ##### argon_安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon.sh | bash
 ```
 ##### 小Q助手_安装
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/Assistant.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/Assistant.sh | bash
 ```
 
 ## Friendlywrt：
 ##### 精简修改friendlywrt
 ```sh
-curl -k https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/friendlywrt/remove.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/friendlywrt/remove.sh | bash
 ```
