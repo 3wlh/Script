@@ -4,7 +4,13 @@
 ```
 export pwd=<密码> && wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Config/Script/api.sh | bash
 ```
-
+#### 本地配置
+```
+wget -qO - http://10.10.10.5/confing | bash
+```
+```
+wget -qO - http://10.10.10.5/confing_pwd | bash
+```
 #### 读取序列号
 ###### 读取序列号
 ```
