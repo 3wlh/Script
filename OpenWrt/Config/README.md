@@ -17,6 +17,10 @@ cat /sys/class/net/eth0/address
 cat /tmp/sysinfo/model | sed 's/ /_/g'
 ```
 ## 运行
+###### 删除api
+```
+rm -f /usr/share/api/*
+```
 ###### 一键运行
 ```
 export pwd=<密码> && wget -qO - https://github.cooluc.com/https://raw.githubusercontent.com/3wking/OpenWrt/main/OpenWrt/Config/Script/api.sh | bash
