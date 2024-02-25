@@ -10,7 +10,7 @@ if synopkg list | grep -w Synoapi | grep -v grep >/dev/null 2>&1; then
 fi
 
 #下载路径
-Synoapi="https://raw.githubusercontent.com/3wking/Script/main/Synology/API/Synoapi_DSM7.spk"
+Synoapi="https://raw.githubusercontent.com/3wlh/Script/main/Synology/API/Synoapi_DSM7.spk"
 #设置GitHub加速下载
 ip_info=$(curl -sk https://ip.cooluc.com)
 country_code=$(echo $ip_info | sed -r 's/.*country_code":"([^"]*).*/\1/')

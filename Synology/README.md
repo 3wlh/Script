@@ -2,11 +2,11 @@
 ## DSM7.0 root权限的api
 ##### install_Synoapi.spk
 ```sh
-sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/Synology/Shell/install_Synoapi.spk.sh | bash
+sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/Synology/Shell/install_Synoapi.spk.sh | bash
 ```
 ##### install_Synoapi.cgi
 ```sh
-sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/Synology/Shell/install_Synoapi.cgi.sh | bash
+sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/Synology/Shell/install_Synoapi.cgi.sh | bash
 ```
 ##### 套件调用api
 ```sh
@@ -73,11 +73,11 @@ sudo synopkg uninstall SecureSignIn
 ```
 ##### 添加网口
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/Synology/main/Shell/Network.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/Synology/main/Shell/Network.sh | bash
 ```
 ##### 开机通知
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/Synology/main/Shell/Power.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/Synology/main/Shell/Power.sh | bash
 ```
 ##### 查找进程
 ```sh
