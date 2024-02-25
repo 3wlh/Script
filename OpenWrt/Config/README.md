@@ -23,10 +23,10 @@ rm -f /usr/share/api/*
 ```
 ###### 一键运行
 ```
-export pwd=<密码> && wget -qO - https://github.cooluc.com/https://raw.githubusercontent.com/3wking/OpenWrt/main/OpenWrt/Config/Script/api.sh | bash
+export pwd=<密码> && wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/OpenWrt/main/OpenWrt/Config/Script/api.sh | bash
 ```
 
 ###### 运行命令
 ```
-wget https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Config/api_arm64 -O api_arm64 && chmod +x api_arm64 && ./api_arm64 https://github.cooluc.com/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Config/config/api_serial
+wget https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/api_arm64 -O api_arm64 && chmod +x api_arm64 && ./api_arm64 https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/config/api_serial
 ```
