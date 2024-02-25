@@ -2,7 +2,7 @@
 ## 在线配置OpenWrt：
 #### 运行在线配置命令
 ```
-export pwd=<密码> && wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Config/Script/api.sh | bash
+export pwd=<密码> && wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Script/api.sh | bash
 ```
 #### 本地配置
 ```
@@ -32,19 +32,19 @@ cat /tmp/sysinfo/model | sed 's/ /_/g'
 ## 配置插件：
 ##### Openclash_内核安装
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/clash_core.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/clash_core.sh | bash
 ```
 ##### aliyundrive-webdav_安装
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/aliyundrive-webdav.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/aliyundrive-webdav.sh | bash
 ```
 ##### alist_安装
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/alist.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/alist.sh | bash
 ```
 ##### argon_img
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon_img.sh | bash
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/argon_img.sh | bash
 ```
 ##### argon_安装
 ```sh
