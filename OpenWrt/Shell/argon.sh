@@ -48,7 +48,7 @@ function Check() {
 function Download() {
 	echo -e "\r\n${GREEN_COLOR}下载软件包 ...${RES}\r\n"
 	# 获取软件包信息
-	curl -sk --connect-timeout 10 "https://api.github.com/repos/3wking/OpenWrt/contents/luci-theme/argon?ref=main" | grep "download_url" | grep "argon" > $dir/releases.txt
+	curl -sk --connect-timeout 10 "https://api.github.com/repos/3wlh/OpenWrt/contents/luci-theme/argon?ref=main" | grep "download_url" | grep "argon" > $dir/releases.txt
 	if [ $? -ne 0 ]; then
 		echo -e "${RED_COLOR}错误! 无法获取版本信息，请检查网络状态.${RES}\r\n"
 		rm -rf $dir

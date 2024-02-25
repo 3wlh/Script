@@ -25,8 +25,8 @@ function Check() {
 #安装
 function Install() {
 echo -e "\r\n${GREEN_COLOR}安装<argon_img>图片${RES}\r\n"
-mp4="https://raw.githubusercontent.com/3wking/OpenWrt/main/IMG/Yamato_Kancolle.mp4"
-img="https://raw.githubusercontent.com/3wking/AList/main/img/img_16.jpg"
+mp4="https://raw.githubusercontent.com/3wlh/OpenWrt/main/IMG/Yamato_Kancolle.mp4"
+img="https://raw.githubusercontent.com/3wlh/AList/main/img/img_16.jpg"
 rm -f /www/luci-static/argon/background/*
 if [ $? -eq 0 ]; then
 	echo -e "${GREEN_COLOR}正在下载 $img ...${RES}"

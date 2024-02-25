@@ -43,9 +43,9 @@ function Download() {
 	echo -e "\r\n${GREEN_COLOR}下载软件包 ...${RES}\r\n"
 	# 获取软件包信息
 	if [ $cpu = "amd64" ];then
-		Assistant="https://raw.githubusercontent.com/3wking/OpenWrt/main/bin/Assistant_amd64.tar.gz"
+		Assistant="https://raw.githubusercontent.com/3wlh/OpenWrt/main/bin/Assistant_amd64.tar.gz"
 	else
-		Assistant="https://raw.githubusercontent.com/3wking/OpenWrt/main/bin/Assistant_arm64.tar.gz"
+		Assistant="https://raw.githubusercontent.com/3wlh/OpenWrt/main/bin/Assistant_arm64.tar.gz"
 	fi	
 	# download
 	echo -e "${GREEN_COLOR}正在下载 $Assistant ...${RES}"
