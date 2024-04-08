@@ -2,51 +2,7 @@
 
 #========函数========
 function V2ray() {
-cat >$V2ray<<EOF
 
-config global
-	option enable '1'
-
-config user '293af8e569f3446d92ff5cd9ce332ba8'
-	option enable '1'
-	option remarks 'Home_VLESS'
-	option protocol 'vless'
-	option port '4333'
-	option decryption 'none'
-	list uuid '********-****-****-4333-**********ff'
-	option level '1'
-	option tls '0'
-	option transport 'tcp'
-	option tcp_guise 'none'
-	option accept_lan '1'
-
-config user 'ed6e87dd84844c9d9881872a1c660725'
-	option enable '1'
-	option remarks 'Home_VMESS'
-	option protocol 'vmess'
-	option port '4334'
-	list uuid '********-****-****-4334-**********ff'
-	option alter_id '16'
-	option level '1'
-	option tls '0'
-	option transport 'tcp'
-	option tcp_guise 'none'
-	option accept_lan '1'
-
-config user 'f70129045dee489793b400ddd7af5687'
-	option enable '1'
-	option remarks 'Home_Socks'
-	option protocol 'socks'
-	option port '4335'
-	option auth '1'
-	option username '******'
-	option password 'QQ**********'
-	option tls '0'
-	option transport 'tcp'
-	option tcp_guise 'none'
-	option accept_lan '1'
-
-EOF
 }
 
 #========变量========
