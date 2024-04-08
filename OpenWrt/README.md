@@ -1,5 +1,9 @@
 # OpenWrt
 ## 在线配置OpenWrt：
+#### 删除API
+```
+rm -rf /usr/share/api
+```
 #### 运行在线配置命令
 ```
 export pwd=<密码> && wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Script/api.sh | bash
