@@ -72,7 +72,7 @@ function Uninstall () {
 	opkg remove luci-app-wizard --force-removal-of-dependent-packages --autoremove
 	# 网络唤醒
 	echo -e "\r\n${RED_COLOR}remove luci-app-wol（22/23）${RES}\r\n"	
-	opkg remove luci-app-wol --force-removal-of-dependent-packages --autoremove
+	opkg remove *wol* --force-removal-of-dependent-packages --autoremove
 	# ZeroTier
 	echo -e "\r\n${RED_COLOR}remove luci-app-zerotier（23/23）${RES}\r\n"	
 	opkg remove luci-app-zerotier --force-removal-of-dependent-packages --autoremove
@@ -85,8 +85,12 @@ if ! grep -q "openwrt_kiddin9" $opkg; then
   sed -i '$a\src/gz openwrt_kiddin9 https://dl.openwrt.ai/latest/packages/aarch64_generic/kiddin9' $opkg
 fi
 conf="/etc/opkg.conf"
+conf="/etc/opkg.conf"
 if ! grep -q "arch all" $conf; then
-  sed -i '$a\arch all 100' $conf
+  sed -i '$a\arch aarch64_generic 100' $conf
+fi
+if ! grep -q "arch all" $conf; then
+  sed -i '$a\arch all 200' $conf
 fi	
 }
 

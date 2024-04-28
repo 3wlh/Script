@@ -142,7 +142,10 @@ if ! grep -q "openwrt_kiddin9" $opkg; then
 fi
 conf="/etc/opkg.conf"
 if ! grep -q "arch all" $conf; then
-  sed -i '$a\arch all 100' $conf
+  sed -i '$a\arch aarch64_generic 100' $conf
+fi
+if ! grep -q "arch all" $conf; then
+  sed -i '$a\arch all 200' $conf
 fi
 }
 
