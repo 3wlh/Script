@@ -17,6 +17,7 @@ function Uninstall () {
 	opkg remove	luci-app-airconnect --force-removal-of-dependent-packages
 	# mac绑定
 	echo -e "\r\n${RED_COLOR}remove luci-app-arpbind（4/22）${RES}\r\n"	
+	opkg remove luci-i18n-arpbind-zh-cn
 	opkg remove luci-app-arpbind
 	# ddns解析
 	echo -e "\r\n${RED_COLOR}remove luci-app-ddns（5/22）${RES}\r\n"	
