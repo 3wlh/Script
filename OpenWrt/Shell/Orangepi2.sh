@@ -103,11 +103,6 @@ function Uninstall () {
 	
 }
 
-
-
-if 
-
-
 # 添加插件源
 function Add_Source () {
 opkg="/etc/opkg/customfeeds.conf"	
