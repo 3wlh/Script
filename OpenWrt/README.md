@@ -64,3 +64,9 @@ curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main
 ```sh
 curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/friendlywrt/remove.sh | bash
 ```
+
+## Orangepi：
+##### 修改系统设置
+```sh
+curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi.sh | bash
+```
