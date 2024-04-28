@@ -79,7 +79,11 @@ function Add_Source () {
 opkg="/etc/opkg/customfeeds.conf"	
 if ! grep -q "openwrt_kiddin9" $opkg; then
   sed -i '$a\src/gz openwrt_kiddin9 https://dl.openwrt.ai/latest/packages/aarch64_generic/kiddin9' $opkg
-fi		
+fi
+conf="/etc/opkg.conf"
+if ! grep -q "arch all" $conf; then
+  sed -i '$a\arch all 100' $conf
+fi	
 }
 
 # 设置旁路由
