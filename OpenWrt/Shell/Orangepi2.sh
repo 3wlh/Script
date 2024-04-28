@@ -8,100 +8,105 @@ RES='\e[0m' #尾
 function Uninstall () {
 	# 上网时间控制
 	echo -e "\r\n${RED_COLOR}remove luci-app-accesscontrol（1/22）${RES}\r\n"	
-	opkg remove luci-i18n-accesscontrol*
-	opkg remove luci-app-accesscontrol
+	opkg remove luci-i18n-accesscontrol* --force-depends --nodeps
+	opkg remove luci-app-accesscontrol --force-depends --nodeps
 	# 广告过滤
 	echo -e "\r\n${RED_COLOR}remove luci-app-adbyby-plus（2/22）${RES}\r\n"	
-	opkg remove luci-i18n-adbyby*
-	opkg remove luci-app-adbyby-plus
+	opkg remove luci-i18n-adbyby* --force-depends --nodeps
+	opkg remove luci-app-adbyby-plus --force-depends --nodeps
 	opkg remove adbyby
 	# AirPlay播放音频
 	echo -e "\r\n${RED_COLOR}remove luci-app-airconnect（3/22）${RES}\r\n"	
-	opkg remove	luci-i18n-airconnect*
-	opkg remove	luci-app-airconnect
+	opkg remove	luci-i18n-airconnect* --force-depends --nodeps
+	opkg remove	luci-app-airconnect --force-depends --nodeps
 	# mac绑定
 	echo -e "\r\n${RED_COLOR}remove luci-app-arpbind（4/22）${RES}\r\n"	
-	opkg remove luci-i18n-arpbind*
-	opkg remove luci-app-arpbind
+	opkg remove luci-i18n-arpbind* --force-depends --nodeps--nodeps
+	opkg remove luci-app-arpbind --force-depends --nodeps
 	# ddns解析
 	echo -e "\r\n${RED_COLOR}remove luci-app-ddns（5/22）${RES}\r\n"	
-	opkg remove luci-i18n-ddns*
-	opkg remove luci-app-ddns
+	opkg remove luci-i18n-ddns* --force-depends --nodeps
+	opkg remove luci-app-ddns --force-depends --nodeps
 	# 文件传输
 	echo -e "\r\n${RED_COLOR}remove luci-app-filetransfer（6/22）${RES}\r\n"	
-	opkg remove luci-i18n-filetransfer*
-	opkg remove luci-app-filetransfer
+	opkg remove luci-i18n-filetransfer* --force-depends --nodeps
+	opkg remove luci-app-filetransfer --force-depends --nodeps
 	# IPSec VPN 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-ipsec-server（7/22）${RES}\r\n"	
-	opkg remove luci-i18n-ipsec-server*
-	opkg remove luci-app-ipsec-server
+	opkg remove luci-i18n-ipsec-server* --force-depends --nodeps
+	opkg remove luci-app-ipsec-server --force-depends --nodeps
 	# Multi Stream Daemon Lite
 	echo -e "\r\n${RED_COLOR}remove luci-app-msd_lite（8/22）${RES}\r\n"	
-	opkg remove luci-i18n-msd_lite*
-	opkg remove luci-app-msd_lite
+	opkg remove luci-i18n-msd_lite* --force-depends --nodeps
+	opkg remove luci-app-msd_lite --force-depends --nodeps
 	# OpenClash
 	echo -e "\r\n${RED_COLOR}remove luci-app-openclash（9/22）${RES}\r\n"
-	opkg remove luci-i18n-openclash*
-	opkg remove luci-app-openclash
+	opkg remove luci-i18n-openclash* --force-depends --nodeps
+	opkg remove luci-app-openclash --force-depends --nodeps
 	# OpenVPN 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-openvpn-server（10/22）${RES}\r\n"	
-	opkg remove luci-i18n-openvpn-server*
-	opkg remove luci-app-openvpn-server
+	opkg remove luci-i18n-openvpn-server* --force-depends --nodeps
+	opkg remove luci-app-openvpn-server --force-depends --nodeps
 	# PPTP VPN 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-pptp-server（11/22）${RES}\r\n"	
-	opkg remove luci-i18n-pptp-server*
-	opkg remove luci-app-pptp-server
+	opkg remove luci-i18n-pptp-server* --force-depends --nodeps
+	opkg remove luci-app-pptp-server --force-depends --nodeps
 	# 网络共享
 	echo -e "\r\n${RED_COLOR}remove luci-app-samba（12/22）${RES}\r\n"
-	opkg remove luci-i18n-samba*	
-	opkg remove luci-app-samba
+	opkg remove luci-i18n-samba* --force-depends --nodeps
+	opkg remove luci-app-samba --force-depends --nodeps
 	# 智能队列管理
 	echo -e "\r\n${RED_COLOR}remove luci-app-sqm（13/22）${RES}\r\n"	
-	opkg remove luci-i18n-sqm*
-	opkg remove luci-app-sqm
+	opkg remove luci-i18n-sqm* --force-depends --nodeps
+	opkg remove luci-app-sqm --force-depends --nodeps
 	# ShadowSocksR Plus+
 	echo -e "\r\n${RED_COLOR}remove luci-app-ssr-plus（14/22）${RES}\r\n"
-	opkg remove luci-i18n-ssr-plus*
-	opkg remove luci-app-ssr-plus
+	opkg remove luci-i18n-ssr-plus* --force-depends --nodeps
+	opkg remove luci-app-ssr-plus --force-depends --nodeps
 	# Turbo ACC 网络加速
 	echo -e "\r\n${RED_COLOR}remove luci-app-turboacc（15/22）${RES}\r\n"	
-	opkg remove luci-i18n-turboacc*
-	opkg remove luci-app-turboacc
+	opkg remove luci-i18n-turboacc* --force-depends --nodeps
+	opkg remove luci-app-turboacc --force-depends --nodeps
 	# UPnP服务
 	echo -e "\r\n${RED_COLOR}remove luci-app-upnp（16/22）${RES}\r\n"	
-	opkg remove luci-i18n-upnp*
-	opkg remove luci-app-upnp
+	opkg remove luci-i18n-upnp* --force-depends --nodeps
+	opkg remove luci-app-upnp --force-depends --nodeps
 	# USB 打印服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-usb-printer（17/22）${RES}\r\n"	
-	opkg remove luci-i18n-usb-printer*
-	opkg remove luci-app-usb-printer
+	opkg remove luci-i18n-usb-printer* --force-depends --nodeps
+	opkg remove luci-app-usb-printer --force-depends --nodeps
 	# KMS 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-vlmcsd（18/22）${RES}\r\n"	
-	opkg remove luci-i18n-vlmcsd*
-	opkg remove luci-app-vlmcsd
+	opkg remove luci-i18n-vlmcsd* --force-depends --nodeps
+	opkg remove luci-app-vlmcsd --force-depends --nodeps
 	# FTP 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-vsftpd（19/22）${RES}\r\n"	
-	opkg remove luci-i18n-vsftpd*
-	opkg remove luci-app-vsftpd
+	opkg remove luci-i18n-vsftpd* --force-depends --nodeps
+	opkg remove luci-app-vsftpd --force-depends --nodeps
 	# WireGuard Status
 	echo -e "\r\n${RED_COLOR}remove luci-app-wireguard（20/22）${RES}\r\n"	
-	opkg remove luci-i18n-wireguard*
-	opkg remove luci-app-wireguard
+	opkg remove luci-i18n-wireguard* --force-depends --nodeps
+	opkg remove luci-app-wireguard --force-depends --nodeps
 	# 网络唤醒
 	echo -e "\r\n${RED_COLOR}remove luci-app-wol（21/22）${RES}\r\n"	
-	opkg remove luci-i18n-wol*
-	opkg remove luci-app-wol
+	opkg remove luci-i18n-wol* --force-depends --nodeps
+	opkg remove luci-app-wol --force-depends --nodeps
 	# ZeroTier
 	echo -e "\r\n${RED_COLOR}remove luci-app-zerotier（22/22）${RES}\r\n"	
-	opkg remove luci-i18n-zerotier*
-	opkg remove luci-app-zerotier
+	opkg remove luci-i18n-zerotier* --force-depends --nodeps
+	opkg remove luci-app-zerotier --force-depends --nodeps
 	# 路由器设置向导
 	# echo -e "\r\n${RED_COLOR}remove luci-app-wizard（23/23）${RES}\r\n"	
-	# opkg remove luci-i18n-wizard*
-	# opkg remove luci-app-wizard
+	# opkg remove luci-i18n-wizard* --force-depends --nodeps
+	# opkg remove luci-app-wizard --force-depends --nodeps
 	
 	
 }
+
+
+
+if 
+
 
 # 添加插件源
 function Add_Source () {
