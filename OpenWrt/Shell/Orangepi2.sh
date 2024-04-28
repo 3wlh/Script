@@ -171,11 +171,11 @@ fi
 
 #========函数入口========
 (cd / && {
-	Uninstall && echo "卸载自带插件......OK" &
+	Uninstall && echo -e "\r\n${GREEN_COLOR}卸载自带插件......OK${RES}\r\n" &
     sleep 1
-    Add_Source && echo "添加插件源......OK" &
+    Add_Source && echo -e "\r\n${GREEN_COLOR}添加插件源......OK${RES}\r\n" &
     sleep 1
-    Set && echo "设置旁路游模式......OK" &
+    Set && echo -e "\r\n${GREEN_COLOR}设置旁路游模式......OK${RES}\r\n" &
     sleep 1
     sleep 4
     echo  
@@ -185,4 +185,3 @@ fi
 	echo '=        重启软路由生效         ='
 	echo '================================='
 })
-
