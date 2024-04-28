@@ -17,7 +17,7 @@ function Uninstall () {
 	opkg remove	luci-app-airconnect --force-removal-of-dependent-packages
 	# mac绑定
 	echo -e "\r\n${RED_COLOR}remove luci-app-arpbind（4/22）${RES}\r\n"	
-	opkg remove luci-app-arpbind --force-removal-of-dependent-packages
+	opkg remove luci-app-arpbind
 	# ddns解析
 	echo -e "\r\n${RED_COLOR}remove luci-app-ddns（5/22）${RES}\r\n"	
 	opkg remove luci-app-ddns --force-removal-of-dependent-packages
@@ -33,7 +33,6 @@ function Uninstall () {
 	# OpenClash
 	echo -e "\r\n${RED_COLOR}remove luci-app-openclash（9/22）${RES}\r\n"	
 	opkg remove luci-app-openclash --force-removal-of-dependent-packages
-	luci-app-openvpn-server
 	# OpenVPN 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-openvpn-server（10/22）${RES}\r\n"	
 	opkg remove luci-app-openvpn-server --force-removal-of-dependent-packages
