@@ -200,7 +200,6 @@ fi
     sleep 1
     Set && echo -e "\r\n${GREEN_COLOR}设置旁路游模式......OK${RES}\r\n"
     sleep 1
-    sleep 4
     echo  
 	echo '================================='
 	echo '=           配置完成            ='
