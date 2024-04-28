@@ -174,11 +174,11 @@ fi
 
 #========函数入口========
 (cd / && {
-	Uninstall && echo -e "\r\n${GREEN_COLOR}卸载自带插件......OK${RES}\r\n" &
+	Uninstall && echo -e "\r\n${GREEN_COLOR}卸载自带插件......OK${RES}\r\n"
     sleep 1
-    Add_Source && echo -e "\r\n${GREEN_COLOR}添加插件源......OK${RES}\r\n" &
+    Add_Source && echo -e "\r\n${GREEN_COLOR}添加插件源......OK${RES}\r\n"
     sleep 1
-    Set && echo -e "\r\n${GREEN_COLOR}设置旁路游模式......OK${RES}\r\n" &
+    Set && echo -e "\r\n${GREEN_COLOR}设置旁路游模式......OK${RES}\r\n"
     sleep 1
     sleep 4
     echo  
