@@ -41,8 +41,8 @@ function Uninstall () {
 	opkg remove luci-app-msd_lite
 	# OpenClash
 	echo -e "\r\n${RED_COLOR}remove luci-app-openclash（9/22）${RES}\r\n"
-	opkg remove luci-i18n-accesscontrol*
-	opkg remove luci-app-openclash --autoremove
+	opkg remove luci-i18n-openclash*
+	opkg remove luci-app-openclash
 	# OpenVPN 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-openvpn-server（10/22）${RES}\r\n"	
 	opkg remove luci-i18n-openvpn-server*
