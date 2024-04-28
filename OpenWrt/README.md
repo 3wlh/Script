@@ -70,3 +70,7 @@ curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main
 ```sh
 curl -k https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi.sh | bash
 ```
+```sh
+curl -k https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi2.sh | bash
+```
+
