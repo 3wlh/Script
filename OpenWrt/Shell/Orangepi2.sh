@@ -8,74 +8,74 @@ RES='\e[0m' #尾
 function Uninstall () {
 	# 上网时间控制
 	echo -e "\r\n${RED_COLOR}remove luci-app-accesscontrol（1/22）${RES}\r\n"	
-	opkg remove luci-app-accesscontrol --autoremove
+	opkg remove luci-app-accesscontrol --force-removal-of-dependent-packages
 	# 广告过滤
 	echo -e "\r\n${RED_COLOR}remove luci-app-adbyby-plus（2/22）${RES}\r\n"	
-	opkg remove luci-app-adbyby-plus --autoremove
+	opkg remove luci-app-adbyby-plus --force-removal-of-dependent-packages
 	# AirPlay播放音频
 	echo -e "\r\n${RED_COLOR}remove luci-app-airconnect（3/22）${RES}\r\n"	
-	opkg remove	luci-app-airconnect --autoremove
+	opkg remove	luci-app-airconnect --force-removal-of-dependent-packages
 	# mac绑定
 	echo -e "\r\n${RED_COLOR}remove luci-app-arpbind（4/22）${RES}\r\n"	
-	opkg remove luci-app-arpbind --autoremove
+	opkg remove luci-app-arpbind --force-removal-of-dependent-packages
 	# ddns解析
 	echo -e "\r\n${RED_COLOR}remove luci-app-ddns（5/22）${RES}\r\n"	
-	opkg remove luci-app-ddns --autoremove
+	opkg remove luci-app-ddns --force-removal-of-dependent-packages
 	# 文件传输
 	echo -e "\r\n${RED_COLOR}remove luci-app-filetransfer（6/22）${RES}\r\n"	
-	opkg remove luci-app-filetransfer --autoremove
+	opkg remove luci-app-filetransfer --force-removal-of-dependent-packages
 	# IPSec VPN 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-ipsec-server（7/22）${RES}\r\n"	
-	opkg remove luci-app-ipsec-server --autoremove
+	opkg remove luci-app-ipsec-server --force-removal-of-dependent-packages
 	# Multi Stream Daemon Lite
 	echo -e "\r\n${RED_COLOR}remove luci-app-msd_lite（8/22）${RES}\r\n"	
-	opkg remove luci-app-msd_lite --autoremove
+	opkg remove luci-app-msd_lite --force-removal-of-dependent-packages
 	# OpenClash
 	echo -e "\r\n${RED_COLOR}remove luci-app-openclash（9/22）${RES}\r\n"	
-	opkg remove luci-app-openclash --autoremove
+	opkg remove luci-app-openclash --force-removal-of-dependent-packages
 	luci-app-openvpn-server
 	# OpenVPN 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-openvpn-server（10/22）${RES}\r\n"	
-	opkg remove luci-app-openvpn-server --autoremove
+	opkg remove luci-app-openvpn-server --force-removal-of-dependent-packages
 	# PPTP VPN 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-pptp-server（11/22）${RES}\r\n"	
-	opkg remove luci-app-pptp-server --autoremove
+	opkg remove luci-app-pptp-server --force-removal-of-dependent-packages
 	# 网络共享
 	echo -e "\r\n${RED_COLOR}remove luci-app-samba（12/22）${RES}\r\n"	
-	opkg remove luci-app-samba --autoremove
+	opkg remove luci-app-samba --force-removal-of-dependent-packages
 	# 智能队列管理
 	echo -e "\r\n${RED_COLOR}remove luci-app-sqm（13/22）${RES}\r\n"	
-	opkg remove luci-app-sqm --autoremove
+	opkg remove luci-app-sqm --force-removal-of-dependent-packages
 	# ShadowSocksR Plus+
 	echo -e "\r\n${RED_COLOR}remove luci-app-ssr-plus（14/22）${RES}\r\n"	
-	opkg remove luci-app-ssr-plus --autoremove
+	opkg remove luci-app-ssr-plus --force-removal-of-dependent-packages
 	# Turbo ACC 网络加速
 	echo -e "\r\n${RED_COLOR}remove luci-app-turboacc（15/22）${RES}\r\n"	
-	opkg remove luci-app-turboacc --autoremove
+	opkg remove luci-app-turboacc --force-removal-of-dependent-packages
 	# UPnP服务
 	echo -e "\r\n${RED_COLOR}remove luci-app-upnp（16/22）${RES}\r\n"	
-	opkg remove luci-app-upnp --autoremove
+	opkg remove luci-app-upnp --force-removal-of-dependent-packages
 	# USB 打印服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-usb-printer（17/22）${RES}\r\n"	
-	opkg remove luci-app-usb-printer --autoremove
+	opkg remove luci-app-usb-printer --force-removal-of-dependent-packages
 	# KMS 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-vlmcsd（18/22）${RES}\r\n"	
-	opkg remove luci-app-vlmcsd --autoremove
+	opkg remove luci-app-vlmcsd --force-removal-of-dependent-packages
 	# FTP 服务器
 	echo -e "\r\n${RED_COLOR}remove luci-app-vsftpd（19/22）${RES}\r\n"	
-	opkg remove luci-app-vsftpd --autoremove
+	opkg remove luci-app-vsftpd --force-removal-of-dependent-packages
 	# WireGuard Status
 	echo -e "\r\n${RED_COLOR}remove luci-app-wireguard（20/22）${RES}\r\n"	
-	opkg remove luci-app-wireguard --autoremove
+	opkg remove luci-app-wireguard --force-removal-of-dependent-packages
 	# 网络唤醒
 	echo -e "\r\n${RED_COLOR}remove luci-app-wol（21/22）${RES}\r\n"	
-	opkg remove luci-app-wol --autoremove
+	opkg remove luci-app-wol --force-removal-of-dependent-packages
 	# ZeroTier
 	echo -e "\r\n${RED_COLOR}remove luci-app-zerotier（22/22）${RES}\r\n"	
-	opkg remove luci-app-zerotier --autoremove
+	opkg remove luci-app-zerotier --force-removal-of-dependent-packages
 	# 路由器设置向导
 	# echo -e "\r\n${RED_COLOR}remove luci-app-wizard（23/23）${RES}\r\n"	
-	# opkg remove luci-app-wizard --autoremove
+	# opkg remove luci-app-wizard --force-removal-of-dependent-packages
 	
 	
 }
