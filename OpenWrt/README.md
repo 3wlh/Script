@@ -68,5 +68,5 @@ curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main
 ## Orangepi：
 ##### 修改系统设置
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi.sh | bash
+curl -k https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi.sh | bash
 ```
