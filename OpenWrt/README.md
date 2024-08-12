@@ -7,6 +7,7 @@ rm -rf /usr/share/api
 #### 运行在线配置命令
 ```
 export pwd=<密码> && wget -qO - https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Script/api.sh | bash
+export pwd=<密码> && wget -qO - https://gh.3wking.cn/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Script/api.sh | bash
 ```
 #### 本地配置
 ```
