@@ -6,8 +6,8 @@ GREEN_COLOR='\e[1;32m' #绿色
 RES='\e[0m' #尾
 dir="/usr/share/api/"
 api="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
-config=`echo ${url%/*/*}`"/Config/"
-echo -e "\r\n${RED_COLOR}$config${RES}\r\n"
+config="`echo ${url%/*/*}`/Config/"
+
 #========函数========
 #设置GitHub加速下载
 ip_info=$(curl -sk https://ip.cooluc.com)
