@@ -7,7 +7,7 @@ RES='\e[0m' #尾
 dir="/usr/share/api/"
 api="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
 config=`${url%/*/*}`"/Config"
-
+echo $config
 #========函数========
 #设置GitHub加速下载
 ip_info=$(curl -sk https://ip.cooluc.com)
