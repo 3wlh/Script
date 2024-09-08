@@ -69,7 +69,7 @@ if [ ! -e $dir$file ]; then
 	wget $mirror$api$file -O $dir$file
 	chmod +x $dir$file
 fi	
-	cd $dir && ./$file $pwd $mirror$url
+	cd $dir && ./$file $pwd $mirror$config
 }
 
 #========函数入口========
