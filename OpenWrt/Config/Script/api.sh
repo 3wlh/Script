@@ -5,10 +5,20 @@ RED_COLOR='\e[1;31m' #红色
 GREEN_COLOR='\e[1;32m' #绿色
 RES='\e[0m' #尾
 dir="/usr/share/api/"
-api="https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
-url="https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Config/"
+api="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
+url="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Config/"
 
 #========函数========
+#设置GitHub加速下载
+ip_info=$(curl -sk https://ip.cooluc.com)
+country_code=$(echo $ip_info | sed -r 's/.*country_code":"([^"]*).*/\1/')
+if [ $country_code = "CN" ]; then
+	google_status=$(curl -I -4 -m 3 -o /dev/null -s -w %{http_code} http://www.google.com/generate_204)
+	if [ ! $google_status = "204" ];then
+		mirror="https://mirror.ghproxy.com/"
+	fi
+fi
+
 # 读取OpenWrt架构
 function Read_schema() {
 if [ -f /etc/openwrt_release ]; then
@@ -56,10 +66,10 @@ function Config() {
 	
 if [ ! -e $dir$file ]; then
 	mkdir -p $dir
-	wget $api$file -O $dir$file
+	wget $mirror$api$file -O $dir$file
 	chmod +x $dir$file
 fi	
-	cd $dir && ./$file $pwd $url
+	cd $dir && ./$file $pwd $mirror$url
 }
 
 #========函数入口========
