@@ -75,7 +75,7 @@ if [ `du -s $dir | awk 'END{print $1}'` -lt 1000 ]; then
 	sleep 5s
 	Config
 fi
-	cd $dir && ./$file $pwd $mirror$config
+	cd $dir && ./$file $pwd $config
 }
 
 #========函数入口========
