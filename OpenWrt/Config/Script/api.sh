@@ -1,5 +1,5 @@
 #!/bin/bash
-
+1
 #========变量========
 RED_COLOR='\e[1;31m' #红色
 GREEN_COLOR='\e[1;32m' #绿色
