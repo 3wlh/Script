@@ -64,10 +64,9 @@ function Check_schema() {
 }
 
 function Config() {
-	
 if [ ! -e $dir$file ]; then
 	mkdir -p $dir
-	wget $mirror$api$file -O $dir$file
+	wget $api$file -O $dir$file
 	chmod +x $dir$file
 fi
 
