@@ -6,7 +6,7 @@ GREEN_COLOR='\e[1;32m' #绿色
 RES='\e[0m' #尾
 dir="/usr/share/api/"
 # api="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
-api="https://gitee.com/git_3wlh/Download/raw/main/OpenWrt/"
+api="https://gitee.com/git_3wlh/File/raw/main/OpenWrt/"
 config="`echo ${url%/*/*}`/Config/"
 
 #========函数========
