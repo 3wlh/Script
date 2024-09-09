@@ -74,7 +74,6 @@ if [ `du -s $dir | awk 'END{print $1}'` -lt 1000 ]; then
 	rm -rf /usr/share/api
 	sleep 5s
 	Config
-	
 fi
 	cd $dir && ./$file $pwd $mirror$config
 }
