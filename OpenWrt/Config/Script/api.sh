@@ -70,7 +70,7 @@ if [ ! -e $dir$file ]; then
 	wget $mirror$api$file -O $dir$file
 	chmod +x $dir$file
 fi	
-if [`du -s /usr/share/api | awk 'END{print $1}'` -lt 1000]; then
+if [`du -s $dir | awk 'END{print $1}'` -lt 1000]; then
 	rm -rf /usr/share/api
 	Config
 fi
