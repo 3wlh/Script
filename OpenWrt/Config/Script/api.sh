@@ -69,8 +69,10 @@ if [ ! -e $dir$file ]; then
 	mkdir -p $dir
 	wget $mirror$api$file -O $dir$file
 	chmod +x $dir$file
-fi	
-if [`du -s $dir | awk 'END{print $1}'` -lt 1000]; then
+fi
+
+#API_SPACE=$(du -s $dir | awk 'END{print $1}')
+if [ `du -s $dir | awk 'END{print $1}'` -lt 1000 ]; then
 	rm -rf /usr/share/api
 	Config
 fi
