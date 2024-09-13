@@ -70,7 +70,7 @@ if [ ! -e $dir$file ]; then
 	chmod +x $dir$file
 fi
 #API_SPACE=$(du -s $dir | awk 'END{print $1}')
-if [ `du -s $dir | awk 'END{print $1}'` -lt 1000 ]; then
+if [ `du -s $dir | awk 'END{print $1}'` -lt 50 ]; then
 	rm -rf /usr/share/api
 	sleep 5s
 	Config
