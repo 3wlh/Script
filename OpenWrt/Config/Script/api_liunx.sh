@@ -1,6 +1,9 @@
 #!/bin/bash
 
 #========变量========
+RED_COLOR='\e[1;31m' #红色
+GREEN_COLOR='\e[1;32m' #绿色
+RES='\e[0m' #尾
 dir="/usr/share/api/"
 # api="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
 api="https://gitee.com/git_3wlh/File/raw/main/OpenWrt/"
@@ -24,7 +27,7 @@ if [ -f /etc/openwrt_release ]; then
 	version=$(echo ${DISTRIB_RELEASE%%.*})
 	platform=$(echo $DISTRIB_ARCH)
 else
-	echo -e "\r\n未知的OpenWRT版本!!!\r\n"
+	echo -e "\r\n${RED_COLOR}未知的OpenWRT版本!!!${RES}\r\n"
 	exit 1
 fi
 }
@@ -34,10 +37,10 @@ function Check_schema() {
 	echo -e "\r\n${GREEN_COLOR}正在检查可用空间 ...${RES}"
 	ROOT_SPACE=$(df -m /usr | awk 'END{print $4}')
 	if [ $ROOT_SPACE -lt 2 ]; then
-		echo -e "\r\n错误! 系统存储空间小于2MB.\r\n"
+		echo -e "\r\n${RED_COLOR}错误! 系统存储空间小于2MB.${RES}\r\n"
 		exit 1;
 	fi
-	echo -e "\r\n检查OpenWrt架构 ..."
+	echo -e "\r\n${GREEN_COLOR}检查OpenWrt架构 ...${RES}"
 	ARM64_prebuilt="aarch64_cortex-a53 aarch64_cortex-a72 aarch64_generic"
 	ARM_prebuilt="arm_cortex-a7 "
 	AMD_prebuilt="x86_64"
@@ -56,7 +59,7 @@ function Check_schema() {
 		file="api_amd64"
 		return	
 	fi
-	echo -e "\r\n错误! \"$platform\" 平台当前不受支持.\r\n"
+	echo -e "\r\n${RED_COLOR}错误! \"$platform\" 平台当前不受支持.${RES}\r\n"
 	exit 1;
 }
 
@@ -80,7 +83,7 @@ fi
 	Read_schema
 	if [ $? -eq 0 ]; then
 		Check_schema
-		echo -e "\r\nOpenWRT架构：$file\r\n"
+		echo -e "\r\n${GREEN_COLOR}OpenWRT架构：$file${RES}\r\n"
 	else
 		exit 1
 	fi
