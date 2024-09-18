@@ -7,7 +7,8 @@ api="https://gitee.com/git_3wlh/File/raw/main/OpenWrt/"
 Default_URL="https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Config/"
 PWD="${1:""}"
 URL="${2:"${Default_URL}"}"
-
+echo $PWD
+echo $URL
 #========函数========
 
 # 读取OpenWrt架构
