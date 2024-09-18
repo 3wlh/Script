@@ -4,9 +4,9 @@
 dir="/usr/share/api/"
 api="https://gitee.com/git_3wlh/File/raw/main/OpenWrt/"
 # api="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
-Default_URL="https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Config/"
+# Default_URL="https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Config/"
 PWD="${1:""}"
-URL="${2:"$Default_URL"}"
+URL="${2:"https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Config/"}"
 echo $PWD
 echo $URL
 #========函数========
