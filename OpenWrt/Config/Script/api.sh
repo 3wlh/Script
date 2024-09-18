@@ -2,20 +2,13 @@
 
 #========变量========
 dir="/usr/share/api/"
-# api="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
 api="https://gitee.com/git_3wlh/File/raw/main/OpenWrt/"
-config="`echo ${url%/*/*}`/Config/"
+# api="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
+Default_URL="https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Config/"
+PWD="${1:""}"
+URL="${2:${Default_URL}}"
 
 #========函数========
-#设置GitHub加速下载
-ip_info=$(curl -sk https://ip.cooluc.com)
-country_code=$(echo $ip_info | sed -r 's/.*country_code":"([^"]*).*/\1/')
-if [ $country_code = "CN" ]; then
-	google_status=$(curl -I -4 -m 3 -o /dev/null -s -w %{http_code} http://www.google.com/generate_204)
-	if [ ! $google_status = "204" ];then
-		mirror="https://mirror.ghproxy.com/"
-	fi
-fi
 
 # 读取OpenWrt架构
 function Read_schema() {
@@ -60,10 +53,13 @@ function Check_schema() {
 	exit 1;
 }
 
-function Config() {
+function Set_Configuration() {
 if [ ! -e $dir$file ]; then
 	mkdir -p $dir
 	wget $api$file -O $dir$file
+	chmod +x $dir$file
+	else
+	wget -N $api$file -O $dir$file
 	chmod +x $dir$file
 fi
 #API_SPACE=$(du -s $dir | awk 'END{print $1}')
@@ -72,7 +68,7 @@ if [ `du -s $dir | awk 'END{print $1}'` -lt 50 ]; then
 	sleep 5s
 	Config
 fi
-	cd $dir && ./$file $pwd $config
+	cd $dir && ./$file $pwd $URL
 }
 
 #========函数入口========
@@ -85,6 +81,6 @@ fi
 		exit 1
 	fi
 	if [ $? -eq 0 ]; then
-		Config
+		Set_Configuration
 	fi
 })
