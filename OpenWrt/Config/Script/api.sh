@@ -5,7 +5,7 @@ dir="/usr/share/api/"
 api="https://gitee.com/git_3wlh/File/raw/main/OpenWrt/"
 # api="https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/API/"
 Default_URL="https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Config/"
-PWD="${1:""}"
+PWD="${1:-""}"
 URL="${2:-${Default_URL}}"
 
 #========函数========
@@ -68,7 +68,7 @@ if [ `du -s $dir | awk 'END{print $1}'` -lt 50 ]; then
 	sleep 5s
 	Config
 fi
-	cd $dir && ./$file $pwd $URL
+	cd $dir && ./$file $PWD $URL
 }
 
 #========函数入口========
