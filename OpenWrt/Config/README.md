@@ -18,7 +18,7 @@ cat /tmp/sysinfo/model | sed 's/ /_/g'
 ```
 #### 读取软路由型号配置
 ```
-cat /tmp/sysinfo/model | sed 's/ /_/g' | cut -d "_" -f 2- | sed  's/.*/API_&.key/' 
+cat /tmp/sysinfo/model | sed 's/ /_/g' | cut -d "_" -f 2- | sed  's/.*/API_&.key/'
 ```
 
 ## 运行
