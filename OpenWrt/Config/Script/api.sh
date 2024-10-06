@@ -1,4 +1,4 @@
-#!/bin/bash1
+#!/bin/bash
 
 #========变量========
 dir="/usr/share/api/"
