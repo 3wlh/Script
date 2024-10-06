@@ -36,7 +36,7 @@ cat /tmp/sysinfo/model | sed 's/ /_/g'
 ```
 
 ## 配置插件：
-##### 插件
+#### 插件
 * Openclash_内核安装
 ```sh
 curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/clash_core.sh | bash
@@ -63,14 +63,15 @@ curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main
 ```
 
 ## Friendlywrt：
-##### 精简修改
+#### 精简修改
 * friendlywrt
 ```sh
 curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/friendlywrt/remove.sh | bash
 ```
 
 ## Orangepi：
-##### 修改系统设置
+###### 系统设置
+* 修改设置
 ```sh
 curl -k https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi.sh | bash
 ```
