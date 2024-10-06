@@ -1,35 +1,36 @@
 # OpenWrt
 ## 在线配置OpenWrt：
-#### 删除API
+#### API配置
+* 删除API
 ```
 rm -rf /usr/share/api
 ```
-#### 运行在线配置命令
+ 
+* 运行在线配置命令
 ```
-export pwd=<密码> && wget -qO - https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Script/api.sh | bash
-export pwd=<密码> && wget -qO - https://gh.3wking.cn/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Config/Script/api.sh | bash
+wget -qO - https://gitee.com/git_3wlh/Script/raw/master/OpenWrt/Config/Script/api.sh | bash -s <密码> <地址>
 ```
-#### 本地配置
+* 本地配置
 ```
 wget -qO - http://10.10.10.8/confing | bash
 ```
 ```
 wget -qO - http://10.10.10.8/confing_pwd | bash
 ```
-#### 读取序列号
-###### 读取序列号
+#### 读取数据
+* 读取序列号
 ```
 cat /sys/devices/system/cpu/cpu0/regs/identification/midr_el1 | sed 's/00*0//g'
 ```
-###### 读取CPU序列号
+* 读取CPU序列号
 ```
 cat /proc/cpuinfo | grep "Serial" | awk {'print $3'}
 ```
-###### 读取MAC序列号
+* 读取MAC序列号
 ```
 cat /sys/class/net/eth0/address
 ```
-###### 读取软路由型号
+* 读取软路由型号
 ```
 cat /tmp/sysinfo/model | sed 's/ /_/g'
 ```
