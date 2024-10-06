@@ -30,7 +30,7 @@ cat /proc/cpuinfo | grep "Serial" | awk {'print $3'}
 ```
 cat /sys/class/net/eth0/address
 ```
-* 读取软路由型号
+###### * 读取软路由型号
 ```
 cat /tmp/sysinfo/model | sed 's/ /_/g'
 ```
