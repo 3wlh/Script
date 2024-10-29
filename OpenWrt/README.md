@@ -4,8 +4,7 @@
 * 删除API
 ```
 rm -rf /usr/share/api
-```
- 
+``` 
 * 运行在线配置命令
 ```
 wget -qO - https://gitee.com/git_3wlh/Script/raw/master/OpenWrt/Config/Script/api.sh | bash -s <密码> <地址>
@@ -16,6 +15,11 @@ wget -qO - http://10.10.10.8/confing | bash
 ```
 ```
 wget -qO - http://10.10.10.8/confing_pwd | bash
+```
+#### 更新IP
+* 一键命令
+```
+wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/update_ip.sh | bash
 ```
 #### 读取数据
 * 读取序列号
