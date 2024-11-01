@@ -19,7 +19,7 @@ wget -qO - http://10.10.10.8/confing_pwd | bash
 #### 更新IP
 * 一键命令
 ```
-wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/update_ip.sh | bash
+wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/updateip.sh | bash
 ```
 #### 读取数据
 * 读取序列号
