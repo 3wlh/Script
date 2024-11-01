@@ -43,43 +43,43 @@ cat /tmp/sysinfo/model | sed 's/ /_/g'
 #### 插件
 * Openclash_内核安装
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/clash_core.sh | bash
+wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/clash_core.sh | bash
 ```
 * aliyundrive-webdav_安装
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/aliyundrive-webdav.sh | bash
+wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/aliyundrive-webdav.sh | bash
 ```
 * alist_安装
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/alist.sh | bash
+wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/alist.sh | bash
 ```
 * argon_img
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/argon_img.sh | bash
+wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/argon_img.sh | bash
 ```
 * argon_安装
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon.sh | bash
+wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon.sh | bash
 ```
 * 小Q助手_安装
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/Assistant.sh | bash
+wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/Assistant.sh | bash
 ```
 
 ## Friendlywrt：
 #### 精简修改
 * friendlywrt
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/friendlywrt/remove.sh | bash
+wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/friendlywrt/remove.sh | bash
 ```
 
 ## Orangepi：
 #### 系统设置
 * 修改设置
 ```sh
-curl -k https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi.sh | bash
+wget -qO - https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi.sh | bash
 ```
 ```sh
-curl -k https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi2.sh | bash
+wget -qO - https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi2.sh | bash
 ```
 
