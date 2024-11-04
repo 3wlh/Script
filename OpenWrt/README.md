@@ -21,6 +21,9 @@ wget -qO - http://10.10.10.8/confing_pwd | bash
 ```
 bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/updateip.sh)"
 ```
+```
+bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/updateip2.sh)"
+```
 #### 读取数据
 * 读取序列号
 ```
