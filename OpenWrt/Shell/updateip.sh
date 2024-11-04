@@ -7,7 +7,7 @@ cat>$File<<EOF
 #/bin/bash
 log="/tmp/log/updateip.log"
 time=\$(date +"%Y/%m/%d %H:%M.%S")
-web=\$(http://ip.3wlh.cn)
+web="http://ip.3wlh.cn"
 # Webpage=\$(wget -qO - http://ip.3wlh.cn)
 # ip=\$(wget -qO - http://members.3322.org/dyndns/getip)
 ip=\$(ubus call network.interface.wan status | grep \"address\" | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
