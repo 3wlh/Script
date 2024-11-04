@@ -9,7 +9,7 @@ cat>$File<<EOF
 # ip=\$(wget -qO - http://members.3322.org/dyndns/getip)
 log="/tmp/log/updateip2.log"
 time=\$(date +"%Y/%m/%d %H:%M.%S")
-web=\$(http://ip.131.996h.cn)
+web="http://ip.131.996h.cn"
 ip=\$(ubus call network.interface.wan status | grep \"address\" | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
 test  -d \${log%/*} || mkdir -p \${log%/*}
 if [ ! -n "\$(sed -n '\$p' \${log} 2>/dev/null | grep "\${ip}")" ]; then
