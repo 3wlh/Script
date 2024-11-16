@@ -61,7 +61,7 @@ fi
 
 function Install() {
 	if [ ! -n "$(echo ${Cron_text} | grep "${dir}${file}")" ]; then
-		echo "*/10 * * * * bash ${dir}${file}" >> ${Cron}
+		echo "*/10 * * * * ${dir}${file}" >> ${Cron}
 	fi
 }
 
