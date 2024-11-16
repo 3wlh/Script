@@ -24,6 +24,11 @@ bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh
 ```
 bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/updateip2.sh)"
 ```
+#### 微信推送
+* 一键命令
+```
+bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/wxpusher.sh)"
+```
 #### 读取数据
 * 读取序列号
 ```
