@@ -43,7 +43,7 @@ cat /proc/cpuinfo | grep "Serial" | awk {'print $3'}
 cat /sys/class/net/eth0/address
 ```
 ```
-ethtool -P eth0 | awk '{print $NF}' | md5sum | awk '{print $1}' | cut -c9-24
+ethtool -P eth0 | awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24
 ```
 * 读取软路由型号
 ```
