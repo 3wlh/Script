@@ -7,7 +7,7 @@ rm -rf /usr/share/api
 ``` 
 * 运行在线配置命令
 ```
-wget -qO - https://gitee.com/git_3wlh/Script/raw/master/OpenWrt/Config/Script/api.sh | bash -s <密码> <地址>
+wget -qO - https://gitee.com/git_3wlh/Script/raw/master/OpenWrt/Script/api.sh | bash -s <密码> <地址>
 ```
 * 本地配置
 ```
@@ -40,7 +40,7 @@ cat /proc/cpuinfo | grep "Serial" | awk {'print $3'}
 ```
 * 读取MAC序列号
 ```
-cat /sys/class/net/eth0/address
+cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24
 ```
 ```
 ip -o link show eth0 | awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24
