@@ -45,6 +45,10 @@ cat /sys/class/net/eth0/address
 ```
 ip -o link show eth0 | awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24
 ```
+* 自动读取MAC序列号
+```
+bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Getmac.sh)"
+```
 * 读取软路由型号
 ```
 cat /tmp/sysinfo/model | sed 's/ /_/g'
