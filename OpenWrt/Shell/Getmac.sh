@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ -n "$(ip -o link show eth0 | grep -n 'permaddr')"];then
+if [ -n "$(ip -o link show eth0 | grep 'permaddr')"];then
 	echo "ip -o link show eth0"
 	echo $(ip -o link show eth0 | awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
 else
