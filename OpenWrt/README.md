@@ -7,27 +7,40 @@ rm -rf /usr/share/api
 ``` 
 * 运行在线配置命令
 ```
-wget -qO - https://gitee.com/git_3wlh/Script/raw/master/OpenWrt/Script/api.sh | bash -s <密码> <地址>
+wget -qO - http://3wlh.github.io/Script/OpenWrt/Script/api.sh | bash -s <密码> <地址>
+```
+```
+wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Script/api.sh | bash -s <密码> <地址>
 ```
 * 本地配置
 ```
-wget -qO - http://10.10.10.8/confing | bash
+bash -c "$(wget -qO - http://10.10.10.8/confing)"
 ```
 ```
-wget -qO - http://10.10.10.8/confing_pwd | bash
+bash -c "$(wget -qO - http://10.10.10.8/confing_pwd)"
 ```
 #### 更新IP
 * 一键命令
 ```
-bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/updateip.sh)"
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/updateip.sh)"
 ```
 ```
-bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/updateip2.sh)"
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/updateip.sh)"
+```
+
+```
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/updateip2.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/updateip2.sh)"
 ```
 #### 微信推送
 * 一键命令
 ```
-bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/wxpusher.sh)"
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/wxpusher.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/wxpusher.sh)"
 ```
 #### 读取数据
 * 读取序列号
@@ -47,7 +60,10 @@ ip -o link show eth0 | awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}
 ```
 * 自动读取MAC序列号
 ```
-bash -c "$(wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Getmac.sh)"
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/Getmac.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/Getmac.sh)"
 ```
 * 读取软路由型号
 ```
@@ -57,44 +73,63 @@ cat /tmp/sysinfo/model | sed 's/ /_/g'
 ## 配置插件：
 #### 插件
 * Openclash_内核安装
-```sh
-wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/clash_core.sh | bash
+```
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/clash_core.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/clash_core.sh)"
 ```
 * aliyundrive-webdav_安装
-```sh
-wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/aliyundrive-webdav.sh | bash
+```
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/aliyundrive-webdav.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/aliyundrive-webdav.sh)"
 ```
 * alist_安装
-```sh
-wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/alist.sh | bash
+```
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/alist.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/alist.sh)"
 ```
 * argon_img
 ```sh
-wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/argon_img.sh | bash
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/argon_img.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/argon_img.sh)"
 ```
 * argon_安装
-```sh
-wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/argon.sh | bash
 ```
-* 小Q助手_安装
-```sh
-wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/Shell/Assistant.sh | bash
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/argon.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/argon.sh)"
 ```
 
 ## Friendlywrt：
 #### 精简修改
 * friendlywrt
-```sh
-wget -qO - https://ghproxy.net/https://raw.githubusercontent.com/3wking/Script/main/OpenWrt/friendlywrt/remove.sh | bash
 ```
-
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/friendlywrt/remove.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/remove.sh)"
+```
 ## Orangepi：
 #### 系统设置
 * 修改设置
-```sh
-wget -qO - https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi.sh | bash
 ```
-```sh
-wget -qO - https://mirror.ghproxy.com/https://raw.githubusercontent.com/3wlh/Script/main/OpenWrt/Shell/Orangepi2.sh | bash
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/Orangepi.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/Orangepi.sh)"
+```
+```
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/Orangepi2.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/Orangepi2.sh)"
 ```
 
