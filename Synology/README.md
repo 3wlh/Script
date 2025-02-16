@@ -2,12 +2,20 @@
 ## DSM7.0 root权限的api
 ##### install_Synoapi.spk
 ```sh
-sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/Synology/Shell/install_Synoapi.spk.sh | bash
+sudo bash -c "$(wget -qO - http://3wlh.github.io/Script/Synology/Shell/install_Synoapi.spk.sh)"
+```
+```
+sudo bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/Synology/Shell/install_Synoapi.spk.sh)"
 ```
 ##### install_Synoapi.cgi
 ```sh
-sudo curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/main/Synology/Shell/install_Synoapi.cgi.sh | bash
+sudo bash -c "$(wget -qO - http://3wlh.github.io/Script/Synology/Shell/install_Synoapi.cgi.sh)"
 ```
+```
+sudo bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/Synology/Shell/install_Synoapi.cgi.sh)"
+```
+
+
 ##### 套件调用api
 ```sh
 #preinst  //自带服务端
@@ -73,11 +81,10 @@ sudo synopkg uninstall SecureSignIn
 ```
 ##### 添加网口
 ```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/Synology/main/Shell/Network.sh | bash
+bash -c "$(wget -qO - http://3wlh.github.io/Script/Synology/Shell/Network.sh)"
 ```
-##### 开机通知
-```sh
-curl -k https://ghproxy.net/https://raw.githubusercontent.com/3wlh/Script/Synology/main/Shell/Power.sh | bash
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/Synology/Shell/Network.sh)"
 ```
 ##### 查找进程
 ```sh
