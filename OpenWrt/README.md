@@ -42,6 +42,16 @@ bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/wxpusher.sh)"
 ```
 bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/wxpusher.sh)"
 ```
+
+#### RustDesk
+* key
+```
+bash -c "$(wget -qO - http://3wlh.github.io/Script/OpenWrt/Shell/RustDesk.sh)"
+```
+```
+bash -c "$(wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/Shell/RustDesk.sh)"
+```
+
 #### 读取数据
 * 读取序列号
 ```
