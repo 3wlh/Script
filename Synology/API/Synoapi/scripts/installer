@@ -1,0 +1,47 @@
+#!/bin/bash
+PKGNAME="$SYNOPKG_PKGNAME"
+PKGPATH="/var/packages/${PKGNAME}"
+BINPKG="$SYNOPKG_PKGDEST"
+HOSTS="/etc/hosts"
+
+#安装前
+preinst() {
+	exit 0 
+}
+
+#安装后
+postinst() {
+    exit 0
+}
+
+#卸载前 
+preuninst() {
+    exit 0
+}
+
+#卸载后
+postuninst() {
+#还原ssh
+#cp /etc.defaults/ssh/sshd_config /etc/ssh
+    # 删除不必要的目录...
+    if [ -d "/usr/syno/etc/packages/${SYNOPKG_PKGNAME}" ]; then
+        rm -rf "/usr/syno/etc/packages/${SYNOPKG_PKGNAME}"
+    fi
+    # 从主界面删除应用程序...
+    SYNOAPP="/usr/syno/synoman/webman/3rdparty"
+    if [ -h "$SYNOAPP/${SYNOPKG_PKGNAME}" ]; then
+        rm -f "$SYNOAPP/${SYNOPKG_PKGNAME}"
+    fi
+	
+    exit 0
+}
+
+#升级前
+preupgrade() {
+    exit 0
+}
+
+#升级后
+postupgrade() {
+    exit 0
+}
