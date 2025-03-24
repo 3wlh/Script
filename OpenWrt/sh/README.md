@@ -17,19 +17,10 @@ wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/config.sh | bas
 ```
 mkdir -p /usr/share/ip/
 ```
-#### 
+#### SH
 ```
-wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/API_qqpush.sh
-```
-#### 
-```
-wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/API_wxpush.sh
-```
-####
-```
-wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/API_updateip1.sh
-```
-#### 
-```
-wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/API_updateip2.sh
+wget -qP /usr/share/ip/ http://3wlh.github.io/Script/OpenWrt/sh/API_qqpush.sh --show-progress \
+wget -qP /usr/share/ip/ http://3wlh.github.io/Script/OpenWrt/sh/API_wxpush.sh --show-progress \
+wget -qP /usr/share/ip/ http://3wlh.github.io/Script/OpenWrt/sh/API_updateip1.sh --show-progress \
+wget -qP /usr/share/ip/ http://3wlh.github.io/Script/OpenWrt/sh/API_updateip2.sh --show-progress
 ```
