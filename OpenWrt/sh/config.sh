@@ -62,7 +62,7 @@ if [ `ls -lh $dir$file | awk 'END{print $5}'` -lt 50 ]; then
 	Set_Configuration
 fi
 	cd $dir &&
-	./$file "-install" &
+	$file "-install" &
 }
 
 #========函数入口========
