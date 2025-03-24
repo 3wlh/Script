@@ -61,8 +61,7 @@ if [ `ls -lh $dir$file | awk 'END{print $5}'` -lt 50 ]; then
 	sleep 5s
 	Set_Configuration
 fi
-	cd $dir &&
-	$file "-install" &
+	cd $dir && ./$file "-install" &
 }
 
 #========函数入口========
