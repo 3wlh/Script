@@ -19,17 +19,17 @@ mkdir -p /usr/share/ip/
 ```
 #### 
 ```
-wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/config.sh
+wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/API_qqpush.sh
 ```
 #### 
 ```
-wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/config.sh
+wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/API_wxpush.sh
 ```
 ####
 ```
-wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/config.sh
+wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/API_updateip1.sh
 ```
 #### 
 ```
-wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/config.sh
+wget -qO /usr/share/ip/ https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/API_updateip2.sh
 ```
