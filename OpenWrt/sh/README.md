@@ -3,15 +3,21 @@
 #### API配置
 * 删除API
 ```
-rm -rf /usr/share/api/netlink_*
+rm -rf /usr/share/ip/netlink_*
 ``` 
 * 下载安装API
 ```
 wget -qO - http://3wlh.github.io/Script/OpenWrt/sh/config.sh | bash
+
+wget -qP /usr/share/ip/ http://file.11121314.xyz/OpenWrt/netlink_arm64 --show-progress && \
+chmod +x /usr/share/ip/netlink_arm64 && /usr/share/ip/netlink_arm64 -install &
+
 ```
 ```
 wget -qO - https://gitee.com/git_3wlh/Script/raw/main/OpenWrt/sh/config.sh | bash
 ```
+* 
+
 * 脚本下载
 ####
 ```
