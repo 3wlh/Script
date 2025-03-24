@@ -1,5 +1,5 @@
 #========变量========
-dir="/usr/share/api/"
+dir="/usr/share/ip/"
 api="http://file.11121314.xyz/OpenWrt/"
 #========函数========
 
@@ -59,7 +59,7 @@ if [ `ls -lh $dir$file | awk 'END{print $5}'` -lt 50 ]; then
 	sleep 5s
 	Set_Configuration
 fi
-	$dir$file "-install" &
+	cd $dir && $file "-install" &
 }
 
 #========函数入口========
