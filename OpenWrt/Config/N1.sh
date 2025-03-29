@@ -3,8 +3,6 @@
 function AES_D(){
 key=$(ip -o link show eth0 | awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
 [[ -n "${key}" ]] || key=$(cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
-# $(echo "${text}" | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -nosalt 2>/dev/null) //加密
-# $(echo "${encrypt_str}" | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -nosalt -d 2>/dev/null) //解密
 [[ -z "$1" ]] || echo "$1" | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -nosalt -d 2>/dev/null
 }
 
@@ -36,15 +34,34 @@ fi
 }
 
 function cloudflared() {
-token="aNuV2nQ24o8IftLNtKxPkaWW1WQvwIeFRFkQ9f6g0JbtQ7XWGJEfDmCGRY5IAfls
-3VND+w6L/1xUzLejs7EjEDCdC8RWapNK4T4zKOgivNpWY7JUCZYydAq1mQV3l5T8
-Klntxzk0W3V7O8loDWJx6AekQeO+uLOYl0V3lstI0dJqxerhnGrKd7lTjV4glVdJ
-ilb/8+DnAdH5tr50WbT4rjdrjXyIxjkgL6C/rGq/WoSj0C/hnIXuDtxDjKGwudHL"
+token="fgAi+8yXwpYpVDyVC6LlcNXTPOdTjWnj+35/EAiSOXf1UGWKahxGmI6B5T2UHSmkr2eqELH+kEtKNNOHoOaW06O8Qoa79pu1Dm1FZ5wf2Us="
 uci set cloudflared.config.enabled='1'
 uci set cloudflared.config.token="$(AES_D "${token}")"
 }
 
-Config="fstab cloudflared"
+function frp() {
+uci set frp.common.enabled='1'
+uci set frp.common.server_port='7000'
+uci set frp.common.server_addr="$(AES_D "BaVVQwu7oj/RIcHQF9tfGg==")"
+uci set frp.common.token="$(AES_D "u97dqchCHhR+APqtSlnzIw==")"
+# 添加
+Data="$(uci -q show frp)"
+if [ ! -n "$(echo ${Data} | grep "NapCat_API")" ]; then
+	uci_id="$(uci add frp proxy)"
+	uci set frp.${uci_id}.enable='1'
+	uci set frp.${uci_id}.type='tcp'
+	uci set frp.${uci_id}.remote_port='8081'
+	uci set frp.${uci_id}.local_ip='localhost'
+	uci set frp.${uci_id}.local_port='80'
+	uci set frp.${uci_id}.proxy_protocol_version='disable'
+	uci set frp.${uci_id}.use_encryption='1'
+	uci set frp.${uci_id}.use_compression='1'
+	uci set frp.${uci_id}.remark='NapCat_API'
+fi
+}
+
+
+Config="fstab cloudflared frp"
 (cd / && {
 for func  in $(echo ${Config} | sed 's/ / /g')
 do

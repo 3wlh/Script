@@ -100,8 +100,8 @@ if [ ! -n "$(uci -q get v2ray_server.f70129045dee489793b400ddd7af5687)" ]; then
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.protocol="socks"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.port="4335"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.auth="1"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.username="$(AES_D "hJxYB5UfmX5fkt6B0KCwrg==")"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.password="$(AES_D "DxyhZYsSgadJgtVtYC+HKQ==")"
+	uci set v2ray_server.f70129045dee489793b400ddd7af5687.username="$(AES_D "C6xnMrimoWUIzjbns5lNdQ==")"
+	uci set v2ray_server.f70129045dee489793b400ddd7af5687.password="$(AES_D "8FNu66reX1cJWD54s9mj2g==")"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.tls="0"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.transport="tcp"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.tcp_guise="none"
@@ -369,10 +369,10 @@ uci set unishare.@global[0].anonymous="0"
 # webdav端口
 uci set unishare.@global[0].webdav_port="8888"
 # 添加用户
-if [ ! -n "$(echo ${Data} | grep "$(AES_D "EGX0weODHB3uaL5bfaZuWA==")")" ]; then
+if [ ! -n "$(echo ${Data} | grep "$(AES_D "JC6zwHoYswrfDpdnwpBf8Q==")")" ]; then
 	uci_id="$(uci add unishare user)"
-	uci set unishare.${uci_id}.username="$(AES_D "EGX0weODHB3uaL5bfaZuWA==")"
-	uci set unishare.${uci_id}.password="$(AES_D "WyeTXXm2t8gtxOgDfZH2eQ==")"	
+	uci set unishare.${uci_id}.username="$(AES_D "JC6zwHoYswrfDpdnwpBf8Q==")"
+	uci set unishare.${uci_id}.password="$(AES_D "3kw+Ny8ZHd0ChPX678rDeg==")"	
 fi
 # 添加共享
 for data  in ${Share}
@@ -441,7 +441,7 @@ Share="
 "
 # 节点
 Sub_url="
-EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYE ivZyyov5M1ZqIeJ3IJDl4wr+SAvWspo+U2777sABwpifJu92A2tQwsp8JO+J0+9c lCcvHSnRn8PPuA2BMUdr2gmTS7YibDx7VSC4ibKNC2TKspjJqn+wGi1LOoDsTMt4|
+EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3IJDl4wr+SAvWspo+U2777sABwpifJu92A2tQwsp8JO+J0+9clCcvHSnRn8PPuA2BMUdr2gmTS7YibDx7VSC4ibKNC2Rs9AVfE77u0m0rpE8IazRS|
 "
 # 直连域名
 URL_list="
