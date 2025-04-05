@@ -98,8 +98,8 @@ if [ ! -n "$(uci -q get v2ray_server.f70129045dee489793b400ddd7af5687)" ]; then
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.protocol="socks"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.port="4335"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.auth="1"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.username="$(AES_D "C6xnMrimoWUIzjbns5lNdQ==")"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.password="$(AES_D "8FNu66reX1cJWD54s9mj2g==")"
+	uci set v2ray_server.f70129045dee489793b400ddd7af5687.username="$(AES_D "hJxYB5UfmX5fkt6B0KCwrg==")"
+	uci set v2ray_server.f70129045dee489793b400ddd7af5687.password="$(AES_D "DxyhZYsSgadJgtVtYC+HKQ==")"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.tls="0"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.transport="tcp"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.tcp_guise="none"
@@ -367,10 +367,10 @@ uci set unishare.@global[0].anonymous="0"
 # webdav端口
 uci set unishare.@global[0].webdav_port="8888"
 # 添加用户
-if [ ! -n "$(echo ${Data} | grep "$(AES_D "JC6zwHoYswrfDpdnwpBf8Q==")")" ]; then
+if [ ! -n "$(echo ${Data} | grep "$(AES_D "EGX0weODHB3uaL5bfaZuWA==")")" ]; then
 	uci_id="$(uci add unishare user)"
-	uci set unishare.${uci_id}.username="$(AES_D "JC6zwHoYswrfDpdnwpBf8Q==")"
-	uci set unishare.${uci_id}.password="$(AES_D "3kw+Ny8ZHd0ChPX678rDeg==")"	
+	uci set unishare.${uci_id}.username="$(AES_D "EGX0weODHB3uaL5bfaZuWA==")"
+	uci set unishare.${uci_id}.password="$(AES_D "WyeTXXm2t8gtxOgDfZH2eQ==")"	
 fi
 # 添加共享
 for data  in ${Share}
