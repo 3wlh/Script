@@ -178,7 +178,7 @@ uci set shadowsocksr.@server_subscribe[0].save_words="V3/香港/台湾/日本/�
 # 订阅URL地址
 for data  in ${Sub_url}
 do
-	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || break
+	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
 		uci add_list shadowsocksr.@server_subscribe[0].subscribe_url="$(AES_D "${data}")"
 	fi
@@ -467,15 +467,14 @@ Alist : 10.10.10.254 :: 5244 |
 # 卸载插件
 Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
 
-Config="network dhcp firewall fstab ddns unishare v2ray_server bypass 
-vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
+Config="network dhcp firewall fstab ddns unishare v2ray_server bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
 
 #========函数入口========
 (cd / && {
 IFS="|" # 分割符变量
 for func  in $(echo ${Config} | sed 's/ /|/g')
 do
-	echo ${func}
+	#echo ${func}
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"
     sleep 1
 done
