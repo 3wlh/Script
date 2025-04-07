@@ -62,6 +62,7 @@ uci set ddns.cloudflare.force_unit="days"
 }
 
 function v2ray_server() {
+uuid="64iOHzGUb4ndh9kuxyEdLkIUyxiM1NatBVj9EZOwVdwg6C11d79ywum97Q788pHA"
 uci set v2ray_server.@global[0].enable=1
 if [ ! -n "$(uci -q get v2ray_server.293af8e569f3446d92ff5cd9ce332ba8)" ]; then
 	uci set  v2ray_server.293af8e569f3446d92ff5cd9ce332ba8="user"
@@ -70,7 +71,7 @@ if [ ! -n "$(uci -q get v2ray_server.293af8e569f3446d92ff5cd9ce332ba8)" ]; then
 	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.protocol="vless"
 	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.port="4333"
 	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.decryption="none"
-	uci add_list v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.uuid="$(AES_D "64iOHzGUb4ndh9kuxyEdLnOrnbDKemrfw2pPAmmg8Nbr2+8ZKpwPkv164nHjFM1L")"
+	uci add_list v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.uuid="$(AES_D "${uuid}")"
 	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.level="1"
 	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.tls="0"
 	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.transport="tcp"
@@ -83,7 +84,7 @@ if [ ! -n "$(uci -q get v2ray_server.ed6e87dd84844c9d9881872a1c660725)" ]; then
 	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.remarks="Home_VMESS"
 	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.protocol="vmess"
 	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.port="4334"
-	uci add_list v2ray_server.ed6e87dd84844c9d9881872a1c660725.uuid="$(AES_D "64iOHzGUb4ndh9kuxyEdLvHSBWRov9CEt4+FsOM7HHUcSB5zoDXs/Fa3lXfDfhFU")"
+	uci add_list v2ray_server.ed6e87dd84844c9d9881872a1c660725.uuid="$(AES_D "${uuid}")"
 	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.alter_id="16"
 	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.level="1"
 	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.tls="0"
@@ -99,7 +100,7 @@ if [ ! -n "$(uci -q get v2ray_server.f70129045dee489793b400ddd7af5687)" ]; then
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.port="4335"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.auth="1"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.username="$(AES_D "hJxYB5UfmX5fkt6B0KCwrg==")"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.password="$(AES_D "DxyhZYsSgadJgtVtYC+HKQ==")"
+	uci set v2ray_server.f70129045dee489793b400ddd7af5687.password="$(AES_D "v+SXp3gpBanHTGxeahxrRA==")"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.tls="0"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.transport="tcp"
 	uci set v2ray_server.f70129045dee489793b400ddd7af5687.tcp_guise="none"
