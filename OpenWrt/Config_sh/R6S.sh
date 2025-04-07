@@ -467,8 +467,7 @@ Alist : 10.10.10.254 :: 5244 |
 # 卸载插件
 Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
 
-Config="network dhcp firewall fstab ddns unishare v2ray_server bypass 
-vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
+Config="network dhcp firewall fstab ddns unishare v2ray_server bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
 
 #========函数入口========
 (cd / && {
