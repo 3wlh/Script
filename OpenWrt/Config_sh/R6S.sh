@@ -268,12 +268,13 @@ do
 	ip="$(echo ${data} | awk -F: '{print $2}' | tr -d "\n")"
 	enabled="$(echo ${data} | awk -F: '{print $3}' | tr -d "\n")"
 	lan="$(echo ${data} | awk -F: '{print $4}' | tr -d "\n")"
-	if [ $(echo ${data} | grep -o ":" | wc -l) -gt 4 ]; then
+	if [ $(echo ${data} | grep -o ":" | wc -l) -ge 4 ]; then
 		wan="$(echo ${data} | awk -F: '{print $5}' | tr -d "\n")"
 	else
 		wan="${lan}"
 	fi
-	if [ ! -n "$(echo ${Data} | grep "${name}")" ]; then
+	
+	if [ ! -n "$(echo ${Data} | grep "src_dport='${wan}'")" ]; then
 		# echo "${name} | ${ip} | ${enabled} | ${lan} | ${wan}"
 		uci_id="$(uci add firewall redirect)"
 		uci set firewall.${uci_id}.target="DNAT"
