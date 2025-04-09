@@ -1,8 +1,49 @@
 #!/bin/bash
 #========函数========
-function AES_D(){ #解密函数
+function init { 初始
+echo -e "\e[1;36m初始化配置变量\e[0m"
+#======= 初始化配置变量 =======
+# 挂载 挂载目录 : uuid
+Fstab="/mnt/SD : 3519c925-6c5e-7242-baa9-027d8a399db6 |
+/mnt/HDD : 32ccc041-95e8-524e-aebb-b0501f7156a4"
+# 共享 共享目录 : 名称
+Share="/mnt/SD : SD|
+/mnt/HDD : HDD
+/mnt/SD/存储 : 文件存储|"
+# 节点
+Sub_url="
+EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3IJDl4wr+SAvWspo+U2777sABwpifJu92A2tQwsp8JO+J0+9clCcvHSnRn8PPuA2BMUdr2gmTS7YibDx7VSC4ibKNC2Rs9AVfE77u0m0rpE8IazRS|
+"
+# 直连域名
+URL_list="dash.cloudflare.com | www.spaceship.com"
+# 端口：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
+Firewall="V2ray : 10.10.10.254 :: 4333-4335 |
+OpenWrt_WEB : 10.10.10.254 :: 80 : 8 |
+ASUS_WEB : 10.10.10.253 :: 80 : 6 |
+DS918+_WEB : 10.10.10.252 :: 80 : 2 |
+5Plus_WEB : 10.10.10.5 : false : 80 : 5 |
+Page : 10.10.10.254 :: 88 |
+Power_WEB : 10.10.10.8 : false : 80 : 4 |
+DS918+_SMB : 10.10.10.252 :: 445 : 4455 |
+DS918+_WebDAV : 10.10.10.252 :: 5005 |
+DS918+_DSM : 10.10.10.252 :: 5000 |
+DS918+_File : 10.10.10.252 ::7000-7001 |
+PVE : 10.10.10.200 :: 8006 |
+VS_Code : 10.10.10.252 :: 8001 |
+Alist : 10.10.10.254 :: 5244 |"
+# 卸载插件
+Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
+# 配置名称
+Config="network dhcp firewall fstab ddns unishare v2ray_server bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
+}
+
+function Password(){ #解密函数
 key=$(ip -o link show eth0 | awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
 [[ -n "${key}" ]] || key=$(cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
+echo -e "\e[1;31mKey:\e[0m\e[35m ${key} \e[0m"
+}
+
+function AES_D(){ #解密函数
 [[ -z "$1" ]] || echo "$1" | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -base64 -d 2>/dev/null
 }
 
@@ -425,64 +466,45 @@ fi
 ln -s /mnt/SD/Configs/alist /etc
 }
 
-#========配置========
-# 挂载
-# 挂载目录 : uuid
-Fstab="
-/mnt/SD : 3519c925-6c5e-7242-baa9-027d8a399db6 |
-/mnt/HDD : 32ccc041-95e8-524e-aebb-b0501f7156a4
-"
-# 共享
-# 共享目录 : 名称
-Share="
-/mnt/SD : SD|
-/mnt/SD/存储 : 文件存储|
-/mnt/HDD : HDD
-"
-# 节点
-Sub_url="
-EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3IJDl4wr+SAvWspo+U2777sABwpifJu92A2tQwsp8JO+J0+9clCcvHSnRn8PPuA2BMUdr2gmTS7YibDx7VSC4ibKNC2Rs9AVfE77u0m0rpE8IazRS|
-"
-# 直连域名
-URL_list="
-dash.cloudflare.com|
-www.spaceship.com
-"
-# 端口映射
-# 名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
-Firewall="
-V2ray : 10.10.10.254 :: 4333-4335 |
-OpenWrt_WEB : 10.10.10.254 :: 80 : 8 |
-ASUS_WEB : 10.10.10.253 :: 80 : 6 |
-DS918+_WEB : 10.10.10.252 :: 80 : 2 |
-5Plus_WEB : 10.10.10.5 : false : 80 : 5 |
-Page : 10.10.10.254 :: 88 |
-Power_WEB : 10.10.10.8 : false : 80 : 4 |
-DS918+_SMB : 10.10.10.252 :: 445 : 4455 |
-DS918+_WebDAV : 10.10.10.252 :: 5005 |
-DS918+_DSM : 10.10.10.252 :: 5000 |
-DS918+_File : 10.10.10.252 ::7000-7001 |
-PVE : 10.10.10.200 :: 8006 |
-VS_Code : 10.10.10.252 :: 8001 |
-Alist : 10.10.10.254 :: 5244 |
-"
-# 卸载插件
-Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
+COLOR(){
 
-Config="network dhcp firewall fstab ddns unishare v2ray_server bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
+case "$2" in
+	red|RED)
+		echo -e "${RED_COLOR}$1${RES}"
+		;;
+	yellow|YELLOW)
+		echo -e "${YELLOW_COLOR}$1${RES}"
+		;;
+	green|GREEN)
+		echo -e "${GREEN_COLOR}$1${RES}"
+		;;
+	blue|BLUE)
+		echo -e "${BLUE_COLOR}$1${RES}"
+		;;
+	pink|PINK)
+		echo -e "${PINK_COLOR}$1${RES}"
+		;;
+	*)
+		echo -e "请输入指定的颜色代码：{red|yellow|blue|green|pink}"
+esac
+}
+
 
 #========函数入口========
 (cd / && {
+init # 初始化脚本
+Password # 获取key
 IFS="|" # 分割符变量
-for func  in $(echo ${Config} | sed 's/ /|/g')
+echo -e "\e[1;32m结果:\e[0m"
+for func in $(echo ${Config} | sed 's/ /|/g')
 do
 	#echo ${func}
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"
     sleep 1
 done
-	opkg_unload
-    echo  
-	echo '================================='
-	echo '=           配置完成            ='
-	echo '================================='
+opkg_unload # 卸载插件
+echo  
+echo '================================='
+echo '=           配置完成            ='
+echo '================================='
 })
