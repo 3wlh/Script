@@ -16,7 +16,7 @@ EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3
 "
 # 直连域名
 URL_list="dash.cloudflare.com | www.spaceship.com"
-# 端口：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
+# 防火墙：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
 Firewall="V2ray : 10.10.10.254 :: 4333-4335 |
 OpenWrt_WEB : 10.10.10.254 :: 80 : 8 |
 ASUS_WEB : 10.10.10.253 :: 80 : 6 |
