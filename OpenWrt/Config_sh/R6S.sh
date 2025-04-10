@@ -509,7 +509,6 @@ ln -s /mnt/SD/Configs/alist /etc
 }
 
 COLOR(){
-
 case "$2" in
 	red|RED)
 		echo -e "${RED_COLOR}$1${RES}"
