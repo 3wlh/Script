@@ -11,9 +11,7 @@ Share="/mnt/SD : SD|
 /mnt/HDD : HDD
 /mnt/SD/存储 : 文件存储|"
 # 节点
-Sub_url="
-EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3IJDl4wr+SAvWspo+U2777sABwpifJu92A2tQwsp8JO+J0+9clCcvHSnRn8PPuA2BMUdr2gmTS7YibDx7VSC4ibKNC2Rs9AVfE77u0m0rpE8IazRS|
-"
+Sub_list="EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3IJDl4wr+SAvWspo+U2777sABwpifJu92A2tQwsp8JO+J0+9clCcvHSnRn8PPuA2BMUdr2gmTS7YibDx7VSC4ibKNC2Rs9AVfE77u0m0rpE8IazRS"
 # 直连域名
 URL_list="dash.cloudflare.com | www.spaceship.com"
 IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
@@ -168,17 +166,19 @@ uci set bypass.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/H
 # 订阅新节点故障转移 （1转移 ：0不转移）
 uci set bypass.@server_subscribe[0].switch="0"
 # 订阅URL地址
-for data  in ${Sub_url}
+for list in ${Sub_list}
 do
-	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
-	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
-		uci add_list bypass.@server_subscribe[0].subscribe_url="$(AES_D "${data}")"
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
+	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
+		uci add_list bypass.@server_subscribe[0].subscribe_url="$(AES_D "${list}")"
 	fi
 done
 # 直连域名
 for list in ${URL_list}
 do
-	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
 	if [ ! -n "$(echo ${list_URL} | grep "${list}")" ]; then
 		echo ${list} >> "/etc/bypass/white.list"
 	fi
@@ -187,7 +187,8 @@ done
 uci set bypass.@access_control[0].lan_ac_mode='b'
 for list in ${IP_list}
 do
-	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
 	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
 		uci add_list bypass.@access_control[0].lan_ac_ips="${list}"
 	fi
@@ -208,17 +209,18 @@ uci set vssr.@server_subscribe[0].auto_update_time="2"
 # 关键字保留
 uci set vssr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
 # 订阅URL地址
-for data  in ${Sub_url}
+for list in ${Sub_list}
 do
 	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
-	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
-		uci add_list vssr.@server_subscribe[0].subscribe_url="$(AES_D "${data}")"
+	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
+		uci add_list vssr.@server_subscribe[0].subscribe_url="$(AES_D "${list}")"
 	fi
 done
 # 直连域名
 for list in ${URL_list}
 do
-	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
 	if [ ! -n "$(echo ${list_URL} | grep "${list}")" ]; then
 		echo ${list} >> "/etc/bypass/white.list"
 	fi
@@ -227,7 +229,8 @@ done
 uci set vssr.@access_control[0].lan_ac_mode='b'
 for list in ${IP_list}
 do
-	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
 	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
 		uci add_list vssr.@access_control[0].lan_ac_ips="${list}"
 	fi
@@ -254,17 +257,19 @@ do
 done
 uci add_list homeproxy.subscription.filter_keywords="V3|香港|台湾|日本|韩国|HK|YW|JP"
 # 订阅URL地址
-for data  in ${Sub_url}
+for list in ${Sub_list}
 do
-	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
-	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
-		uci add_list homeproxy.subscription.subscription_url="$(AES_D "${data}")"
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
+	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
+		uci add_list homeproxy.subscription.subscription_url="$(AES_D "${list}")"
 	fi
 done
 # 直连域名
 for list  in ${URL_list}
 do
-	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
 	if [ ! -n "$(echo ${list_URL} | grep "${list}")" ]; then
 		echo ${list} >> "/etc/homeproxy/resources/direct_list.txt"
 	fi
@@ -273,7 +278,8 @@ done
 uci set homeproxy.control.lan_proxy_mode='except_listed'
 for list in ${IP_list}
 do
-	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
 	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
 		uci add_list homeproxy.control.lan_direct_ipv4_ips="${list}"
 	fi
