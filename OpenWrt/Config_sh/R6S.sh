@@ -150,9 +150,10 @@ fi
 
 function bypass() {
 # 获取配置
+url_path="/etc/bypass/white.list"
 Data=$(uci -q get bypass.@server_subscribe[0].subscribe_url)
 list_IP=$(uci -q get bypass.@access_control[0].lan_ac_ips)
-list_URL=$(cat "/etc/bypass/white.list" 2> /dev/null)
+list_URL=$(cat "${url_path}" 2> /dev/null)
 # 启用自动切换
 uci set bypass.@global[0].enable_switch="1"
 # 国外DNS
@@ -179,7 +180,9 @@ for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
 	[[ -n "${list}" ]] || continue
-	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo ${list} >> "/etc/bypass/white.list"
+	[[ $(tail -n1 "${url_path}" | wc -l) -eq 1 ]] || echo "" >> "${url_path}"
+	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
+	
 done
 # 直连IP
 uci set bypass.@access_control[0].lan_ac_mode='b'
@@ -196,9 +199,10 @@ done
 
 function vssr() {
 # 获取配置
+url_path="/etc/vssr/white.list"
 Data=$(uci -q get vssr.@server_subscribe[0].subscribe_url)
 list_IP=$(uci -q get vssr.@access_control[0].lan_ac_ips)
-list_URL=$(cat "/etc/vssr/white.list" 2> /dev/null)
+list_URL=$(cat "${url_path}" 2> /dev/null)
 # 启用自动切换
 uci set vssr.@global[0].enable_switch="1"
 # 更新时间
@@ -219,9 +223,8 @@ for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
 	[[ -n "${list}" ]] || continue
-	if [ ! -n "$(echo ${list_URL} | grep "${list}")" ]; then
-		echo ${list} >> "/etc/bypass/white.list"
-	fi
+	[[ $(tail -n1 "${url_path}" | wc -l) -eq 1 ]] || echo "" >> "${url_path}"
+	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set vssr.@access_control[0].lan_ac_mode='b'
@@ -237,9 +240,10 @@ done
 
 function homeproxy() {
 # 获取配置
+url_path="/etc/homeproxy/resources/direct_list.txt"
 Data=$(uci -q get homeproxy.subscription.subscription_url)
 list_IP=$(uci -q get homeproxy.control.lan_direct_ipv4_ips)
-list_URL=$(cat "/etc/homeproxy/resources/direct_list.txt" 2> /dev/null)
+list_URL=$(cat "${url_path}" 2> /dev/null)
 # 更新时间
 uci set homeproxy.subscription.auto_update="1"
 uci set homeproxy.subscription.auto_update_time="2"
@@ -268,9 +272,8 @@ for list  in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
 	[[ -n "${list}" ]] || continue
-	if [ ! -n "$(echo ${list_URL} | grep "${list}")" ]; then
-		echo ${list} >> "/etc/homeproxy/resources/direct_list.txt"
-	fi
+	[[ $(tail -n1 "${url_path}" | wc -l) -eq 1 ]] || echo "" >> "${url_path}"
+	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set homeproxy.control.lan_proxy_mode='except_listed'
