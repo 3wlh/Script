@@ -180,9 +180,8 @@ for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
 	[[ -n "${list}" ]] || continue
-	[[ $(tail -n1 "${url_path}" | wc -l) -eq 1 ]] || echo "" >> "${url_path}"
-	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
-	
+	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
+	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo -n "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set bypass.@access_control[0].lan_ac_mode='b'
@@ -223,7 +222,7 @@ for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
 	[[ -n "${list}" ]] || continue
-	[[ $(tail -n1 "${url_path}" | wc -l) -eq 1 ]] || echo "" >> "${url_path}"
+	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
 	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
@@ -272,7 +271,7 @@ for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
 	[[ -n "${list}" ]] || continue
-	[[ $(tail -n1 "${url_path}" | wc -l) -eq 1 ]] || echo "" >> "${url_path}"
+	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
 	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
