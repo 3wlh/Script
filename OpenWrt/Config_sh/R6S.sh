@@ -16,6 +16,7 @@ EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3
 "
 # 直连域名
 URL_list="dash.cloudflare.com | www.spaceship.com"
+IP_list=="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
 # 防火墙：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
 Firewall="V2ray : 10.10.10.254 :: 4333-4335 |
 OpenWrt_WEB : 10.10.10.254 :: 80 : 8 |
@@ -150,7 +151,9 @@ fi
 }
 
 function bypass() {
+# 获取配置
 Data=$(uci -q get bypass.@server_subscribe[0].subscribe_url)
+list_IP=$(uci -q get bypass.@access_control[0].lan_ac_ips)
 list_URL=$(cat "/etc/bypass/white.list" 2> /dev/null)
 # 启用自动切换
 uci set bypass.@global[0].enable_switch="1"
@@ -173,17 +176,29 @@ do
 	fi
 done
 # 直连域名
-for list  in ${URL_list}
+for list in ${URL_list}
 do
 	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
 	if [ ! -n "$(echo ${list_URL} | grep "${list}")" ]; then
 		echo ${list} >> "/etc/bypass/white.list"
 	fi
 done
+# 直连IP
+uci set bypass.@access_control[0].lan_ac_mode='b'
+for list in ${IP_list}
+do
+	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
+	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
+		uci add_list bypass.@access_control[0].lan_ac_ips="${list}"
+	fi
+done
+
 }
 
 function vssr() {
+# 获取配置
 Data=$(uci -q get vssr.@server_subscribe[0].subscribe_url)
+list_IP=$(uci -q get vssr.@access_control[0].lan_ac_ips)
 list_URL=$(cat "/etc/vssr/white.list" 2> /dev/null)
 # 启用自动切换
 uci set vssr.@global[0].enable_switch="1"
@@ -201,34 +216,28 @@ do
 	fi
 done
 # 直连域名
-for list  in ${URL_list}
+for list in ${URL_list}
 do
 	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
 	if [ ! -n "$(echo ${list_URL} | grep "${list}")" ]; then
-		echo ${list} >> "/etc/vssr/white.list"
+		echo ${list} >> "/etc/bypass/white.list"
 	fi
 done
-}
-
-function shadowsocksr() {
-Data=$(uci -q get shadowsocksr.@server_subscribe[0].subscribe_url)
-# 更新时间
-uci set shadowsocksr.@server_subscribe[0].auto_update="1"
-uci set shadowsocksr.@server_subscribe[0].auto_update_time="2"
-# 关键字保留
-uci set shadowsocksr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
-# 订阅URL地址
-for data  in ${Sub_url}
+# 直连IP
+uci set vssr.@access_control[0].lan_ac_mode='b'
+for list in ${IP_list}
 do
-	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
-	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
-		uci add_list shadowsocksr.@server_subscribe[0].subscribe_url="$(AES_D "${data}")"
+	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
+	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
+		uci add_list vssr.@access_control[0].lan_ac_ips="${list}"
 	fi
 done
 }
 
 function homeproxy() {
+# 获取配置
 Data=$(uci -q get homeproxy.subscription.subscription_url)
+list_IP=$(uci -q get homeproxy.control.lan_direct_ipv4_ips)
 list_URL=$(cat "/etc/homeproxy/resources/direct_list.txt" 2> /dev/null)
 # 更新时间
 uci set homeproxy.subscription.auto_update="1"
@@ -258,6 +267,33 @@ do
 	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
 	if [ ! -n "$(echo ${list_URL} | grep "${list}")" ]; then
 		echo ${list} >> "/etc/homeproxy/resources/direct_list.txt"
+	fi
+done
+# 直连IP
+uci set homeproxy.control.lan_proxy_mode='except_listed'
+for list in ${IP_list}
+do
+	[[ -n "$(echo ${list} | tr -d " " | tr -d "\n")" ]] || continue
+	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
+		uci add_list homeproxy.control.lan_direct_ipv4_ips="${list}"
+	fi
+done
+}
+
+function shadowsocksr() {
+# 获取配置
+Data=$(uci -q get shadowsocksr.@server_subscribe[0].subscribe_url)
+# 更新时间
+uci set shadowsocksr.@server_subscribe[0].auto_update="1"
+uci set shadowsocksr.@server_subscribe[0].auto_update_time="2"
+# 关键字保留
+uci set shadowsocksr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
+# 订阅URL地址
+for data  in ${Sub_url}
+do
+	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
+	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
+		uci add_list shadowsocksr.@server_subscribe[0].subscribe_url="$(AES_D "${data}")"
 	fi
 done
 }
