@@ -179,9 +179,7 @@ for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
 	[[ -n "${list}" ]] || continue
-	if [ ! -n "$(echo ${list_URL} | grep "${list}")" ]; then
-		echo ${list} >> "/etc/bypass/white.list"
-	fi
+	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo ${list} >> "/etc/bypass/white.list"
 done
 # 直连IP
 uci set bypass.@access_control[0].lan_ac_mode='b'
@@ -507,29 +505,6 @@ if [ -L "/etc/alist" ] || [ -d "/etc/alist" ]; then
 fi
 ln -s /mnt/SD/Configs/alist /etc
 }
-
-COLOR(){
-case "$2" in
-	red|RED)
-		echo -e "${RED_COLOR}$1${RES}"
-		;;
-	yellow|YELLOW)
-		echo -e "${YELLOW_COLOR}$1${RES}"
-		;;
-	green|GREEN)
-		echo -e "${GREEN_COLOR}$1${RES}"
-		;;
-	blue|BLUE)
-		echo -e "${BLUE_COLOR}$1${RES}"
-		;;
-	pink|PINK)
-		echo -e "${PINK_COLOR}$1${RES}"
-		;;
-	*)
-		echo -e "请输入指定的颜色代码：{red|yellow|blue|green|pink}"
-esac
-}
-
 
 #========函数入口========
 (cd / && {
