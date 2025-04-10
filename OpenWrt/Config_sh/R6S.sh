@@ -1,6 +1,6 @@
 #!/bin/bash
 #========函数========
-function init { 初始
+function init {
 echo -e "\e[1;36m初始化配置变量\e[0m"
 #======= 初始化配置变量 =======
 # 挂载 挂载目录 : uuid
@@ -16,7 +16,7 @@ EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3
 "
 # 直连域名
 URL_list="dash.cloudflare.com | www.spaceship.com"
-IP_list=="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
+IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
 # 防火墙：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
 Firewall="V2ray : 10.10.10.254 :: 4333-4335 |
 OpenWrt_WEB : 10.10.10.254 :: 80 : 8 |
