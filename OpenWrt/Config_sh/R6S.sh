@@ -268,7 +268,7 @@ do
 	fi
 done
 # 直连域名
-for list  in ${URL_list}
+for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
 	[[ -n "${list}" ]] || continue
