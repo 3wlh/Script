@@ -243,6 +243,8 @@ url_path="/etc/homeproxy/resources/direct_list.txt"
 Data=$(uci -q get homeproxy.subscription.subscription_url)
 list_IP=$(uci -q get homeproxy.control.lan_direct_ipv4_ips)
 list_URL=$(cat "${url_path}" 2> /dev/null)
+# 是否支持ipv6 0.关闭
+uci set homeproxy.config.ipv6_support='0'
 # 更新时间
 uci set homeproxy.subscription.auto_update="1"
 uci set homeproxy.subscription.auto_update_time="2"
@@ -252,7 +254,7 @@ uci set homeproxy.subscription.switch="0"
 uci set homeproxy.config.china_dns_server="wan"
 # 关键字保留
 uci set homeproxy.subscription.filter_nodes="whitelist"
-for keywords  in $(echo $(uci -q get homeproxy.subscription.filter_keywords) | sed 's/ / /g')
+for keywords in $(echo $(uci -q get homeproxy.subscription.filter_keywords))
 do
 	uci del_list homeproxy.subscription.filter_keywords="${keywords}"
 done
