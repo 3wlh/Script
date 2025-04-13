@@ -29,7 +29,8 @@ DS918+_DSM : 10.10.10.252 :: 5000 |
 DS918+_File : 10.10.10.252 ::7000-7001 |
 PVE : 10.10.10.200 :: 8006 |
 VS_Code : 10.10.10.252 :: 8001 |
-Alist : 10.10.10.254 :: 5244 |"
+Alist : 10.10.10.254 :: 5244 |
+ADB: 10.10.10.100 :false: 5555 |"
 # 卸载插件
 Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
 # 配置名称
