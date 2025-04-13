@@ -263,6 +263,7 @@ do
 	echo ${keywords}
 	uci del_list homeproxy.subscription.filter_keywords="${keywords}"
 done
+IFS="|" # 分割符变量
 uci add_list homeproxy.subscription.filter_keywords="V3|香港|台湾|日本|韩国|HK|YW|JP"
 # 订阅URL地址
 for list in ${Sub_list}
@@ -519,11 +520,11 @@ ln -s /mnt/SD/Configs/alist /etc
 (cd / && {
 init # 初始化脚本
 Password # 获取key
+IFS="|" # 分割符变量
 echo -e "\e[1;32m结果:\e[0m"
-for func in $(echo ${Config})
+for func in $(echo ${Config} | tr " " "|")
 do
 	#echo ${func}
-	IFS="|" # 分割符变量
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"
     sleep 1
 done
