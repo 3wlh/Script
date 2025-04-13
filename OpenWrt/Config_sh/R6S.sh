@@ -181,7 +181,7 @@ do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
 	[[ -n "${list}" ]] || continue
 	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
-	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo -n "${list}" >> "${url_path}"
+	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set bypass.@access_control[0].lan_ac_mode='b'
@@ -252,6 +252,8 @@ uci set homeproxy.subscription.auto_update_time="2"
 uci set homeproxy.subscription.switch="0"
 # 国内 DNS 服务器
 uci set homeproxy.config.china_dns_server="wan"
+# 包封装格式 {xudp}(Xray-core) {packetaddr}(v2ray-core)
+# uci set homeproxy.subscription.packet_encoding='xudp'
 # 关键字保留
 uci set homeproxy.subscription.filter_nodes="whitelist"
 for keywords in $(echo $(uci -q get homeproxy.subscription.filter_keywords))
