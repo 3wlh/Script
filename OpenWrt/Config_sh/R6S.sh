@@ -47,9 +47,9 @@ function AES_D(){ #解密函数
 }
 
 function opkg_unload() {
-for package in $(echo ${Package} | sed 's/ / /g')
+for package in $(echo ${Package} | tr " " "|")
 do
-	#echo ${package}
+	# echo ${package}
 	if [ -n "$(opkg list-installed ${package})" ]; then
 		opkg remove ${package} --autoremove > /dev/null 2>&1 && echo "${package} 卸载......OK"
     fi
@@ -255,9 +255,12 @@ uci set homeproxy.config.china_dns_server="wan"
 # 包封装格式 {xudp}(Xray-core) {packetaddr}(v2ray-core)
 # uci set homeproxy.subscription.packet_encoding='xudp'
 # 关键字保留
+IFS=" " # 分割符变量
 uci set homeproxy.subscription.filter_nodes="whitelist"
-for keywords in $(echo $(uci -q get homeproxy.subscription.filter_keywords))
+Keywords=$(uci -q get homeproxy.subscription.filter_keywords | tr  '|' '@' | tr  ' ' '|')
+for keywords in $(uci -q get homeproxy.subscription.filter_keywords)
 do
+	echo ${keywords}
 	uci del_list homeproxy.subscription.filter_keywords="${keywords}"
 done
 uci add_list homeproxy.subscription.filter_keywords="V3|香港|台湾|日本|韩国|HK|YW|JP"
@@ -299,7 +302,7 @@ uci set shadowsocksr.@server_subscribe[0].auto_update_time="2"
 # 关键字保留
 uci set shadowsocksr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
 # 订阅URL地址
-for data  in ${Sub_url}
+for data in ${Sub_url}
 do
 	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
@@ -326,7 +329,7 @@ uci set openclash.config.intranet_allowed="1"
 uci set openclash.config.enable_redirect_dns="0"
 # 添加订阅
 # $(echo "${data}" | sed "s|htt.*://\(.*\)\..*|\1|g") //取网址
-for data  in ${Sub_url}
+for data in ${Sub_url}
 do
 	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
@@ -516,11 +519,11 @@ ln -s /mnt/SD/Configs/alist /etc
 (cd / && {
 init # 初始化脚本
 Password # 获取key
-IFS="|" # 分割符变量
 echo -e "\e[1;32m结果:\e[0m"
-for func in $(echo ${Config} | sed 's/ /|/g')
+for func in $(echo ${Config})
 do
 	#echo ${func}
+	IFS="|" # 分割符变量
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"
     sleep 1
 done
