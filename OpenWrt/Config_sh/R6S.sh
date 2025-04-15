@@ -8,7 +8,7 @@ Fstab="/mnt/SD : 3519c925-6c5e-7242-baa9-027d8a399db6 |
 /mnt/HDD : 32ccc041-95e8-524e-aebb-b0501f7156a4"
 # 共享 共享目录 : 名称
 Share="/mnt/SD : SD|
-/mnt/HDD : HDD
+/mnt/HDD : HDD|
 /mnt/SD/存储 : 文件存储|"
 # 节点
 Sub_list="EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3IJDl4wr+SAvWspo+U2777sABwpifJu92A2tQwsp8JO+J0+9clCcvHSnRn8PPuA2BMUdr2gmTS7YibDx7VSC4ibKNC2Rs9AVfE77u0m0rpE8IazRS"
