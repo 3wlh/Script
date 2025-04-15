@@ -261,7 +261,7 @@ uci set homeproxy.subscription.filter_nodes="whitelist"
 Keywords=$(uci -q get homeproxy.subscription.filter_keywords | tr  '|' '@' | tr  ' ' '|')
 for keywords in $(uci -q get homeproxy.subscription.filter_keywords)
 do
-	echo ${keywords}
+	# echo ${keywords}
 	uci del_list homeproxy.subscription.filter_keywords="${keywords}"
 done
 IFS="|" # 分割符变量
