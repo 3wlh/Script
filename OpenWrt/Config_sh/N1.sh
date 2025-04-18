@@ -34,7 +34,7 @@ fi
 }
 
 function cloudflared() {
-token="fgAi+8yXwpYpVDyVC6LlcNXTPOdTjWnj+35/EAiSOXf1UGWKahxGmI6B5T2UHSmkr2eqELH+kEtKNNOHoOaW06O8Qoa79pu1Dm1FZ5wf2Us="
+token="qXeDZU6UzRAxSq29zXkLS2kaTPf8bwaDz2LeV7gDbeLIBJKjZWLnKBVyHMncSFTboxAK6oCPwS3wqdT8VTTCsM4M+JVo5MBGDgeku4nB6xqmH9oKv/Msq0czo2lCDS6sPG+3MTrouDFKlbagxDMt8yd35ywraLxtnNpJ+t2E/kOPZVeqPZj0bo1IjXfvyx/yMOM/kuXQhDPgmjsrXhQi9siCr/Oxn2FlxYNY/K2sn0PtT5IHANr2MJeeA5ZUlrNr"
 uci set cloudflared.config.enabled='1'
 uci set cloudflared.config.token="$(AES_D "${token}")"
 }
