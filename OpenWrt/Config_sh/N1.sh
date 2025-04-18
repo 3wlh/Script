@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function AES_D(){
-key=$(ip -o link show eth0 | awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
+key=$(cat /sys/class/net/eth0/address | awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
 [[ -n "${key}" ]] || key=$(cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
 [[ -z "$1" ]] || echo "$1" | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -base64 -d 2>/dev/null
 }
@@ -34,7 +34,7 @@ fi
 }
 
 function cloudflared() {
-token="qXeDZU6UzRAxSq29zXkLS2kaTPf8bwaDz2LeV7gDbeLIBJKjZWLnKBVyHMncSFTboxAK6oCPwS3wqdT8VTTCsM4M+JVo5MBGDgeku4nB6xqmH9oKv/Msq0czo2lCDS6sPG+3MTrouDFKlbagxDMt8yd35ywraLxtnNpJ+t2E/kOPZVeqPZj0bo1IjXfvyx/yMOM/kuXQhDPgmjsrXhQi9siCr/Oxn2FlxYNY/K2sn0PtT5IHANr2MJeeA5ZUlrNr"
+token="rO3ncZn0YDhyg5E+Gdk3yfEH62JWG9CTx4OaDVK0tnuWdWjLERC/pcuAm0kBfRskrRZIa6RLdquYoqs5u9y/AIZRh7X1BbQ+Bb3PPYS2uKCTes1q1T6v3d1auamP2cTVwQ9fcEhragvM0gHa3PzD9SRU2WVluTHjVSKItELletFrcEiySt2vOcqMcyoLcmY5ezt/wj2X0QEbY9+WT0PQ50AMlDb9NaDeglwcfarIDNUCrOuigtLvVolLxSNWDiqF"
 uci set cloudflared.config.enabled='1'
 uci set cloudflared.config.token="$(AES_D "${token}")"
 }
@@ -42,8 +42,8 @@ uci set cloudflared.config.token="$(AES_D "${token}")"
 function frp() {
 uci set frp.common.enabled='1'
 uci set frp.common.server_port='7000'
-uci set frp.common.server_addr="$(AES_D "BaVVQwu7oj/RIcHQF9tfGg==")"
-uci set frp.common.token="$(AES_D "u97dqchCHhR+APqtSlnzIw==")"
+uci set frp.common.server_addr="$(AES_D "mqcrHEqPoc3Ysc4drVoZNg==")"
+uci set frp.common.token="$(AES_D "XPOj1TezdBF+nO45BeCFcBHidMus2AYIG1lKM0CO4Ic=")"
 # 添加
 Data="$(uci -q show frp)"
 if [ ! -n "$(echo ${Data} | grep "NapCat_API")" ]; then
