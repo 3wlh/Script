@@ -64,13 +64,13 @@ uci -q delete ddns.myddns_ipv4
 uci -q delete ddns.myddns_ipv6	
 # dnspod
 uci set ddns.dnspod=service
-uci set ddns.dnspod.service_name="dnspod.cn"
+uci set ddns.dnspod.service_name="aliyun.com"
 uci set ddns.dnspod.use_ipv6="0"
 uci set ddns.dnspod.enabled="1"
 uci set ddns.dnspod.lookup_host="3wlh.cn"
 uci set ddns.dnspod.domain="@.3wlh.cn"
-uci set ddns.dnspod.username="478198"
-uci set ddns.dnspod.password="$(AES_D "Kp14/9qmn6Ff/O2Ks/dDuk2bOP8vX51PDqQa+LMluGhLXTr7de2cAY0upYzGji+S")"
+uci set ddns.dnspod.username="$(AES_D "Uv6Isu3WHAjgLjytxHD3uyR/JKwPRaxfVBN+OeWwZiY=")"
+uci set ddns.dnspod.password="$(AES_D "Lp7X9urVlBuQXNEzdUqRCNYlHJ2uWa77PN08NuSJ7vQGh48pSE/BEQXmqX9n77E2")"
 uci set ddns.dnspod.ip_source="network"
 uci set ddns.dnspod.ip_network="wan"
 uci set ddns.dnspod.interface="wan"
