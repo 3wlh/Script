@@ -13,7 +13,7 @@ Share="/mnt/SD : SD|
 # 节点
 Sub_list="EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3IJDl4wr+SAvWspo+U2777sABwpifJu92A2tQwsp8JO+J0+9clCcvHSnRn8PPuA2BMUdr2gmTS7YibDx7VSC4ibKNC2Rs9AVfE77u0m0rpE8IazRS"
 # 直连域名
-URL_list="dash.cloudflare.com | www.spaceship.com"
+URL_list="dash.cloudflare.com | www.spaceship.com | openwrt.ai | dl.openwrt.ai | age.tv"
 IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
 # 防火墙：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
 Firewall="V2ray : 10.10.10.254 :: 4333-4335 |
