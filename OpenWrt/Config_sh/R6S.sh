@@ -34,7 +34,7 @@ ADB: 10.10.10.100 :false: 5555 |"
 # 卸载插件
 Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
 # 配置名称
-Config="network dhcp firewall fstab ddns unishare v2ray_server bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
+Config="network dhcp firewall fstab ddns unishare v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
 }
 
 function Password(){ #解密函数
@@ -62,25 +62,25 @@ function ddns() {
 uci -q delete ddns.myddns_ipv4
 # 删除myddns_ipv6
 uci -q delete ddns.myddns_ipv6	
-# dnspod
-uci set ddns.dnspod=service
-uci set ddns.dnspod.service_name="aliyun.com"
-uci set ddns.dnspod.use_ipv6="0"
-uci set ddns.dnspod.enabled="1"
-uci set ddns.dnspod.lookup_host="3wlh.cn"
-uci set ddns.dnspod.domain="3wlh.cn"
-uci set ddns.dnspod.username="$(AES_D "Uv6Isu3WHAjgLjytxHD3uyR/JKwPRaxfVBN+OeWwZiY=")"
-uci set ddns.dnspod.password="$(AES_D "Lp7X9urVlBuQXNEzdUqRCNYlHJ2uWa77PN08NuSJ7vQGh48pSE/BEQXmqX9n77E2")"
-uci set ddns.dnspod.ip_source="network"
-uci set ddns.dnspod.ip_network="wan"
-uci set ddns.dnspod.interface="wan"
-uci set ddns.dnspod.use_syslog="2"
-uci set ddns.dnspod.check_interval="5"
-uci set ddns.dnspod.check_unit="minutes"
-uci set ddns.dnspod.force_interval="2"
-uci set ddns.dnspod.force_unit="days"
-# uci set ddns.dnspod.retry_interval="1"
-# uci set ddns.dnspod.retry_unit="minutes"
+# aliyun
+uci set ddns.aliyun=service
+uci set ddns.aliyun.service_name="aliyun.com"
+uci set ddns.aliyun.use_ipv6="0"
+uci set ddns.aliyun.enabled="1"
+uci set ddns.aliyun.lookup_host="3wlh.cn"
+uci set ddns.aliyun.domain="3wlh.cn"
+uci set ddns.aliyun.username="$(AES_D "Uv6Isu3WHAjgLjytxHD3uyR/JKwPRaxfVBN+OeWwZiY=")"
+uci set ddns.aliyun.password="$(AES_D "Lp7X9urVlBuQXNEzdUqRCNYlHJ2uWa77PN08NuSJ7vQGh48pSE/BEQXmqX9n77E2")"
+uci set ddns.aliyun.ip_source="network"
+uci set ddns.aliyun.ip_network="wan"
+uci set ddns.aliyun.interface="wan"
+uci set ddns.aliyun.use_syslog="2"
+uci set ddns.aliyun.check_interval="5"
+uci set ddns.aliyun.check_unit="minutes"
+uci set ddns.aliyun.force_interval="2"
+uci set ddns.aliyun.force_unit="days"
+# uci set ddns.aliyun.retry_interval="1"
+# uci set ddns.aliyun.retry_unit="minutes"
 # cloudflare
 uci set ddns.cloudflare=service
 uci set ddns.cloudflare.service_name="cloudflare.com-v4"
@@ -194,7 +194,6 @@ do
 		uci add_list bypass.@access_control[0].lan_ac_ips="${list}"
 	fi
 done
-
 }
 
 function vssr() {
@@ -255,7 +254,7 @@ uci set homeproxy.subscription.switch="0"
 uci set homeproxy.config.china_dns_server="wan"
 # 包封装格式 {xudp}(Xray-core) {packetaddr}(v2ray-core)
 # uci set homeproxy.subscription.packet_encoding='xudp'
-# 关键字保留
+# 关键字保留删除
 IFS=" " # 分割符变量
 uci set homeproxy.subscription.filter_nodes="whitelist"
 Keywords=$(uci -q get homeproxy.subscription.filter_keywords | tr  '|' '@' | tr  ' ' '|')
@@ -294,6 +293,40 @@ do
 	fi
 done
 }
+
+
+function passwall() {
+Data=$(uci -q show passwall | grep "passwall.@subscribe_list.*.url=")
+Save_words="V3|香港|台湾|日本|韩国|HK|YW|JP"
+num1=0
+for data in ${Sub_url}
+do
+	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
+		num1=`expr $num1 + 1`
+		uci_id="$(uci add passwall subscribe_list)"
+		uci set passwall.${uci_id}.remark="订阅_${num1}"
+		uci set passwall.${uci_id}.url="$(AES_D "${data}")"
+		uci set passwall.${uci_id}.allowInsecure='0'
+		uci set passwall.${uci_id}.filter_keyword_mode='2'
+		uci set passwall.${uci_id}.ss_type='global'
+		uci set passwall.${uci_id}.trojan_type='global'
+		uci set passwall.${uci_id}.vmess_type='global'
+		uci set passwall.${uci_id}.vless_type='global'
+		uci set passwall.${uci_id}.hysteria2_type='global'
+		uci set passwall.${uci_id}.domain_strategy='global'
+		uci set passwall.${uci_id}.auto_update='1'
+		uci set passwall.${uci_id}.week_update='7'
+		uci set passwall.${uci_id}.time_update='2'
+		uci set passwall.${uci_id}.access_mode='direct'
+		uci set passwall.${uci_id}.user_agent='v2rayN/9.99'
+		for save_words in ${Save_words}
+		do
+			uci add_list passwall.${uci_id}.filter_keep_list="${save_words}"
+		done	
+	fi	
+done	
+}
+
 
 function shadowsocksr() {
 # 获取配置
