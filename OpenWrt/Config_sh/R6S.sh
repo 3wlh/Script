@@ -302,7 +302,18 @@ list_IP=$(cat "${ip_path}" 2> /dev/null)
 Data=$(uci -q show passwall | grep "passwall.@subscribe_list.*.url=")
 Save_words="V3|香港|台湾|日本|韩国|HK|YW|JP"
 num1=0
+# 更改DNS
 uci set passwall.@global[].remote_dns='8.8.8.8'
+# 关键字删除
+IFS=" " # 分割符变量
+uci set passwall.@global_subscribe[].filter_keyword_mode='0'
+Keywords=$(uci -q get passwall.@global_subscribe[].filter_discard_list | tr  '|' '@' | tr  ' ' '|')
+for keywords in $(uci -q get passwall.@global_subscribe[].filter_discard_list)
+do
+	# echo ${keywords}
+	uci del_list passwall.@global_subscribe[].filter_discard_list="${keywords}"
+done
+IFS="|" # 分割符变量
 # 订阅URL地址
 for data in ${Sub_list}
 do
