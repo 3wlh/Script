@@ -302,8 +302,9 @@ list_IP=$(cat "${ip_path}" 2> /dev/null)
 Data=$(uci -q show passwall | grep "passwall.@subscribe_list.*.url=")
 Save_words="V3|香港|台湾|日本|韩国|HK|YW|JP"
 num1=0
+uci set passwall.@global[].remote_dns='8.8.8.8'
 # 订阅URL地址
-for data in ${Sub_url}
+for data in ${Sub_list}
 do
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
 		num1=`expr $num1 + 1`
@@ -357,7 +358,7 @@ uci set shadowsocksr.@server_subscribe[0].auto_update_time="2"
 # 关键字保留
 uci set shadowsocksr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
 # 订阅URL地址
-for data in ${Sub_url}
+for data in ${Sub_list}
 do
 	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
@@ -384,7 +385,7 @@ uci set openclash.config.intranet_allowed="1"
 uci set openclash.config.enable_redirect_dns="0"
 # 添加订阅
 # $(echo "${data}" | sed "s|htt.*://\(.*\)\..*|\1|g") //取网址
-for data in ${Sub_url}
+for data in ${Sub_list}
 do
 	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
