@@ -294,11 +294,15 @@ do
 done
 }
 
-
 function passwall() {
+url_path="/usr/share/passwall/rules/direct_host"
+ip_path="/usr/share/passwall/rules/direct_ip"
+list_URL=$(cat "${url_path}" 2> /dev/null)
+list_IP=$(cat "${ip_path}" 2> /dev/null)
 Data=$(uci -q show passwall | grep "passwall.@subscribe_list.*.url=")
 Save_words="V3|香港|台湾|日本|韩国|HK|YW|JP"
 num1=0
+# 订阅URL地址
 for data in ${Sub_url}
 do
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
@@ -324,13 +328,29 @@ do
 			uci add_list passwall.${uci_id}.filter_keep_list="${save_words}"
 		done	
 	fi	
-done	
+done
+# 直连域名
+for list in ${URL_list}
+do
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
+	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
+	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
+done
+# 直连IP
+for list in ${IP_list}
+do
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
+	[[ $(tail -c1 "${ip_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${ip_path}"
+	[[ -n "$(echo ${list_IP} | grep "${list}")" ]] || echo "${list}" >> "${ip_path}"
+done
 }
 
 
 function shadowsocksr() {
 # 获取配置
-Data=$(uci -q get shadowsocksr.@server_subscribe[0].subscribe_url)
+Data=$(shadowsocksr.@server_subscribe[0].subscribe_url)
 # 更新时间
 uci set shadowsocksr.@server_subscribe[0].auto_update="1"
 uci set shadowsocksr.@server_subscribe[0].auto_update_time="2"
