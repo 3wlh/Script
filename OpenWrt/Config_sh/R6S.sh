@@ -34,7 +34,7 @@ ADB: 10.10.10.100 :false: 5555 |"
 # 卸载插件
 Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
 # 配置名称
-Config="network dhcp firewall fstab ddns unishare v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
+Config="network dhcp firewall fstab ddns ddns-go unishare v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
 }
 
 function Password(){ #解密函数
@@ -100,6 +100,17 @@ uci set ddns.cloudflare.force_interval="2"
 uci set ddns.cloudflare.force_unit="days"
 # uci set ddns.cloudflare.retry_interval="1"
 # uci set ddns.cloudflare.retry_unit="minutes"
+}
+
+function ddns-go() {
+ddns_url="http://3wlh.github.io/Script/OpenWrt/ddns-go/config.key"
+uci set ddns-go.config.enabled='1'
+test -d "/etc/ddns-go" || mkdir -p "/etc/ddns-go"
+wget -qO "/etc/ddns-go/$(basename ${ddns_url})" "${ddns_url}" --show-progress
+if [ "$(du -b "/etc/ddns-go/$(basename ${ddns_url})" 2>/dev/null | awk '{print $1}')" -ge "2000" ]; then
+	openssl enc -aes-256-cbc -d -in "/etc/ddns-go/config.key" -base64 -out "/etc/ddns-go/config.yaml" -K ${key} -iv ${key}
+	chown ddns-go:root "/etc/ddns-go/config.yaml"
+fi
 }
 
 function v2ray_server() {
