@@ -108,7 +108,7 @@ uci set ddns-go.config.enabled='1'
 test -d "/etc/ddns-go" || mkdir -p "/etc/ddns-go"
 wget -qO "/etc/ddns-go/$(basename ${ddns_url})" "${ddns_url}" --show-progress
 if [ "$(du -b "/etc/ddns-go/$(basename ${ddns_url})" 2>/dev/null | awk '{print $1}')" -ge "2000" ]; then
-	openssl enc -aes-256-cbc -d -in "/etc/ddns-go/config.key" -base64 -out "/etc/ddns-go/config.yaml" -K ${key} -iv ${key}
+	openssl aes-128-cbc -d -in "/etc/ddns-go/config.key" -base64 -out "/etc/ddns-go/config.yaml" -k ${key} 2>/dev/null
 	chown ddns-go:root "/etc/ddns-go/config.yaml"
 fi
 }
