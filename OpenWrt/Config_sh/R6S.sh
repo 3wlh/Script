@@ -103,8 +103,8 @@ uci set ddns.cloudflare.force_unit="days"
 }
 
 function ddns-go() {
-ddns_url="http://3wlh.github.io/Script/OpenWrt/ddns-go/config.key"
 uci set ddns-go.config.enabled='1'
+ddns_url="http://3wlh.github.io/Script/OpenWrt/ddns-go/config.key"
 test -d "/etc/ddns-go" || mkdir -p "/etc/ddns-go"
 wget -qO "/etc/ddns-go/$(basename ${ddns_url})" "${ddns_url}" --show-progress
 if [ "$(du -b "/etc/ddns-go/$(basename ${ddns_url})" 2>/dev/null | awk '{print $1}')" -ge "2000" ]; then
