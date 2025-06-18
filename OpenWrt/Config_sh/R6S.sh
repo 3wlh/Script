@@ -480,7 +480,6 @@ uci set network.wan.ipv6="1"
 }
 
 function fstab() {
-Data="$(uci -q show fstab)"
 # 自动挂载未配置的Swap
 uci set fstab.@global[0].anon_swap="0"
 # 自动挂载未配置的磁盘
@@ -500,19 +499,19 @@ do
 	[[ -n "${data}" ]] || continue
 	dir="$(echo ${data} | awk -F: '{print $1}')"
 	uuid="$(echo ${data} | awk -F: '{print $2}')"
-	if [ ! -n "$(echo ${Data} | grep "${uuid}")" ]; then
+	uci_id="$(uci -q show fstab | grep -Eo "^fstab\.@mount.*uuid='${uuid}'" | grep -Eo "^fstab\.@mount.*\]")"
+	if [ -z "${uci_id}" ]; then
 		# echo "${dir} | ${uuid}"
 		uci_id="$(uci add fstab mount)"
 		uci set fstab.${uci_id}.target="${dir}"
 		uci set fstab.${uci_id}.uuid="${uuid}"
 		uci set fstab.${uci_id}.enabled="1"
 	else
-		uci_id="$(echo ${Data} | sed 's/fstab/\nfstab/g' | grep "${uuid}" | sed 's/\(.*\).uuid=.*/\1/g')"
 		uci set ${uci_id}.target="${dir}"
 		uci set ${uci_id}.enabled="1"
 	fi
 	# 创建共享链接
-	if [ ! -L "/mnt/Share/$(echo ${dir} |  sed 's|.*/\(.*\)|\1|g')" ]; then
+	if [ ! -L "/mnt/Share/${dir##*/}" ]; then
 		ln -s ${dir} /mnt/Share/
 	fi
 done
