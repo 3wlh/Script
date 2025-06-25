@@ -34,7 +34,7 @@ ADB: 10.10.10.100 :false: 5555 |"
 # 卸载插件
 Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
 # 配置名称
-Config="network dhcp firewall fstab ddns ddns-go unishare v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist"
+Config="network dhcp firewall fstab ddns ddns-go unishare v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist openlist"
 }
 
 function Password(){ #解密函数
@@ -584,13 +584,22 @@ uci set sunpanel.@sunpanel[0].config_path="/mnt/SD/Configs/SunPanel"
 }
 
 function alist() {
-uci set alist.@alist[0].enabled="1"
+uci set alist.@alist[0].enabled='1'
 # 创建连接
 if [ -L "/etc/alist" ] || [ -d "/etc/alist" ]; then
 	rm -fr "/etc/alist"
 fi
 ln -s /mnt/SD/Configs/alist /etc
 }
+
+function openlist() {
+uci set openlist.@openlist[0].enabled='1'
+if [ -L "/etc/openlist" ] || [ -d "/etc/openlist" ]; then
+	rm -fr "/etc/openlist"
+fi
+ln -s /mnt/SD/Configs/openlist /etc
+}
+
 
 #========函数入口========
 (cd / && {
