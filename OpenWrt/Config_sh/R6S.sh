@@ -458,6 +458,8 @@ do
 done
 }
 
+
+
 function dhcp() {
 Data="$(uci -q show dhcp)"
 # 删除 DHCPv6 服务
@@ -481,7 +483,7 @@ function network() {
 if [ ! -n "$(uci -q get network.MODE)" ]; then
 	uci set network.MODE="interface"
 	uci set network.MODE.proto="static"
-	uci set network.MODE.device="eth1"
+	uci set network.MODE.device="$(uci -q get network.wan.device)"
 	uci set network.MODE.ipaddr="192.168.1.2"
 	uci set network.MODE.gateway="192.168.1.1"
 	uci set network.MODE.netmask="255.255.255.0"
