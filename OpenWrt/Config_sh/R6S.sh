@@ -58,7 +58,7 @@ done
 }
 
 function Webpage() {
-Webpage_url="http://3wlh.github.io"
+Webpage_url="http://3wlh.github.io/Script/OpenWrt/webpage"
 download_name=(${1})
 for name in "${download_name[@]}"; do
 	download_url="${Webpage_url}/${name}.html"
@@ -66,7 +66,6 @@ for name in "${download_name[@]}"; do
 	wget -qO "/www/$(basename ${download_url})" "${download_url}" --show-progress
 done
 }
-
 
 function ddns() {
 # 删除myddns_ipv4
