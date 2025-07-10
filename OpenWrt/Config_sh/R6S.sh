@@ -57,6 +57,17 @@ do
 done
 }
 
+function Webpage() {
+Webpage_url="http://3wlh.github.io"
+download_name=(${1})
+for name in "${download_name[@]}"; do
+	download_url="${Webpage_url}/${name}.html"
+	echo "Download ${download_url}"
+	wget -qO "/www/$(basename ${download_url})" "${download_url}" --show-progress
+done
+}
+
+
 function ddns() {
 # 删除myddns_ipv4
 uci -q delete ddns.myddns_ipv4
@@ -602,7 +613,6 @@ fi
 ln -s /mnt/SD/Configs/openlist /etc
 }
 
-
 #========函数入口========
 (cd / && {
 init # 初始化脚本
@@ -614,6 +624,7 @@ do
 	#echo ${func}
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"
     sleep 1
+    Webpage "supermicro modem" && echo "Webpage配置......OK"
 done
 opkg_unload # 卸载插件
 echo  
