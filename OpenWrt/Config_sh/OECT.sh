@@ -8,7 +8,7 @@ Fstab="/mnt/SD : 3519c925-6c5e-7242-baa9-027d8a399db6 |
 # 共享 共享目录 : 名称
 Share="/mnt/SD : SD|
 /mnt/HDD : HDD|
-/mnt/SD/存储 : 文件存储|"
+/mnt/SD/存储 : 文件存储"
 # 配置名称
 Config="fstab unishare sunpanel cloudflared openlist frp dockerd"
 }
