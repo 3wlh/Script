@@ -172,8 +172,8 @@ do
 	#echo ${func}
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"
     sleep 1
-    Webpage "supermicro modem" && echo "Webpage配置......OK"
 done
+	Webpage "supermicro | modem" && echo "Webpage配置......OK"
     echo  
 	echo '================================='
 	echo '=           配置完成            ='
