@@ -10,7 +10,7 @@ Share="/mnt/SD : SD|
 /mnt/HDD : HDD|
 /mnt/SD/存储 : 文件存储|"
 # 配置名称
-Config="network dhcp firewall fstab ddns ddns-go unishare v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel openlist frp"
+Config="fstab unishare sunpanel cloudflared openlist frp dockerd"
 }
 
 function Password(){
@@ -103,6 +103,11 @@ do
 done
 }
 
+function openlist() {
+uci set openlist.@openlist[0].enabled='1'
+uci set openlist.@openlist[0].data_dir='/mnt/SD/Configs/openlist'	
+}
+
 function sunpanel() {
 uci set sunpanel.@sunpanel[0].enabled="1"
 # 网页端口
@@ -115,6 +120,25 @@ function cloudflared() {
 token="7/ds/bf/niBXDWDA5uhBFEvSD4c/WaD7OLbtOxucVM8+6gke+CsTnCbOMLyGZ0yjaTQaJq8wpbj3ShOiS4Ga1ppTGPTHR3ut3GIIcVInqjwPK/i/FQgOaczxVVwbUcMwj8rRUl1LLrPt/GOv7Sb5ITTQu8cDXb98sxjUAbl73/EeGisDQ12zEks+NkFaqljmoDBFPtF8bCBV4cHN+/lwRLpbPS8hd8h/vYXP2Hg1qI0CIJDYxIU7QI4i5fn41g4E"
 uci set cloudflared.config.enabled='1'
 uci set cloudflared.config.token="$(AES_D "${token}")"
+}
+
+function dockerd() {
+uci set dockerd.globals.data_root="/mnt/HDD/docker/"
+# 网易云镜像站
+uci add_list dockerd.globals.registry_mirrors="https://hub-mirror.c.163.com"
+# 百度云镜像站
+uci add_list dockerd.globals.registry_mirrors="https://mirror.baidubce.com"
+# 1panel镜像站
+uci add_list dockerd.globals.registry_mirrors="https://docker.1panel.live"
+# DockerProxy代理加速
+uci add_list dockerd.globals.registry_mirrors="https://dockerproxy.net"
+# 上海交大镜像站
+uci add_list dockerd.globals.registry_mirrors="https://docker.mirrors.sjtug.sjtu.edu.cn"
+# 南京大学镜像站
+uci add_list dockerd.globals.registry_mirrors="https://docker.nju.edu.cn"
+# Daocloud镜像站
+uci add_list dockerd.globals.registry_mirrors="https://docker.m.daocloud.io"
+uci commit dockerd
 }
 
 function frp() {
