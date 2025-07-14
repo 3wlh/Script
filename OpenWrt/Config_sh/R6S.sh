@@ -11,7 +11,7 @@ Share="/mnt/SD : SD|
 /mnt/HDD : HDD|
 /mnt/SD/存储 : 文件存储|"
 # 节点
-Sub_list="EvbGl3PKvNtRUgQ0iZgqg5ryii/STox+qNWfZLpiwuYjk14YgX/LEEOw1x1qQzYEivZyyov5M1ZqIeJ3IJDl4wr+SAvWspo+U2777sABwpifJu92A2tQwsp8JO+J0+9clCcvHSnRn8PPuA2BMUdr2gmTS7YibDx7VSC4ibKNC2Rs9AVfE77u0m0rpE8IazRS"
+Sub_list="fsCdvAzIoGbfl62z4Uk6EA=="
 # 直连域名
 URL_list="dash.cloudflare.com | www.spaceship.com | openwrt.ai | dl.openwrt.ai | age.tv"
 IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
@@ -54,16 +54,6 @@ do
 	if [ -n "$(opkg list-installed ${package})" ]; then
 		opkg remove ${package} --autoremove > /dev/null 2>&1 && echo "${package} 卸载......OK"
     fi
-done
-}
-
-function Webpage() {
-Webpage_url="http://3wlh.github.io/Script/OpenWrt/webpage"
-download_name=(${1})
-for name in "${download_name[@]}"; do
-	download_url="${Webpage_url}/${name}.html"
-	echo "Download ${download_url}"
-	wget -qO "/www/$(basename ${download_url})" "${download_url}" --show-progress
 done
 }
 
@@ -351,7 +341,7 @@ do
 		uci set passwall.${uci_id}.vless_type='global'
 		uci set passwall.${uci_id}.hysteria2_type='global'
 		uci set passwall.${uci_id}.domain_strategy='global'
-		uci set passwall.${uci_id}.auto_update='1'
+		uci set passwall.${uci_id}.auto_update='0'
 		uci set passwall.${uci_id}.week_update='7'
 		uci set passwall.${uci_id}.time_update='2'
 		uci set passwall.${uci_id}.access_mode='direct'
@@ -623,7 +613,6 @@ do
 	#echo ${func}
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"
     sleep 1
-    Webpage "supermicro modem" && echo "Webpage配置......OK"
 done
 opkg_unload # 卸载插件
 echo  
