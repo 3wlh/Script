@@ -66,7 +66,7 @@ uci -q delete ddns.myddns_ipv6
 uci set ddns.aliyun=service
 uci set ddns.aliyun.service_name="aliyun.com"
 uci set ddns.aliyun.use_ipv6="0"
-uci set ddns.aliyun.enabled="1"
+uci set ddns.aliyun.enabled="0"
 uci set ddns.aliyun.lookup_host="3wlh.cn"
 uci set ddns.aliyun.domain="3wlh.cn"
 uci set ddns.aliyun.username="$(AES_D "Uv6Isu3WHAjgLjytxHD3uyR/JKwPRaxfVBN+OeWwZiY=")"
@@ -85,7 +85,7 @@ uci set ddns.aliyun.force_unit="days"
 uci set ddns.cloudflare=service
 uci set ddns.cloudflare.service_name="cloudflare.com-v4"
 uci set ddns.cloudflare.use_ipv6="0"
-uci set ddns.cloudflare.enabled="1"
+uci set ddns.cloudflare.enabled="0"
 uci set ddns.cloudflare.lookup_host="19970101.xyz"
 uci set ddns.cloudflare.domain="19970101.xyz"
 uci set ddns.cloudflare.username="Bearer"
