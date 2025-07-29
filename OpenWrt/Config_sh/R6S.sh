@@ -463,9 +463,9 @@ done
 function dhcp() {
 Data="$(uci -q show dhcp)"
 # 删除 DHCPv6 服务
-uci -q delete dhcp.lan.dhcpv6
+#uci -q delete dhcp.lan.dhcpv6
 # 删除 RA 服务删除
-uci -q delete dhcp.lan.ra
+#uci -q delete dhcp.lan.ra
 # 删除 NDP 代理
 uci -q delete dhcp.lan.ndp
 # 添加静态DHCP
