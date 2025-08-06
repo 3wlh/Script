@@ -104,8 +104,8 @@ done
 }
 
 function openlist2() {
-uci set openlist.@openlist[0].enabled='1'
-uci set openlist.@openlist[0].data_dir='/mnt/SD/Configs/openlist'	
+uci set openlist2.@openlist2[0].enabled='1'
+uci set openlist2.@openlist2[0].data_dir='/mnt/SD/Configs/openlist'	
 }
 
 function sunpanel() {
