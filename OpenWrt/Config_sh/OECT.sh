@@ -10,7 +10,7 @@ Share="/mnt/SD : SD|
 /mnt/HDD : HDD|
 /mnt/SD/存储 : 文件存储"
 # 配置名称
-Config="fstab unishare sunpanel cloudflared openlist frp dockerd"
+Config="fstab unishare sunpanel cloudflared openlist2 frp dockerd"
 }
 
 function Password(){
@@ -103,7 +103,7 @@ do
 done
 }
 
-function openlist() {
+function openlist2() {
 uci set openlist.@openlist[0].enabled='1'
 uci set openlist.@openlist[0].data_dir='/mnt/SD/Configs/openlist'	
 }
