@@ -4,8 +4,7 @@ echo -e "\e[1;36m初始化配置变量\e[0m"
 #======= 初始化配置变量 =======
 # 挂载 挂载目录 : uuid
 Fstab="/mnt/SD : 3519c925-6c5e-7242-baa9-027d8a399db6 |
-/mnt/HDD : 20e90bf5-d880-684d-a087-3786846280ea |
-/opt : 20e90bf5-d880-684d-a087-3786846280ea"
+/mnt/HDD : 20e90bf5-d880-684d-a087-3786846280ea"
 # 共享 共享目录 : 名称
 Share="/mnt/SD : SD|
 /mnt/HDD : HDD|
@@ -132,7 +131,7 @@ uci set cloudflared.config.token="$(AES_D "${token}")"
 }
 
 function dockerd() {
-uci set dockerd.globals.data_root="/opt/docker/"
+uci set dockerd.globals.data_root="/mnt/HDD/docker/"
 # 网易云镜像站
 uci add_list dockerd.globals.registry_mirrors="https://hub-mirror.c.163.com"
 # 百度云镜像站
