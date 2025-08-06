@@ -119,7 +119,7 @@ uci set openlist2.@openlist2[0].data_dir='/mnt/SD/Configs/openlist'
 function sunpanel() {
 uci set sunpanel.@sunpanel[0].enabled="1"
 # 网页端口
-uci set sunpanel.@sunpanel[0].port="88"
+uci set sunpanel.@sunpanel[0].port="8080"
 # 数据目录
 uci set sunpanel.@sunpanel[0].config_path="/mnt/SD/Configs/SunPanel"
 }
