@@ -468,6 +468,8 @@ Data="$(uci -q show dhcp)"
 #uci -q delete dhcp.lan.ra
 # 删除 NDP 代理
 uci -q delete dhcp.lan.ndp
+# WAN DHCPv6 接口
+uci set dhcp.wan.ipv6='auto'
 # 添加静态DHCP
 if [ ! -n "$(echo ${Data} | grep "DBBOX5C")" ]; then
 	uci_id="$(uci add dhcp host)"
