@@ -491,7 +491,7 @@ if [ ! -n "$(uci -q get network.MODE)" ]; then
 	uci set network.MODE.netmask="255.255.255.0"
 	uci set network.MODE.defaultroute="0"
 fi
-uci set network.wan.ipv6="1"
+uci set network.wan.ipv6="auto"
 }
 
 function fstab() {
