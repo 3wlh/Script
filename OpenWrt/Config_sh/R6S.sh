@@ -114,7 +114,7 @@ fi
 }
 
 function v2ray_server() {
-uuid="64iOHzGUb4ndh9kuxyEdLkIUyxiM1NatBVj9EZOwVdwg6C11d79ywum97Q788pHA"
+uuid="64iOHzGUb4ndh9kuxyEdLunzaiFkzNd8nOOROnv7MWpYxpQQuZR7WjdPV2y8eSDv"
 uci set v2ray_server.@global[0].enable=1
 if [ ! -n "$(uci -q get v2ray_server.293af8e569f3446d92ff5cd9ce332ba8)" ]; then
 	uci set  v2ray_server.293af8e569f3446d92ff5cd9ce332ba8="user"
