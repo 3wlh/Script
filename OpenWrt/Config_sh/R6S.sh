@@ -413,7 +413,7 @@ do
 		uci_id="$(uci add openclash config_subscribe)"
 		uci set openclash.${uci_id}.enabled="1"
 		uci set openclash.${uci_id}.name="Clash_${count}"
-		uci set openclash.${uci_id}.address="$(AES_D "${data}")"
+		uci set openclash.${uci_id}.address="$(AES_D "${data}" | tr -d "\n")"
 		uci set openclash.${uci_id}.sub_ua="clash-ninja/openwrt"
 		uci set openclash.${uci_id}.sub_convert="0"
 		uci add_list openclash.${uci_id}.keyword="V3"
