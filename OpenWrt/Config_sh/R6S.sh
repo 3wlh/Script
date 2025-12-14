@@ -393,30 +393,34 @@ function openclash() {
 Data="$(uci -q show openclash)"
 count="0"
 #更新订阅
-uci set openclash.config.auto_update="1"
-uci set openclash.config.auto_update="1"
-uci set openclash.config.config_update_week_time="*"
-uci set openclash.config.config_auto_update_mode="0"
+#uci set openclash.config.auto_update="1"
+#uci set openclash.config.config_update_week_time="*"
+#uci set openclash.config.config_auto_update_mode="0"
 #使用meta内核 1,启用 0,禁用
-uci set openclash.config.enable_meta_core="0"
+#uci set openclash.config.enable_meta_core="0"
 #绕过中国大陆 IP
-uci set openclash.config.china_ip_route="1"
+#uci set openclash.config.china_ip_route="1"
 # 仅允许内网
-uci set openclash.config.intranet_allowed="1"
+#uci set openclash.config.intranet_allowed="1"
 #本地 DNS 劫持
-uci set openclash.config.enable_redirect_dns="0"
+#uci set openclash.config.enable_redirect_dns="0"
 # 添加订阅
 # $(echo "${data}" | sed "s|htt.*://\(.*\)\..*|\1|g") //取网址
 for data in ${Sub_list}
 do
-	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
 		count=$(( count + 1 ))
 		uci_id="$(uci add openclash config_subscribe)"
 		uci set openclash.${uci_id}.enabled="1"
 		uci set openclash.${uci_id}.name="Clash_${count}"
 		uci set openclash.${uci_id}.address="$(AES_D "${data}")"
+		uci set openclash.${uci_id}.sub_ua="clash-ninja/openwrt"
 		uci set openclash.${uci_id}.sub_convert="0"
+		uci add_list openclash.${uci_id}.keyword="V3"
+		uci add_list openclash.${uci_id}.keyword="香港&HK"
+		uci add_list openclash.${uci_id}.keyword="台湾&YW"
+		uci add_list openclash.${uci_id}.keyword="日本&JP&韩国"
+		
 	fi
 done
 }
