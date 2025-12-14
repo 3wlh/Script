@@ -11,7 +11,7 @@ Share="/mnt/SD : SD|
 /mnt/HDD : HDD|
 /mnt/SD/存储 : 文件存储|"
 # 节点
-Sub_list="fsCdvAzIoGbfl62z4Uk6EA=="
+Sub_list="Dow4mIXKWbWKvxsD4++LQ6kMefF5idxv0JcqtQmW9iM="
 # 直连域名
 URL_list="dash.cloudflare.com | www.spaceship.com | openwrt.ai | dl.openwrt.ai | age.tv"
 IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
@@ -413,7 +413,7 @@ do
 		uci_id="$(uci add openclash config_subscribe)"
 		uci set openclash.${uci_id}.enabled="1"
 		uci set openclash.${uci_id}.name="Clash_${count}"
-		uci set openclash.${uci_id}.address="$(AES_D "${data}" | tr -d "\n")"
+		uci set openclash.${uci_id}.address="$(AES_D "${data}")"
 		uci set openclash.${uci_id}.sub_ua="clash-ninja/openwrt"
 		uci set openclash.${uci_id}.sub_convert="0"
 		uci add_list openclash.${uci_id}.keyword="V3"
