@@ -1,0 +1,40 @@
+# 如果要用加密函数E() 如:E(123456)
+# 如果要用解密函数D() 如:D(4x8VBfSLlFy3jvd8R3q5RQ==)
+Subscribe: # 订阅配置
+  Sub_DN: 'D(+BnPECo35KYvtixNtqZHDg==)'
+  Sub_Vless_Prot: 4333
+  Sub_Vmess_Prot: 4334
+  Sub_Socks_Prot: 4335
+  Sub_UUID: "D(8UqVUvVLmk3YM8yhcimQ7kw1T9Hb2UXniDyVsyv1qHx4/Xq8e/IeYu+jB6lAefYt)"
+  Sub_Socks_PWD: "D(hfcljJl4Wtv2Vik+RQ6xtkuI9ObfGqQiqVGFQBevaVU=)"
+
+DDNS: # 解析配置
+  AccessKeyID: 'D(XXXXXXXX)'
+  AccessKey: 'D(XXXXXXXXXXXXXX)'
+  #如: example.com
+  DomainName: 'example.com'
+  #如: www ,@
+  RR: 'www'
+  
+Wake-on-LAN: # 网络唤醒配置
+  #局域网广播地址
+  IP: 10.10.10.255
+  #唤醒MAC地址
+  电脑: 'XX:XX:XX:XX:XX:XX'
+  NAS: 'XX:XX:XX:XX:XX:XX'
+  
+Port: # 端口配置
+  #如 OPENWRT: 80
+  OP: 8
+  OPENWRT: 8
+  ASUS: 6
+  软路由: 8
+  路由器: 6
+  FN: 5666
+  飞牛: 5666
+  OPENLIST: 5244
+  本地网盘: 5244
+Message: 
+  订阅: D(kq0VBaybfOaYqa7lWuF0sjCgIX1yKRQdR5QMhbMZvWm2MJeDodfajaQwnUNMXdS+x0VOphmzFreqOBBNa3zlGw==)
+  IP订阅: D(kq0VBaybfOaYqa7lWuF0sjCgIX1yKRQdR5QMhbMZvWnh7qJqslGQVNY8q65IZlkj)
+  DN订阅: D(kq0VBaybfOaYqa7lWuF0sjCgIX1yKRQdR5QMhbMZvWlzPheUrLbmE5+I0lxS0vx0)
