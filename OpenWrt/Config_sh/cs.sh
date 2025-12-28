@@ -29,7 +29,6 @@ echo $(AES_D "${token}")$(AES_D "T35GBVxiNmd119TodyLdHDB6rGmj54dqV2XwFA/T71Q=")
 }
 (cd / && {
 init # 初始化脚本
-Password # 获取key
 IFS="|" # 分割符变量
 echo -e "结果:"
 for func in $(echo ${Config} | tr " " "|")
