@@ -1,4 +1,6 @@
 #!/bin/bash
+
+key="${1}"
 function init {
 echo -e "\e[1;36m初始化配置变量\e[0m"
 #======= 初始化配置变量 =======
@@ -14,23 +16,13 @@ Config="fstab unishare sunpanel cloudflared openlist openlist2 frp dockerd"
 }
 
 function Password(){
-key=$(ip -o link show eth0 | grep -Eo "permaddr ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})" |awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24 | grep -v "8f00b204e9800998")
+[[ -n "${key}" ]] || key=$(ip -o link show eth0 | grep -Eo "permaddr ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})" |awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24 | grep -v "8f00b204e9800998")
 [[ -n "${key}" ]] || key=$(cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
 echo -e "\e[1;31mKey:\e[0m\e[35m ${key} \e[0m"
 }
 
 function AES_D(){ #解密函数
 [[ -z "$1" ]] || echo "$1" | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -base64 -d 2>/dev/null
-}
-
-function Webpage() {
-Webpage_url="http://3wlh.github.io/Script/OpenWrt/webpage"
-download_name=(${1})
-for name in "${download_name[@]}"; do
-	download_url="${Webpage_url}/${name}.html"
-	echo "Download ${download_url}"
-	wget -qO "/www/$(basename ${download_url})" "${download_url}" --show-progress
-done
 }
 
 function fstab() {
@@ -181,8 +173,6 @@ do
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"
     sleep 1
 done
-	IFS=" "
-	Webpage "supermicro modem" && echo "Webpage配置......OK"
     echo  
 	echo '================================='
 	echo '=           配置完成            ='

@@ -1,5 +1,7 @@
 #!/bin/bash
+
 #========函数========
+key="${1}"
 function init {
 echo -e "\e[1;36m初始化配置变量\e[0m"
 #======= 初始化配置变量 =======
@@ -38,7 +40,7 @@ Config="network dhcp firewall fstab ddns ddns-go unishare v2ray_server passwall 
 }
 
 function Password(){ #解密函数
-key=$(ip -o link show eth0 | grep -Eo "permaddr ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})" |awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24 | grep -v "8f00b204e9800998")
+[[ -n "${key}" ]] || key=$(ip -o link show eth0 | grep -Eo "permaddr ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})" |awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24 | grep -v "8f00b204e9800998")
 [[ -n "${key}" ]] || key=$(cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
 echo -e "\e[1;31mKey:\e[0m\e[35m ${key} \e[0m"
 }
