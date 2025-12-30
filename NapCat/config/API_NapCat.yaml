@@ -35,9 +35,9 @@ Port: # 端口配置
   OPENLIST: 5244
   本地网盘: 5244
 Message: 
-  订阅: E(BStTGzVhblofmEXoUO/cbAFfZVZJ1kBoWqrk3wp8smxPiWZsQoyJC4Hn0MCbTYub)
-  IP订阅: E(BStTGzVhblofmEXoUO/cbAFfZVZJ1kBoWqrk3wp8smwX9J9/+59+/PniRGeRnv2e)
-  DN订阅: E(BStTGzVhblofmEXoUO/cbAFfZVZJ1kBoWqrk3wp8smzyTs6oN1eCfaB3Rz/7yDc2)
+  订阅: D(BStTGzVhblofmEXoUO/cbAFfZVZJ1kBoWqrk3wp8smxPiWZsQoyJC4Hn0MCbTYub)
+  IP订阅: D(BStTGzVhblofmEXoUO/cbAFfZVZJ1kBoWqrk3wp8smwX9J9/+59+/PniRGeRnv2e)
+  DN订阅: D(BStTGzVhblofmEXoUO/cbAFfZVZJ1kBoWqrk3wp8smzyTs6oN1eCfaB3Rz/7yDc2)
   
   
   
