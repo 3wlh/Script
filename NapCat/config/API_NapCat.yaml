@@ -1,12 +1,12 @@
 # 如果要用加密函数E() 如:E(123456)
 # 如果要用解密函数D() 如:D(4x8VBfSLlFy3jvd8R3q5RQ==)
 Subscribe: # 订阅配置
-  Sub_DN: 'D(+BnPECo35KYvtixNtqZHDg==)'
+  Sub_DN: 'D(oE2xmBd+2l+ABwkMGV61vg==)'
   Sub_Vless_Prot: 4333
   Sub_Vmess_Prot: 4334
   Sub_Socks_Prot: 4335
-  Sub_UUID: "D(8UqVUvVLmk3YM8yhcimQ7kw1T9Hb2UXniDyVsyv1qHx4/Xq8e/IeYu+jB6lAefYt)"
-  Sub_Socks_PWD: "D(hfcljJl4Wtv2Vik+RQ6xtkuI9ObfGqQiqVGFQBevaVU=)"
+  Sub_UUID: "D(AZJEbYAK8PDs0f4NcjUZShxAgeNnK1xyA1X2OuLNTQxz8a5N90NCk8HlGd/5bJVQ)"
+  Sub_Socks_PWD: "D(6+7GQBYQ0Hp0usYMwI52L9AL+fH3yCWkvYXSOCSkWuo=)"
 
 DDNS: # 解析配置
   AccessKeyID: 'D(XXXXXXXX)'
@@ -35,6 +35,10 @@ Port: # 端口配置
   OPENLIST: 5244
   本地网盘: 5244
 Message: 
-  订阅: D(kq0VBaybfOaYqa7lWuF0sjCgIX1yKRQdR5QMhbMZvWm2MJeDodfajaQwnUNMXdS+x0VOphmzFreqOBBNa3zlGw==)
-  IP订阅: D(kq0VBaybfOaYqa7lWuF0sjCgIX1yKRQdR5QMhbMZvWnh7qJqslGQVNY8q65IZlkj)
-  DN订阅: D(kq0VBaybfOaYqa7lWuF0sjCgIX1yKRQdR5QMhbMZvWlzPheUrLbmE5+I0lxS0vx0)
+  订阅: E(BStTGzVhblofmEXoUO/cbAFfZVZJ1kBoWqrk3wp8smxPiWZsQoyJC4Hn0MCbTYub)
+  IP订阅: E(BStTGzVhblofmEXoUO/cbAFfZVZJ1kBoWqrk3wp8smwX9J9/+59+/PniRGeRnv2e)
+  DN订阅: E(BStTGzVhblofmEXoUO/cbAFfZVZJ1kBoWqrk3wp8smzyTs6oN1eCfaB3Rz/7yDc2)
+  
+  
+  
+  
