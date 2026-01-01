@@ -35,10 +35,6 @@ Port: # 端口配置
   OPENLIST: 5244
   本地网盘: 5244
 Message: 
-  订阅: D(kCcrEzNT1R77FMNZAEILKnjvlMfDtagNk8+zSyaQSxZbieff46ehfvBaqq3dugb+)
-  IP订阅: D(kCcrEzNT1R77FMNZAEILKnjvlMfDtagNk8+zSyaQSxb5Q3m2OOSz1sjiTB6P1X24)
-  DN订阅: D(kCcrEzNT1R77FMNZAEILKnjvlMfDtagNk8+zSyaQSxZEkFL5oTacsUkYiappX0h9)
-  
-  
-  
-  
+  订阅: "D(kCcrEzNT1R77FMNZAEILKtmWfcNyMZy/rbTjS1DEZzc5WfuMTv0mhsoknm8nccnf)"
+  IP订阅: "D(kCcrEzNT1R77FMNZAEILKtmWfcNyMZy/rbTjS1DEZze3cN2GX4GGZL8fR8VT3uMC)"
+  DN订阅: "D(kCcrEzNT1R77FMNZAEILKtmWfcNyMZy/rbTjS1DEZzcnsaF4Fmg36tCoGPPBFxMQ)"
