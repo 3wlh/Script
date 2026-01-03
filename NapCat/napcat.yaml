@@ -5,4 +5,4 @@ NapCat:
     qqDataDir: /mnt/SD/Configs/Napcat/QQ
     napCatDir: /mnt/SD/Configs/Napcat/config
     autoRestart: true
-    networkMode: bridge
+    networkMode: host
