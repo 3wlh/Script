@@ -1,0 +1,8 @@
+NapCat:
+    webPort: "6099"
+    apiPort: "3000"
+    wsPort: "3001"
+    qqDataDir: /mnt/SD/Configs/Napcat/QQ
+    napCatDir: /mnt/SD/Configs/Napcat/config
+    autoRestart: true
+    networkMode: bridge
