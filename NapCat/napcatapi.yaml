@@ -1,5 +1,8 @@
 # 如果要用加密函数E() 如:E(123456)
 # 如果要用解密函数D() 如:D(4x8VBfSLlFy3jvd8R3q5RQ==)
+NapCat: 
+  url: "http://3wlh.github.io/Script/NapCat/napcat.yaml"
+
 Subscribe: # 订阅配置
   Sub_DN: 'D(Svuq6z/oIiKpuRH/3RkXXg==)'
   Sub_Vless_Prot: 4333
