@@ -3,6 +3,9 @@
 NapCat: 
   url: "http://3wlh.github.io/Script/NapCat/napcat.yaml"
 
+User:
+  1094890624: "admin"
+
 Subscribe: # 订阅配置
   Sub_DN: 'D(Svuq6z/oIiKpuRH/3RkXXg==)'
   Sub_Vless_Prot: 4333
