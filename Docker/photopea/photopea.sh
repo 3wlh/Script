@@ -1,5 +1,5 @@
 #!/bin/sh
-# 重命名目录
+# 修改目录
 mv "www.photopea.com" "photopea"
 JS_File=$(find $(pwd)/photopea/code/pp/ -name *.js)
 # 隐藏元素
@@ -11,7 +11,7 @@ sed -i "s/function addPP()/window.onload = function()/g" $(pwd)/www.photopea.com
 (cd photopea && {
 JS_DBS=$(find $(pwd)/code/dbs/ -name *.js)
 sed -i '/var FNTS = {/,/};/d' ${JS_DBS} && \
-cat $(pwd)/rsrc/fonts/function.js >> ${JS_DBS} && \
-rm -f $(pwd)/rsrc/fonts/function.js && \
-mv -f $(pwd)/rsrc/fonts/22.js $(pwd)/code/lang/
+wget -qO - http://script.11121314.xyz/Docker/photopea/function.js >> ${JS_DBS}
+wget -qO - http://script.11121314.xyz/Docker/photopea/zh_cn.js > $(pwd)/code/lang/22.js
+wget -qO - http://script.11121314.xyz/Docker/photopea/fnts-module.js > $(pwd)/rsrc/fonts/fnts-module.js
 })
