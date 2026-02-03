@@ -12,8 +12,8 @@ sed -i "s|img/table.webp||g" $(pwd)/index.html
 sed -i "s|img/hand_phone.webp||g" $(pwd)/index.html
 sed -i "s|img/goats.mp4||g" $(pwd)/index.html
 sed -i "s|img/laptop.webp||g" $(pwd)/index.html
-sed -i "s|addPP()||g" $(pwd)/index.html
 sed -i "s/function addPP()/window.onload = function()/g" $(pwd)/index.html
+sed -i "s|addPP()||g" $(pwd)/index.html
 # 添加修改JS	
 JS_DBS=$(find $(pwd)/code/dbs/ -name *.js)
 sed -i '/var FNTS = {/,/};/d' ${JS_DBS} && \
