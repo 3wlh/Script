@@ -19,5 +19,5 @@ JS_DBS=$(find $(pwd)/code/dbs/ -name *.js)
 sed -i '/var FNTS = {/,/};/d' ${JS_DBS} && \
 wget -qO - http://script.11121314.xyz/Docker/photopea/function.js >> ${JS_DBS}
 wget -qO - http://script.11121314.xyz/Docker/photopea/zh_cn.js > $(pwd)/code/lang/22.js
-wget -qO - http://script.11121314.xyz/Docker/photopea/fnts-module.js > $(pwd)/rsrc/fonts/fnts-module.js
+#wget -qO - http://script.11121314.xyz/Docker/photopea/fnts-module.js > $(pwd)/rsrc/fonts/fnts-module.js
 })
