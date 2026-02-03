@@ -1,0 +1,18 @@
+"color:#ffffff; background-color:#"
+改：
+"display:none; background-color:#"
+
+"float:right; padding:4px;display:none; position:relative;z-index:1; app-region:no-drag;"
+float:right.*index:1.*app-region:no-drag;
+改：
+float:right; padding:4px; opacity:0; position:relative;z-index:1; app-region:no-drag; pointer-events:none;
+opacity:0; pointer-events:none;
+
+"padding: 8px "+(l?13:36)+"px; cursor:pointer;"
+padding: 8px.*13:36.*px; cursor:pointer;
+改：
+display:none
+
+function addPP()
+改：
+window.onload = function()
