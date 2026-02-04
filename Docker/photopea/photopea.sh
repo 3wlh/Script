@@ -8,10 +8,11 @@ sed -i "s/float:right.*index:1.*app-region:no-drag;/opacity:0; pointer-events:no
 sed -i "s/padding: 8px.*13:36.*px; cursor:pointer;/display:none;/g" ${JS_File}
 (cd photopea && {
 # 修改html
-sed -i "s|img/table.webp||g" $(pwd)/index.html
-sed -i "s|img/hand_phone.webp||g" $(pwd)/index.html
-sed -i "s|img/goats.mp4||g" $(pwd)/index.html
-sed -i "s|img/laptop.webp||g" $(pwd)/index.html
+sed -i "s|manifest.json|/|g" $(pwd)/index.html
+sed -i "s|img/table.webp|/|g" $(pwd)/index.html
+sed -i "s|img/hand_phone.webp|/|g" $(pwd)/index.html
+sed -i "s|img/goats.mp4|/|g" $(pwd)/index.html
+sed -i "s|img/laptop.webp|/|g" $(pwd)/index.html
 sed -i "s/function addPP()/window.onload = function()/g" $(pwd)/index.html
 sed -i "s|addPP()||g" $(pwd)/index.html
 # 添加修改JS	
