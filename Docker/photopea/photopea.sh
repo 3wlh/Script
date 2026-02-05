@@ -3,8 +3,11 @@
 mv "www.photopea.com" "photopea"
 JS_File=$(find $(pwd)/photopea/code/pp/ -name *.js)
 # 隐藏元素
+# 隐藏账户按钮
 sed -i "s/color:#ffffff; background-color:#/display:none; background-color:#/g" ${JS_File}
+# 隐藏外部链接
 sed -i "s/float:right.*index:1.*app-region:no-drag;/opacity:0; pointer-events:none;/g" ${JS_File}
+# 隐藏左边边框
 sed -i "s/padding: 8px.*13:36.*px; cursor:pointer;/display:none;/g" ${JS_File}
 (cd photopea && {
 # 修改html
