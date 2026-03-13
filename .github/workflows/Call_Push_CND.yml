@@ -4,7 +4,7 @@ on:
   workflow_call:
   workflow_dispatch:
 
-evn:
+env:
   url: https://cnd:${{ secrets.TOKEN_CND }}@cnb.cool/3wlh/OpenWrt_Packages
    
 jobs:
