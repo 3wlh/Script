@@ -14,14 +14,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
         
-        
       - name: Push CND
         run: |  
+          # 开始初始化
           rm -fr .git
           git config --global user.email "3wlh[bot]@3wlh.lh"
           git config --global user.name "3wlh[bot]"
-          
           repo_dir=$(mktemp -d)
+          echo "✅ 拉取仓库: ${url}"
           git clone --depth=1 ${url} ${repo_dir}
           cp -av ./* .[!.]* "${repo_dir}" 2>/dev/null
           cd ${repo_dir}
