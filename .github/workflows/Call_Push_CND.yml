@@ -21,7 +21,10 @@ jobs:
           git config --global user.email "3wlh[bot]@3wlh.lh"
           git config --global user.name "3wlh[bot]"
           
-          git clone --depth=1 ${url} $(pwd)
+          repo_dir=$(mktemp -d)
+          git clone --depth=1 ${url} ${repo_dir}
+          cp -av ./* .[!.]* "${repo_dir}" 2>/dev/null
+          cd ${repo_dir}
           git add -A
           Emoji=("🎉" "🤞" "✨" "🎁" "🎈" "🎄" "🎨" "💋" "🍓" "🍕" "🍉" "💐" "🌴" "🚀" "🛸" "🗽" "⛅" "🌈" "🔥" "⛄" "🐶" "🏅" "🦄" "🐤")
           git commit -am "${Emoji[$[$RANDOM % ${#Emoji[@]}]]} update $(date +%Y-%m-%d" "%H:%M:%S)"
