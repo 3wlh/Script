@@ -11,6 +11,9 @@ jobs:
   jod_push:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@main
+        
       - name: Push CND
         run: |
           git config --global user.email "3wlh[bot]@3wlh.lh"
