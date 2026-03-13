@@ -28,16 +28,16 @@
       "txt_ip_type": "ipv4"
     },
     {
-      "provider": "cloudflare",
-      "domain": "19970101.xyz",
-      "sub_domain": "@",
-      "type": "A",
+      "provider": "alibaba",
+      "domain": "3wlh.cn",
+      "sub_domain": "home",
+      "type": "TXT",
       "ttl": 600,
       "txt_ip_type": "ipv4"
     },
     {
-      "provider": "spaceship",
-      "domain": "680101.xyz",
+      "provider": "cloudflare",
+      "domain": "19970101.xyz",
       "sub_domain": "@",
       "type": "A",
       "ttl": 600,
