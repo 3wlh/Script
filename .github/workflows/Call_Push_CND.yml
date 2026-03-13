@@ -14,10 +14,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
         
+        
       - name: Push CND
         run: |
           git config --global user.email "3wlh[bot]@3wlh.lh"
           git config --global user.name "3wlh[bot]"
           git remote | xargs -I {} git remote remove {}
           git remote add origin ${url}
-          git push -f origin main
+          git fetch --unshallow origin main || git fetch origin main
+          git checkout main
+          git branch -u origin/main
+          git push --force-with-lease origin main
