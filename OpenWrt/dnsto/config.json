@@ -1,0 +1,59 @@
+{
+  "interval": 300,
+  "providers": {
+    "alibaba": {
+      "access_key_id": "PTHPq1139KEGhDoP9Sws+NLbwk+8fqeD1/rVw9gMoNo=",
+      "access_key_secret": "4aauKuXDmBKXUluBWTUm2436MXbLnHcGWyEELvkkXyU="
+    },
+    "cloudflare": {
+      "api_token": "Wgb9oA3JhZ7bO9tZKg80aB6mjk5SIPLXAdT+F2gYsRoBd+ZVIWatZIFNTBt0L0nm",
+      "zone_id": "C14XLTXz4yGvL+2I7UMytw=="
+    },
+    "dnspod": {
+      "secret_id": "",
+      "secret_key": ""
+    },
+    "spaceship": {
+      "api_key": "jof96gIGG62FhiEklb4WAAATCxAh0uGqPoCTJ8JoUeU=",
+      "api_secret": "Ljk5oQqxKI7CMcpBfcGJVNTwVWbnX936UTu02QzfWQN90d5GfmbcbD4jFUPKAJTzzX7oEnGDNDqlte+1Jwhb7Fa8wa4Jus75jKArEgTst4I="
+    }
+  },
+  "records": [
+    {
+      "provider": "alibaba",
+      "domain": "3wlh.cn",
+      "sub_domain": "@",
+      "type": "A",
+      "ttl": 600,
+      "txt_ip_type": "ipv4"
+    },
+    {
+      "provider": "cloudflare",
+      "domain": "19970101.xyz",
+      "sub_domain": "@",
+      "type": "A",
+      "ttl": 600,
+      "txt_ip_type": "ipv4"
+    },
+    {
+      "provider": "spaceship",
+      "domain": "680101.xyz",
+      "sub_domain": "@",
+      "type": "A",
+      "ttl": 600,
+      "txt_ip_type": "ipv4"
+    }
+  ],
+  "ipv4": {
+    "method": "network",
+    "api": "https://ddns.oray.com/checkip,https://ip.3322.net,https://4.ipw.cn,https://v4.yinghualuo.cn/bejson,https://myip.ipip.net",
+    "command": "",
+    "network": "pppoe-wan"
+  },
+  "ipv6": {
+    "method": "network",
+    "api": "https://speed.neu6.edu.cn/getIP.php,https://v6.ident.me,https://6.ipw.cn,https://v6.yinghualuo.cn/bejson",
+    "command": "",
+    "network": "pppoe-wan"
+  }
+}
