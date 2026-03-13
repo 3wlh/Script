@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 env:
-  url: https://cnd:${{ secrets.TOKEN_CND }}@cnb.cool/3wlh/OpenWrt_Packages
+  url: https://cnd:${{ secrets.TOKEN_CND }}@cnb.cool/3wlh/Script
    
 jobs:
   jod_push:
@@ -16,12 +16,13 @@ jobs:
         
         
       - name: Push CND
-        run: |
+        run: |  
+          rm -fr .git
           git config --global user.email "3wlh[bot]@3wlh.lh"
           git config --global user.name "3wlh[bot]"
-          git remote | xargs -I {} git remote remove {}
-          git remote add origin ${url}
-          git fetch --unshallow origin main || git fetch origin main
-          git checkout main
-          git branch -u origin/main
-          git push --force-with-lease origin main
+          
+          git clone --depth=1 ${url} $(pwd)
+          git add -A
+          Emoji=("🎉" "🤞" "✨" "🎁" "🎈" "🎄" "🎨" "💋" "🍓" "🍕" "🍉" "💐" "🌴" "🚀" "🛸" "🗽" "⛅" "🌈" "🔥" "⛄" "🐶" "🏅" "🦄" "🐤")
+          git commit -am "${Emoji[$[$RANDOM % ${#Emoji[@]}]]} update $(date +%Y-%m-%d" "%H:%M:%S)"
+          git push origin main
