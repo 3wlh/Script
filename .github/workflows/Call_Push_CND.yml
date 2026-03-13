@@ -1,0 +1,19 @@
+name: Call Push CND
+
+on:
+  workflow_call:
+  workflow_dispatch:
+     
+jobs:
+  jod_push:
+    runs-on: ubuntu-latest
+    steps:
+      evn:
+        url: https://cnd:${{ secrets.TOKEN_CND }}@cnb.cool/3wlh/OpenWrt_Packages
+      - name: Push CND
+        run: |
+          git config --global user.email "3wlh[bot]@3wlh.lh"
+          git config --global user.name "3wlh[bot]"
+          git remote | xargs -I {} git remote remove {}
+          git remote add origin ${url}
+          git push -f origin main

@@ -1,0 +1,14 @@
+name: Call_Push_Gitee
+
+on:
+  workflow_call:
+     
+jobs:
+  jod_push:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Push Gitee
+        run: |
+          git remote | xargs -I {} git remote remove {}
+          git remote add origin https://github.com/你的用户名/你的仓库名.git
+          git push -f origin main
