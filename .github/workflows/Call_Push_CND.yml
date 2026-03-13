@@ -3,13 +3,14 @@ name: Call Push CND
 on:
   workflow_call:
   workflow_dispatch:
-     
+
+evn:
+  url: https://cnd:${{ secrets.TOKEN_CND }}@cnb.cool/3wlh/OpenWrt_Packages
+   
 jobs:
   jod_push:
     runs-on: ubuntu-latest
     steps:
-      evn:
-        url: https://cnd:${{ secrets.TOKEN_CND }}@cnb.cool/3wlh/OpenWrt_Packages
       - name: Push CND
         run: |
           git config --global user.email "3wlh[bot]@3wlh.lh"
