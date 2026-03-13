@@ -2,20 +2,20 @@
   "interval": 300,
   "providers": {
     "alibaba": {
-      "access_key_id": "PTHPq1139KEGhDoP9Sws+NLbwk+8fqeD1/rVw9gMoNo=",
-      "access_key_secret": "4aauKuXDmBKXUluBWTUm2436MXbLnHcGWyEELvkkXyU="
+      "access_key_id": "vfsSeS3ozvbM7qUUPXoVjLH4zJWSt4B8/0RqKRRjo+c=",
+      "access_key_secret": "RtuF7oDlGq29jMQpUwSRXC/eS4j5DhUNNdSoZR44oA4="
     },
     "cloudflare": {
-      "api_token": "Wgb9oA3JhZ7bO9tZKg80aB6mjk5SIPLXAdT+F2gYsRoBd+ZVIWatZIFNTBt0L0nm",
-      "zone_id": "C14XLTXz4yGvL+2I7UMytw=="
+      "api_token": "dOLXGKCfgl7YhVI8dcTysDdVq1xZhcA0KbCdtHwePZZKUyWoPeavq3LjD2Fs6zld",
+      "zone_id": "l5i+SlZ/Ot9jOTow7rqZiA=="
     },
     "dnspod": {
       "secret_id": "",
       "secret_key": ""
     },
     "spaceship": {
-      "api_key": "jof96gIGG62FhiEklb4WAAATCxAh0uGqPoCTJ8JoUeU=",
-      "api_secret": "Ljk5oQqxKI7CMcpBfcGJVNTwVWbnX936UTu02QzfWQN90d5GfmbcbD4jFUPKAJTzzX7oEnGDNDqlte+1Jwhb7Fa8wa4Jus75jKArEgTst4I="
+      "api_key": "U4MoWBk/dHN0OWOhpBtKt8IlGgmZvapVZyOVJfT7SUc=",
+      "api_secret": "qgSvPjy5QIqw/L/LdrSfZbuz1ctt4yFKjdmy4ZJKn6Q5AJWF8re6GKg4rpI0GwLXBKlDipcgxCs89q3d/doU8A0xuk7SfJNSXnORfbmGriw="
     }
   },
   "records": [
