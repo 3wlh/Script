@@ -23,3 +23,7 @@ jobs:
           #retain_days: 1
           keep_minimum_runs: 0
           use_daily_retention: true
+jobs:
+  push_cnb:
+    uses: ./.github/workflows/Call_Push_CND.yml
+    secrets: inherit
