@@ -22,3 +22,7 @@ echo <解密文本> | openssl aes-128-cbc -d -k <key> -base64 2>/dev/null	//解�
 echo <加密文本> | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -base64 2>/dev/null	//加密文本
 echo <解密文本> | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -base64 -d 2>/dev/null	//解密文本
 ```
+#### 查看 Token
+```
+ubus call session list
+```
