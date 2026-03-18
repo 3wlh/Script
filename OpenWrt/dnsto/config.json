@@ -1,5 +1,5 @@
 {
-  "interval": 300,
+  "interval": 600,
   "providers": {
     "alibaba": {
       "access_key_id": "vfsSeS3ozvbM7qUUPXoVjLH4zJWSt4B8/0RqKRRjo+c=",
