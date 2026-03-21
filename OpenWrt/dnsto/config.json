@@ -40,7 +40,15 @@
       "domain": "19970101.xyz",
       "sub_domain": "@",
       "type": "A",
-      "ttl": 600,
+      "ttl": 60,
+      "txt_ip_type": "ipv4"
+    },
+    {
+      "provider": "cloudflare",
+      "domain": "19970101.xyz",
+      "sub_domain": " home",
+      "type": "TXT",
+      "ttl": 60,
       "txt_ip_type": "ipv4"
     }
   ],
