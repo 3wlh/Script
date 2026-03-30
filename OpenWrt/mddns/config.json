@@ -1,0 +1,67 @@
+{
+  "interval": 600,
+  "providers": {
+    "alibaba": {
+      "access_key_id": "vfsSeS3ozvbM7qUUPXoVjLH4zJWSt4B8/0RqKRRjo+c=",
+      "access_key_secret": "RtuF7oDlGq29jMQpUwSRXC/eS4j5DhUNNdSoZR44oA4="
+    },
+    "cloudflare": {
+      "api_token": "dOLXGKCfgl7YhVI8dcTysDdVq1xZhcA0KbCdtHwePZZKUyWoPeavq3LjD2Fs6zld",
+      "zone_id": "l5i+SlZ/Ot9jOTow7rqZiA=="
+    },
+    "dnspod": {
+      "secret_id": "",
+      "secret_key": ""
+    },
+    "spaceship": {
+      "api_key": "U4MoWBk/dHN0OWOhpBtKt8IlGgmZvapVZyOVJfT7SUc=",
+      "api_secret": "qgSvPjy5QIqw/L/LdrSfZbuz1ctt4yFKjdmy4ZJKn6Q5AJWF8re6GKg4rpI0GwLXBKlDipcgxCs89q3d/doU8A0xuk7SfJNSXnORfbmGriw="
+    }
+  },
+  "records": [
+    {
+      "provider": "alibaba",
+      "domain": "3wlh.cn",
+      "sub_domain": "@",
+      "type": "A",
+      "ttl": 600,
+      "txt_ip_type": "ipv4"
+    },
+    {
+      "provider": "alibaba",
+      "domain": "3wlh.cn",
+      "sub_domain": "home",
+      "type": "TXT",
+      "ttl": 600,
+      "txt_ip_type": "ipv4"
+    },
+    {
+      "provider": "cloudflare",
+      "domain": "19970101.xyz",
+      "sub_domain": "@",
+      "type": "A",
+      "ttl": 60,
+      "txt_ip_type": "ipv4"
+    },
+    {
+      "provider": "cloudflare",
+      "domain": "19970101.xyz",
+      "sub_domain": " home",
+      "type": "TXT",
+      "ttl": 60,
+      "txt_ip_type": "ipv4"
+    }
+  ],
+  "ipv4": {
+    "method": "network",
+    "api": "https://ddns.oray.com/checkip,https://ip.3322.net,https://4.ipw.cn,https://v4.yinghualuo.cn/bejson,https://myip.ipip.net",
+    "command": "",
+    "network": "pppoe-wan"
+  },
+  "ipv6": {
+    "method": "network",
+    "api": "https://speed.neu6.edu.cn/getIP.php,https://v6.ident.me,https://6.ipw.cn,https://v6.yinghualuo.cn/bejson",
+    "command": "",
+    "network": "pppoe-wan"
+  }
+}

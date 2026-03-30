@@ -1,0 +1,13 @@
+#!/bin/sh
+PKGNAME="$SYNOPKG_PKGNAME"
+PKGPATH="/var/packages/${PKGNAME}"
+BINPKG="${PKGPATH}/target"
+HOSTS="/etc/hosts"
+
+if ! grep -q "update.synology.com" $HOSTS; then
+sed -i '$a\127.0.0.1	update.synology.com' $HOSTS
+echo "群晖已禁用更新" >> "${BINPKG}/logs/update.log" 2>&1
+else
+echo "群晖已禁用更新" >> "${BINPKG}/logs/update.log" 2>&1
+fi
+exit 0

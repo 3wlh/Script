@@ -1,0 +1,22 @@
+#!/bin/sh
+PKGNAME="$SYNOPKG_PKGNAME"
+PKGPATH="/var/packages/${PKGNAME}"
+BINPKG="${PKGPATH}/target/bin"
+BINFILE="Synoapi"
+
+case $1 in
+	start)
+		LANG=C cd ${BINPKG} && (nohup sudo ./${BINFILE} --config config.yaml >/dev/null 2>&1 &)
+		exit 0
+	;;
+	stop)
+		ps -ef |grep ${BINFILE} |grep -v grep |awk '{print $2}' |xargs kill -9 2>&1
+		exit 0
+	;;
+	status)
+		exit 0
+    ;;
+	log)
+		echo "$LOG"
+    ;;
+esac
