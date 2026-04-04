@@ -2,8 +2,8 @@
   "interval": 600,
   "providers": {
     "alibaba": {
-      "access_key_id": "vfsSeS3ozvbM7qUUPXoVjLH4zJWSt4B8/0RqKRRjo+c=",
-      "access_key_secret": "RtuF7oDlGq29jMQpUwSRXC/eS4j5DhUNNdSoZR44oA4="
+      "access_key_id": "fNy8pBCFd6IL7Fwu801mSp6GuRMxvjJAH75XD/lf+Zw=",
+      "access_key_secret": "79Foo9YpOUv8YTvxMISnMsyscA8v+5EHVaG9yrv3LpI="
     },
     "cloudflare": {
       "api_token": "dOLXGKCfgl7YhVI8dcTysDdVq1xZhcA0KbCdtHwePZZKUyWoPeavq3LjD2Fs6zld",
