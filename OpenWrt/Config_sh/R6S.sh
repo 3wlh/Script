@@ -15,7 +15,7 @@ Share="/mnt/SD : SD|
 # 节点
 Sub_list="Dow4mIXKWbWKvxsD4++LQ3eofoBRLP0lJyXIQpJT6XA="
 # 直连域名
-URL_list="dash.cloudflare.com | www.spaceship.com | openwrt.ai | dl.openwrt.ai | age.tv"
+URL_list="cloudflare.com | spaceship.com | openwrt.ai | age.tv"
 IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
 # 防火墙：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
 Firewall="V2ray : 10.10.10.254 :: 4333-4335 |
@@ -392,6 +392,7 @@ done
 }
 
 function openclash() {
+url_path="/etc/openclash/custom/openclash_custom_domain_dns.list"
 Data="$(uci -q show openclash)"
 count="0"
 #更新订阅
@@ -405,7 +406,8 @@ uci set openclash.config.china_ip_route="1"
 # 仅允许内网
 uci set openclash.config.intranet_allowed="1"
 #本地 DNS 劫持
-uci set openclash.config.enable_redirect_dns="2"
+uci set openclash.config.enable_redirect_dns="1"
+uci set openclash.config.enable_custom_domain_dns_server="1"
 # 添加订阅
 # $(echo "${data}" | sed "s|htt.*://\(.*\)\..*|\1|g") //取网址
 for data in ${Sub_list}
@@ -424,6 +426,14 @@ do
 		uci add_list openclash.${uci_id}.keyword="日本&JP&韩国"
 		
 	fi
+done
+# 直连域名
+for list in ${URL_list}
+do
+	list="$(echo ${list} | tr -d " " | tr -d "\n")"
+	[[ -n "${list}" ]] || continue
+	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
+	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
 done
 }
 
