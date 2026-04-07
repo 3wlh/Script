@@ -13,7 +13,7 @@ Share="/mnt/SD : SD|
 /mnt/HDD : HDD|
 /mnt/SD/存储 : 文件存储|"
 # 节点
-Sub_list="Dow4mIXKWbWKvxsD4++LQ6kMefF5idxv0JcqtQmW9iM="
+Sub_list="Dow4mIXKWbWKvxsD4++LQ3eofoBRLP0lJyXIQpJT6XA="
 # 直连域名
 URL_list="dash.cloudflare.com | www.spaceship.com | openwrt.ai | dl.openwrt.ai | age.tv"
 IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
@@ -401,11 +401,11 @@ count="0"
 #使用meta内核 1,启用 0,禁用
 #uci set openclash.config.enable_meta_core="0"
 #绕过中国大陆 IP
-#uci set openclash.config.china_ip_route="1"
+uci set openclash.config.china_ip_route="1"
 # 仅允许内网
-#uci set openclash.config.intranet_allowed="1"
+uci set openclash.config.intranet_allowed="1"
 #本地 DNS 劫持
-#uci set openclash.config.enable_redirect_dns="0"
+uci set openclash.config.enable_redirect_dns="2"
 # 添加订阅
 # $(echo "${data}" | sed "s|htt.*://\(.*\)\..*|\1|g") //取网址
 for data in ${Sub_list}
