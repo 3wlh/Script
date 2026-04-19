@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     
 env:
-  repo_url: https://3wlh:${{ secrets.TOKEN_CNB }}@github.com/3wlh/Script
+  repo_url: https://3wlh:${{ secrets.TOKEN_CNB }}@cnb.cool/3wlh/Script
 
 
 jobs:
