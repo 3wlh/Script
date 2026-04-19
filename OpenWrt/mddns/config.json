@@ -7,7 +7,7 @@
     },
     "cloudflare": {
       "api_token": "dOLXGKCfgl7YhVI8dcTysDdVq1xZhcA0KbCdtHwePZZKUyWoPeavq3LjD2Fs6zld",
-      "zone_id": "l5i+SlZ/Ot9jOTow7rqZiA=="
+      "zone_id": ""
     },
     "dnspod": {
       "secret_id": "",
