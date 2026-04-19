@@ -12,6 +12,7 @@ env:
 
 jobs:
   jobs_Actions:
+    runs-on: ubuntu-22.04
     steps:
     - name: init
       run : |
