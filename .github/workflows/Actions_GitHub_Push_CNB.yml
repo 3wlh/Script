@@ -23,7 +23,8 @@ jobs:
       working-directory: ${{ env.repo_dir }}
       run : |
         git clone ${{ env.repo_url }} $(pwd)
-        rm -fr !(.git)
+        find . -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -fr {} +
+        git add -A >/dev/null 2>&1
         git commit -m "${COMMIT_MESSAGE:-Reset commit history} - $(date +%Y-%m-%d\ %H:%M:%S)"
 
     - name: Repository Remove Commits
