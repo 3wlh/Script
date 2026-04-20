@@ -83,17 +83,19 @@ if [ ! -n "$(uci -q get v2ray_server.${1})" ]; then
 	uci set v2ray_server.${1}.remarks="${2}"
 	uci set v2ray_server.${1}.protocol="${3}"
 	uci set v2ray_server.${1}.port="${4}"
-	if [ "${3}" == "vless" ] || [ "${3}" == "vmess" ]; then
-		[ "${3}" == "vless" ] && uci set v2ray_server.${1}.decryption="none"
-		uci add_list v2ray_server.${1}.uuid="$(AES_D "${uuid}")"
-		[ "${3}" == "vmess" ] &&  uci set v2ray_server.${1}.alter_id="16"
-		uci set v2ray_server.${1}.level="1"
-	fi
-	if [ "${3}" == "socks" ]; then
-		uci set v2ray_server.${1}.auth="1"
-		uci set v2ray_server.${1}.username="$(AES_D "hJxYB5UfmX5fkt6B0KCwrg==")"
-		uci set v2ray_server.${1}.password="$(AES_D "v+SXp3gpBanHTGxeahxrRA==")"
-	fi
+	case "${3}" in
+		vless|vmess)
+            [ "${3}" == "vless" ] && uci set v2ray_server.${1}.decryption="none"
+			uci add_list v2ray_server.${1}.uuid="$(AES_D "${uuid}")"
+			[ "${3}" == "vmess" ] &&  uci set v2ray_server.${1}.alter_id="16"
+			uci set v2ray_server.${1}.level="1"
+            ;;
+        socks)
+            uci set v2ray_server.${1}.auth="1"
+			uci set v2ray_server.${1}.username="$(AES_D "hJxYB5UfmX5fkt6B0KCwrg==")"
+			uci set v2ray_server.${1}.password="$(AES_D "v+SXp3gpBanHTGxeahxrRA==")"
+            ;;
+    esac
 	uci set v2ray_server.${1}.tls="0"
 	uci set v2ray_server.${1}.transport="tcp"
 	uci set v2ray_server.${1}.tcp_guise="none"
