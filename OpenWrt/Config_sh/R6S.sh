@@ -379,7 +379,7 @@ echo "${Sub_lis}" | tr '|' '\n' | while read -r list; do
 	count=$(( count + 1 ))
 	if [ -z "$(echo "${Data}" | grep "$(AES_D "${list}")")" ]; then
 		uci_id="$(uci add openclash config_subscribe)"
-		uci set openclash.${uci_id}.enabled="1"
+		uci set openclash.${uci_id}.enabled="0"
 		uci set openclash.${uci_id}.name="Clash_${count}"
 		uci set openclash.${uci_id}.address="$(AES_D "${list}")"
 		uci set openclash.${uci_id}.sub_ua="clash-ninja/openwrt"
