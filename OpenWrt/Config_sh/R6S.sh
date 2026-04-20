@@ -163,11 +163,6 @@ fi
 }
 
 function bypass() {
-# 获取配置
-url_path="/etc/bypass/white.list"
-Data=$(uci -q get bypass.@server_subscribe[0].subscribe_url)
-list_IP=$(uci -q get bypass.@access_control[0].lan_ac_ips)
-list_URL=$(cat "${url_path}" 2> /dev/null)
 # 启用自动切换
 uci set bypass.@global[0].enable_switch="1"
 # 国外DNS
@@ -180,41 +175,36 @@ uci set bypass.@server_subscribe[0].auto_update_time="2"
 uci set bypass.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
 # 订阅新节点故障转移 （1转移 ：0不转移）
 uci set bypass.@server_subscribe[0].switch="0"
-# 订阅URL地址
-for list in ${Sub_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
+# 添加订阅
+Data=$(uci -q get bypass.@server_subscribe[0].subscribe_url)
+echo "${Sub_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
 		uci add_list bypass.@server_subscribe[0].subscribe_url="$(AES_D "${list}")"
 	fi
 done
 # 直连域名
-for list in ${URL_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
+url_path="/etc/bypass/white.list"
+echo "${URL_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
+	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set bypass.@access_control[0].lan_ac_mode='b'
-for list in ${IP_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
-	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
+list_IP=$(uci -q get bypass.@access_control[0].lan_ac_ips)
+echo "${IP_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
+	if [ -z "$(echo ${list_IP} | grep "${list}")" ]; then
 		uci add_list bypass.@access_control[0].lan_ac_ips="${list}"
 	fi
 done
 }
 
 function vssr() {
-# 获取配置
-url_path="/etc/vssr/white.list"
-Data=$(uci -q get vssr.@server_subscribe[0].subscribe_url)
-list_IP=$(uci -q get vssr.@access_control[0].lan_ac_ips)
-list_URL=$(cat "${url_path}" 2> /dev/null)
 # 启用自动切换
 uci set vssr.@global[0].enable_switch="1"
 # 更新时间
@@ -222,40 +212,36 @@ uci set vssr.@server_subscribe[0].auto_update="1"
 uci set vssr.@server_subscribe[0].auto_update_time="2"
 # 关键字保留
 uci set vssr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
-# 订阅URL地址
-for list in ${Sub_list}
-do
-	[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ] || continue
+# 添加订阅
+Data=$(uci -q get vssr.@server_subscribe[0].subscribe_url)
+echo "${Sub_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
 		uci add_list vssr.@server_subscribe[0].subscribe_url="$(AES_D "${list}")"
 	fi
 done
 # 直连域名
-for list in ${URL_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
+url_path="/etc/vssr/white.list"
+echo "${URL_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
+	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set vssr.@access_control[0].lan_ac_mode='b'
-for list in ${IP_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
-	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
+list_IP=$(uci -q get vssr.@access_control[0].lan_ac_ips)
+echo "${IP_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
+	if [ -z "$(echo ${list_IP} | grep "${list}")" ]; then
 		uci add_list vssr.@access_control[0].lan_ac_ips="${list}"
 	fi
 done
 }
 
 function homeproxy() {
-# 获取配置
-url_path="/etc/homeproxy/resources/direct_list.txt"
-Data=$(uci -q get homeproxy.subscription.subscription_url)
-list_IP=$(uci -q get homeproxy.control.lan_direct_ipv4_ips)
-list_URL=$(cat "${url_path}" 2> /dev/null)
 # 是否支持ipv6 0.关闭
 uci set homeproxy.config.ipv6_support='0'
 # 更新时间
@@ -268,7 +254,6 @@ uci set homeproxy.config.china_dns_server="wan"
 # 包封装格式 {xudp}(Xray-core) {packetaddr}(v2ray-core)
 # uci set homeproxy.subscription.packet_encoding='xudp'
 # 关键字保留删除
-IFS=" " # 分割符变量
 uci set homeproxy.subscription.filter_nodes="whitelist"
 Keywords=$(uci -q get homeproxy.subscription.filter_keywords | tr  '|' '@' | tr  ' ' '|')
 for keywords in $(uci -q get homeproxy.subscription.filter_keywords)
@@ -276,49 +261,41 @@ do
 	# echo ${keywords}
 	uci del_list homeproxy.subscription.filter_keywords="${keywords}"
 done
-IFS="|" # 分割符变量
 uci add_list homeproxy.subscription.filter_keywords="V3|香港|台湾|日本|韩国|HK|YW|JP"
-# 订阅URL地址
-for list in ${Sub_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
+# 添加订阅
+Data=$(uci -q get homeproxy.subscription.subscription_url)
+echo "${Sub_list}" | while IFS='|' read -r list; do
+	data=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
 		uci add_list homeproxy.subscription.subscription_url="$(AES_D "${list}")"
 	fi
 done
 # 直连域名
-for list in ${URL_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
+url_path="/etc/homeproxy/resources/direct_list.txt"
+echo "${URL_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
+	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set homeproxy.control.lan_proxy_mode='except_listed'
-for list in ${IP_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
-	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
+list_IP=$(uci -q get homeproxy.control.lan_direct_ipv4_ips)
+echo "${IP_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
+	if [ -z "$(echo ${list_IP} | grep "${list}")" ]; then
 		uci add_list homeproxy.control.lan_direct_ipv4_ips="${list}"
 	fi
 done
 }
 
 function passwall() {
-url_path="/usr/share/passwall/rules/direct_host"
-ip_path="/usr/share/passwall/rules/direct_ip"
-list_URL=$(cat "${url_path}" 2> /dev/null)
-list_IP=$(cat "${ip_path}" 2> /dev/null)
-Data=$(uci -q show passwall | grep "passwall.@subscribe_list.*.url=")
 Save_words="V3|香港|台湾|日本|韩国|HK|YW|JP"
-num1=0
 # 更改DNS
 uci set passwall.@global[].remote_dns='8.8.8.8'
 # 关键字删除
-IFS=" " # 分割符变量
 uci set passwall.@global_subscribe[].filter_keyword_mode='0'
 Keywords=$(uci -q get passwall.@global_subscribe[].filter_discard_list | tr  '|' '@' | tr  ' ' '|')
 for keywords in $(uci -q get passwall.@global_subscribe[].filter_discard_list)
@@ -326,15 +303,17 @@ do
 	# echo ${keywords}
 	uci del_list passwall.@global_subscribe[].filter_discard_list="${keywords}"
 done
-IFS="|" # 分割符变量
-# 订阅URL地址
-for data in ${Sub_list}
-do
-	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
+# 添加订阅
+Data=$(uci -q show passwall | grep "passwall.@subscribe_list.*.url=")
+num1=0
+echo "${Sub_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
+	if [ -z "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
 		num1=`expr $num1 + 1`
 		uci_id="$(uci add passwall subscribe_list)"
 		uci set passwall.${uci_id}.remark="订阅_${num1}"
-		uci set passwall.${uci_id}.url="$(AES_D "${data}")"
+		uci set passwall.${uci_id}.url="$(AES_D "${list}")"
 		uci set passwall.${uci_id}.allowInsecure='0'
 		uci set passwall.${uci_id}.filter_keyword_mode='2'
 		uci set passwall.${uci_id}.ss_type='global'
@@ -355,23 +334,22 @@ do
 	fi	
 done
 # 直连域名
-for list in ${URL_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
+url_path="/usr/share/passwall/rules/direct_host"
+echo "${URL_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
+	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
-for list in ${IP_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
+ip_path="/usr/share/passwall/rules/direct_ip"
+echo "${IP_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	[ $(tail -c1 "${ip_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${ip_path}"
-	[ -n "$(echo ${list_IP} | grep "${list}")" ] || echo "${list}" >> "${ip_path}"
+	[ -n "$(cat "${ip_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${ip_path}"
 done
 }
-
 
 function shadowsocksr() {
 # 获取配置
@@ -381,20 +359,17 @@ uci set shadowsocksr.@server_subscribe[0].auto_update="1"
 uci set shadowsocksr.@server_subscribe[0].auto_update_time="2"
 # 关键字保留
 uci set shadowsocksr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
-# 订阅URL地址
-for data in ${Sub_list}
-do
-	[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ] || continue
-	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
-		uci add_list shadowsocksr.@server_subscribe[0].subscribe_url="$(AES_D "${data}")"
+# 添加订阅
+echo "${Sub_list}" | while IFS='|' read -r list; do
+	data=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
+	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
+		uci add_list shadowsocksr.@server_subscribe[0].subscribe_url="$(AES_D "${list}")"
 	fi
 done
 }
 
 function openclash() {
-url_path="/etc/openclash/custom/openclash_custom_domain_dns.list"
-Data="$(uci -q show openclash)"
-count="0"
 #更新订阅
 #uci set openclash.config.auto_update="1"
 #uci set openclash.config.config_update_week_time="*"
@@ -409,15 +384,17 @@ uci set openclash.config.intranet_allowed="1"
 uci set openclash.config.enable_redirect_dns="1"
 uci set openclash.config.enable_custom_domain_dns_server="1"
 # 添加订阅
-# $(echo "${data}" | sed "s|htt.*://\(.*\)\..*|\1|g") //取网址
-for data in ${Sub_list}
-do
+Data="$(uci -q show openclash)"
+count="0"
+echo "${Sub_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	count=$(( count + 1 ))
-	if [ -z "$(echo "${data}" | grep "Clash_${count}")" ]; then
+	if [ -z "$(echo "${Data}" | grep "$(AES_D "${list}")")" ]; then
 		uci_id="$(uci add openclash config_subscribe)"
 		uci set openclash.${uci_id}.enabled="1"
 		uci set openclash.${uci_id}.name="Clash_${count}"
-		uci set openclash.${uci_id}.address="$(AES_D "${data}")"
+		uci set openclash.${uci_id}.address="$(AES_D "${list}")"
 		uci set openclash.${uci_id}.sub_ua="clash-ninja/openwrt"
 		uci set openclash.${uci_id}.sub_convert="0"
 		uci add_list openclash.${uci_id}.keyword="V3"
@@ -425,12 +402,12 @@ do
 	fi
 done
 # 直连域名
-for list in ${URL_list}
-do
-	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[ -n "${list}" ] || continue
+url_path="/etc/openclash/custom/openclash_custom_domain_dns.list"
+echo "${URL_list}" | while IFS='|' read -r list; do
+	list=$(echo "${list}" | tr -d ' \n')
+	[ -z "${list}" ] && continue
 	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
+	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 }
 
@@ -441,20 +418,18 @@ if [ -n "$(uci -q get network.MODE)" ]; then
 		uci add_list firewall.@zone[1].network="MODE"
 	fi
 fi
-for data  in ${Firewall}
-do
-	data=$(echo ${data} | tr -d " " | tr -d "\n")
-	[ -n "${data}" ] || continue
-	name="$(echo ${data} | awk -F: '{print $1}' | tr -d "\n")"
-	ip="$(echo ${data} | awk -F: '{print $2}' | tr -d "\n")"
-	enabled="$(echo ${data} | awk -F: '{print $3}' | tr -d "\n")"
-	lan="$(echo ${data} | awk -F: '{print $4}' | tr -d "\n")"
+echo "$Firewall" | while IFS='|' read -r data; do
+    data=$(echo "${data}" | tr -d ' \n')
+	[ -z "${data}" ] && continue
+	name="$(echo ${data} | awk -F: '{printf "%s",$1}')"
+	ip="$(echo ${data} | awk -F: '{printf "%s",$2}')"
+	enabled="$(echo ${data} | awk -F: '{printf "%s",$3}')"
+	lan="$(echo ${data} | awk -F: '{printf "%s",$4}')"
 	if [ $(echo ${data} | grep -o ":" | wc -l) -ge 4 ]; then
-		wan="$(echo ${data} | awk -F: '{print $5}' | tr -d "\n")"
+		wan="$(echo ${data} | awk -F: '{printf "%s",$5}')"
 	else
 		wan="${lan}"
 	fi
-	
 	if [ ! -n "$(echo ${Data} | grep "src_dport='${wan}'")" ]; then
 		# echo "${name} | ${ip} | ${enabled} | ${lan} | ${wan}"
 		uci_id="$(uci add firewall redirect)"
