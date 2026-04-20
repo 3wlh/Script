@@ -36,17 +36,17 @@ ADB: 10.10.10.100 :false: 5555 |"
 # 卸载插件
 Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
 # 配置名称
-Config="network dhcp firewall fstab ddns ddns-go unishare v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr filebrowser sunpanel alist openlist"
+Config="network dhcp firewall fstab v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr"
 }
 
 function Password(){ #解密函数
-[[ -n "${key}" ]] || key=$(ip -o link show eth0 | grep -Eo "permaddr ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})" |awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24 | grep -v "8f00b204e9800998")
-[[ -n "${key}" ]] || key=$(cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
+[ -n "${key}" ] || key=$(ip -o link show eth0 | grep -Eo "permaddr ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})" |awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24 | grep -v "8f00b204e9800998")
+[ -n "${key}" ] || key=$(cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
 echo -e "\e[1;31mKey:\e[0m\e[35m ${key} \e[0m"
 }
 
 function AES_D(){ #解密函数
-[[ -z "$1" ]] || echo "$1" | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -base64 -d 2>/dev/null
+[ -z "$1" ] || echo "$1" | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -base64 -d 2>/dev/null
 }
 
 function opkg_unload() {
@@ -184,7 +184,7 @@ uci set bypass.@server_subscribe[0].switch="0"
 for list in ${Sub_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
+	[ -n "${list}" ] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
 		uci add_list bypass.@server_subscribe[0].subscribe_url="$(AES_D "${list}")"
 	fi
@@ -193,16 +193,16 @@ done
 for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
-	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
-	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
+	[ -n "${list}" ] || continue
+	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
+	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set bypass.@access_control[0].lan_ac_mode='b'
 for list in ${IP_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
+	[ -n "${list}" ] || continue
 	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
 		uci add_list bypass.@access_control[0].lan_ac_ips="${list}"
 	fi
@@ -225,7 +225,7 @@ uci set vssr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/
 # 订阅URL地址
 for list in ${Sub_list}
 do
-	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
+	[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
 		uci add_list vssr.@server_subscribe[0].subscribe_url="$(AES_D "${list}")"
 	fi
@@ -234,16 +234,16 @@ done
 for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
-	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
-	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
+	[ -n "${list}" ] || continue
+	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
+	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set vssr.@access_control[0].lan_ac_mode='b'
 for list in ${IP_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
+	[ -n "${list}" ] || continue
 	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
 		uci add_list vssr.@access_control[0].lan_ac_ips="${list}"
 	fi
@@ -282,7 +282,7 @@ uci add_list homeproxy.subscription.filter_keywords="V3|香港|台湾|日本|韩
 for list in ${Sub_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
+	[ -n "${list}" ] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
 		uci add_list homeproxy.subscription.subscription_url="$(AES_D "${list}")"
 	fi
@@ -291,16 +291,16 @@ done
 for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
-	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
-	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
+	[ -n "${list}" ] || continue
+	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
+	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 uci set homeproxy.control.lan_proxy_mode='except_listed'
 for list in ${IP_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
+	[ -n "${list}" ] || continue
 	if [ ! -n "$(echo ${list_IP} | grep "${list}")" ]; then
 		uci add_list homeproxy.control.lan_direct_ipv4_ips="${list}"
 	fi
@@ -358,17 +358,17 @@ done
 for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
-	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
-	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
+	[ -n "${list}" ] || continue
+	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
+	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 # 直连IP
 for list in ${IP_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
-	[[ $(tail -c1 "${ip_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${ip_path}"
-	[[ -n "$(echo ${list_IP} | grep "${list}")" ]] || echo "${list}" >> "${ip_path}"
+	[ -n "${list}" ] || continue
+	[ $(tail -c1 "${ip_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${ip_path}"
+	[ -n "$(echo ${list_IP} | grep "${list}")" ] || echo "${list}" >> "${ip_path}"
 done
 }
 
@@ -384,7 +384,7 @@ uci set shadowsocksr.@server_subscribe[0].save_words="V3/香港/台湾/日本/�
 # 订阅URL地址
 for data in ${Sub_list}
 do
-	[[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ]] || continue
+	[ -n "$(echo ${data} | tr -d " " | tr -d "\n")" ] || continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
 		uci add_list shadowsocksr.@server_subscribe[0].subscribe_url="$(AES_D "${data}")"
 	fi
@@ -428,9 +428,9 @@ done
 for list in ${URL_list}
 do
 	list="$(echo ${list} | tr -d " " | tr -d "\n")"
-	[[ -n "${list}" ]] || continue
-	[[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ]] || echo "" >> "${url_path}"
-	[[ -n "$(echo ${list_URL} | grep "${list}")" ]] || echo "${list}" >> "${url_path}"
+	[ -n "${list}" ] || continue
+	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
+	[ -n "$(echo ${list_URL} | grep "${list}")" ] || echo "${list}" >> "${url_path}"
 done
 }
 
@@ -444,7 +444,7 @@ fi
 for data  in ${Firewall}
 do
 	data=$(echo ${data} | tr -d " " | tr -d "\n")
-	[[ -n "${data}" ]] || continue
+	[ -n "${data}" ] || continue
 	name="$(echo ${data} | awk -F: '{print $1}' | tr -d "\n")"
 	ip="$(echo ${data} | awk -F: '{print $2}' | tr -d "\n")"
 	enabled="$(echo ${data} | awk -F: '{print $3}' | tr -d "\n")"
@@ -507,76 +507,6 @@ fi
 uci set network.wan.ipv6="auto"
 }
 
-function fstab() {
-# 自动挂载未配置的Swap
-uci set fstab.@global[0].anon_swap="0"
-# 自动挂载未配置的磁盘
-uci set fstab.@global[0].anon_mount="0"
-# 自动挂载交换分区
-uci set fstab.@global[0].auto_swap="0"
-# 自动挂载磁盘
-uci set fstab.@global[0].auto_mount="1"
-# 创建共享目录
-if [ ! -d "/mnt/Share" ]; then
-    mkdir -p /mnt/Share
-fi
-# 添加挂载
-for data  in ${Fstab}
-do
-	data=$(echo ${data} | tr -d " " | tr -d "\n")
-	[[ -n "${data}" ]] || continue
-	dir="$(echo ${data} | awk -F: '{print $1}')"
-	uuid="$(echo ${data} | awk -F: '{print $2}')"
-	uci_id="$(uci -q show fstab | grep -Eo "^fstab\.@mount.*uuid='${uuid}'" | grep -Eo "^fstab\.@mount.*\]")"
-	if [ -z "${uci_id}" ]; then
-		# echo "${dir} | ${uuid}"
-		uci_id="$(uci add fstab mount)"
-		uci set fstab.${uci_id}.target="${dir}"
-		uci set fstab.${uci_id}.uuid="${uuid}"
-		uci set fstab.${uci_id}.enabled="1"
-	else
-		uci set ${uci_id}.target="${dir}"
-		uci set ${uci_id}.enabled="1"
-	fi
-	# 创建共享链接
-	if [ ! -L "/mnt/Share/${dir##*/}" ]; then
-		ln -s ${dir} /mnt/Share/
-	fi
-done
-}
-
-function unishare() {
-Data="$(uci -q show unishare)"
-uci set unishare.@global[0].enabled="1"
-# 匿名用户
-uci set unishare.@global[0].anonymous="0"
-# webdav端口
-uci set unishare.@global[0].webdav_port="8888"
-# 添加用户
-if [ ! -n "$(echo ${Data} | grep "$(AES_D "EGX0weODHB3uaL5bfaZuWA==")")" ]; then
-	uci_id="$(uci add unishare user)"
-	uci set unishare.${uci_id}.username="$(AES_D "EGX0weODHB3uaL5bfaZuWA==")"
-	uci set unishare.${uci_id}.password="$(AES_D "WyeTXXm2t8gtxOgDfZH2eQ==")"	
-fi
-# 添加共享
-for data  in ${Share}
-do
-	data=$(echo ${data} | tr -d " " | tr -d "\n")
-	[[ -n "${data}" ]] || continue
-	dir="$(echo ${data} | awk -F: '{print $1}')"
-	name="$(echo ${data} | awk -F: '{print $2}')"
-	if [ ! -n "$(echo ${Data} | grep "${dir}")" ]; then
-		# echo "${ip} | ${name}"
-		uci_id="$(uci add unishare share)"
-		uci set unishare.${uci_id}.path="${dir}"
-		uci set unishare.${uci_id}.name="${name}"
-		uci add_list unishare.${uci_id}.rw="users"
-		uci add_list unishare.${uci_id}.proto="samba"
-		uci add_list unishare.${uci_id}.proto="webdav"
-	fi
-done
-}
-
 function filebrowser() {
 # uci set filebrowser.config.enabled="1"
 uci set filebrowser.@global[0].enable="1"
@@ -590,31 +520,6 @@ uci set filebrowser.@global[0].root_path="/mnt/Share"
 uci set filebrowser.@global[0].project_directory="/usr/bin"
 # 禁用命令执行功能
 # uci set filebrowser.config.disable_exec="1"
-}
-
-function sunpanel() {
-uci set sunpanel.@sunpanel[0].enabled="1"
-# 网页端口
-uci set sunpanel.@sunpanel[0].port="88"
-# 数据目录
-uci set sunpanel.@sunpanel[0].config_path="/mnt/SD/Configs/SunPanel"
-}
-
-function alist() {
-uci set alist.@alist[0].enabled='1'
-# 创建连接
-if [ -L "/etc/alist" ] || [ -d "/etc/alist" ]; then
-	rm -fr "/etc/alist"
-fi
-ln -s /mnt/SD/Configs/alist /etc
-}
-
-function openlist() {
-uci set openlist.@openlist[0].enabled='1'
-if [ -L "/etc/openlist" ] || [ -d "/etc/openlist" ]; then
-	rm -fr "/etc/openlist"
-fi
-ln -s /mnt/SD/Configs/openlist /etc
 }
 
 #========函数入口========
