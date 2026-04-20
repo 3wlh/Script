@@ -69,107 +69,42 @@ echo "${URL_list}" | tr '|' '\n' | while read -r domain; do
 done
 }
 
-function ddns() {
-# 删除myddns_ipv4
-uci -q delete ddns.myddns_ipv4
-# 删除myddns_ipv6
-uci -q delete ddns.myddns_ipv6	
-# aliyun
-uci set ddns.aliyun=service
-uci set ddns.aliyun.service_name="aliyun.com"
-uci set ddns.aliyun.use_ipv6="0"
-uci set ddns.aliyun.enabled="0"
-uci set ddns.aliyun.lookup_host="3wlh.cn"
-uci set ddns.aliyun.domain="3wlh.cn"
-uci set ddns.aliyun.username="$(AES_D "Uv6Isu3WHAjgLjytxHD3uyR/JKwPRaxfVBN+OeWwZiY=")"
-uci set ddns.aliyun.password="$(AES_D "Lp7X9urVlBuQXNEzdUqRCNYlHJ2uWa77PN08NuSJ7vQGh48pSE/BEQXmqX9n77E2")"
-uci set ddns.aliyun.ip_source="network"
-uci set ddns.aliyun.ip_network="wan"
-uci set ddns.aliyun.interface="wan"
-uci set ddns.aliyun.use_syslog="2"
-uci set ddns.aliyun.check_interval="5"
-uci set ddns.aliyun.check_unit="minutes"
-uci set ddns.aliyun.force_interval="2"
-uci set ddns.aliyun.force_unit="days"
-# uci set ddns.aliyun.retry_interval="1"
-# uci set ddns.aliyun.retry_unit="minutes"
-# cloudflare
-uci set ddns.cloudflare=service
-uci set ddns.cloudflare.service_name="cloudflare.com-v4"
-uci set ddns.cloudflare.use_ipv6="0"
-uci set ddns.cloudflare.enabled="0"
-uci set ddns.cloudflare.lookup_host="19970101.xyz"
-uci set ddns.cloudflare.domain="19970101.xyz"
-uci set ddns.cloudflare.username="Bearer"
-uci set ddns.cloudflare.password="$(AES_D "ND/hE8YwYu7T+Dza9M/e7LklbCIvKhQw97K8VJU1EydS6GxrBOb1o5fh5YZHIM+6")"
-uci set ddns.cloudflare.ip_source="network"
-uci set ddns.cloudflare.ip_network="wan"
-uci set ddns.cloudflare.interface="wan"
-uci set ddns.cloudflare.use_syslog="2"
-uci set ddns.cloudflare.check_interval="5"
-uci set ddns.cloudflare.check_unit="minutes"
-uci set ddns.cloudflare.force_interval="2"
-uci set ddns.cloudflare.force_unit="days"
-# uci set ddns.cloudflare.retry_interval="1"
-# uci set ddns.cloudflare.retry_unit="minutes"
+function mddns() {
+uci set mddns.config.enabled="1"
+uci set mddns.config.online_config="https://cnb.cool/3wlh/Script/-/git/raw/main/OpenWrt/mddns/config.json"
 }
 
-function ddns-go() {
-uci set ddns-go.config.enabled='1'
-ddns_url="http://3wlh.github.io/Script/OpenWrt/ddns-go/config.key"
-test -d "/etc/ddns-go" || mkdir -p "/etc/ddns-go"
-wget -qO "/etc/ddns-go/$(basename ${ddns_url})" "${ddns_url}" --show-progress
-if [ "$(du -b "/etc/ddns-go/$(basename ${ddns_url})" 2>/dev/null | awk '{print $1}')" -ge "2000" ]; then
-	openssl aes-128-cbc -d -in "/etc/ddns-go/config.key" -base64 -out "/etc/ddns-go/config.yaml" -k ${key} 2>/dev/null
-	chown -R ddns-go:root "/etc/ddns-go"
-fi
+function v2ray_config() { #v2ray_server配置函数
+uuid="64iOHzGUb4ndh9kuxyEdLunzaiFkzNd8nOOROnv7MWqMTSw/YvzqvS78SDodQ7Db"
+if [ ! -n "$(uci -q get v2ray_server.${1})" ]; then
+	uci set  v2ray_server.${1}="user"
+	uci set v2ray_server.${1}.enable="1"
+	uci set v2ray_server.${1}.remarks="${2}"
+	uci set v2ray_server.${1}.protocol="${3}"
+	uci set v2ray_server.${1}.port="${4}"
+	if [ "${3}" == "vless" ] || [ "${3}" == "vmess" ]; then
+		[ "${3}" == "vless" ] && uci set v2ray_server.${1}.decryption="none"
+		uci add_list v2ray_server.${1}.uuid="$(AES_D "${uuid}")"
+		[ "${3}" == "vmess" ] &&  uci set v2ray_server.${1}.alter_id="16"
+		uci set v2ray_server.${1}.level="1"
+	fi
+	if [ "${3}" == "socks" ]; then
+		uci set v2ray_server.${1}.auth="1"
+		uci set v2ray_server.${1}.username="$(AES_D "hJxYB5UfmX5fkt6B0KCwrg==")"
+		uci set v2ray_server.${1}.password="$(AES_D "v+SXp3gpBanHTGxeahxrRA==")"
+	fi
+	uci set v2ray_server.${1}.tls="0"
+	uci set v2ray_server.${1}.transport="tcp"
+	uci set v2ray_server.${1}.tcp_guise="none"
+	uci set v2ray_server.${1}.accept_lan="1"
+fi	
 }
 
 function v2ray_server() {
-uuid="64iOHzGUb4ndh9kuxyEdLunzaiFkzNd8nOOROnv7MWqMTSw/YvzqvS78SDodQ7Db"
-uci set v2ray_server.@global[0].enable=1
-if [ ! -n "$(uci -q get v2ray_server.293af8e569f3446d92ff5cd9ce332ba8)" ]; then
-	uci set  v2ray_server.293af8e569f3446d92ff5cd9ce332ba8="user"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.enable="1"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.remarks="Home_VLESS"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.protocol="vless"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.port="4333"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.decryption="none"
-	uci add_list v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.uuid="$(AES_D "${uuid}")"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.level="1"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.tls="0"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.transport="tcp"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.tcp_guise="none"
-	uci set v2ray_server.293af8e569f3446d92ff5cd9ce332ba8.accept_lan="1"
-fi
-if [ ! -n "$(uci -q get v2ray_server.ed6e87dd84844c9d9881872a1c660725)" ]; then
-	uci set  v2ray_server.ed6e87dd84844c9d9881872a1c660725="user"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.enable="1"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.remarks="Home_VMESS"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.protocol="vmess"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.port="4334"
-	uci add_list v2ray_server.ed6e87dd84844c9d9881872a1c660725.uuid="$(AES_D "${uuid}")"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.alter_id="16"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.level="1"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.tls="0"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.transport="tcp"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.tcp_guise="none"
-	uci set v2ray_server.ed6e87dd84844c9d9881872a1c660725.accept_lan="1"
-fi
-if [ ! -n "$(uci -q get v2ray_server.f70129045dee489793b400ddd7af5687)" ]; then
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687="user"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.enable="1"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.remarks="Home_Socks"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.protocol="socks"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.port="4335"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.auth="1"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.username="$(AES_D "hJxYB5UfmX5fkt6B0KCwrg==")"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.password="$(AES_D "v+SXp3gpBanHTGxeahxrRA==")"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.tls="0"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.transport="tcp"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.tcp_guise="none"
-	uci set v2ray_server.f70129045dee489793b400ddd7af5687.accept_lan="1"
-fi
+uci set v2ray_server.@global[0].enable="1"
+v2ray_config "293af8e569f3446d92ff5cd9ce332ba8" "Home_VLESS" "vless" "4333"
+v2ray_config "ed6e87dd84844c9d9881872a1c660725" "Home_VMESS" "vmess" "4334"
+v2ray_config "f70129045dee489793b400ddd7af5687" "Home_Socks" "socks" "4335"
 }
 
 function bypass() {
