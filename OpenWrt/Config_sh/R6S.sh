@@ -412,8 +412,8 @@ uci set openclash.config.enable_custom_domain_dns_server="1"
 # $(echo "${data}" | sed "s|htt.*://\(.*\)\..*|\1|g") //取网址
 for data in ${Sub_list}
 do
-	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${data}")")" ]; then
-		count=$(( count + 1 ))
+	count=$(( count + 1 ))
+	if [ ! -n "$(echo ${Data} | grep "Clash_${count}" ]; then
 		uci_id="$(uci add openclash config_subscribe)"
 		uci set openclash.${uci_id}.enabled="1"
 		uci set openclash.${uci_id}.name="Clash_${count}"
@@ -421,7 +421,7 @@ do
 		uci set openclash.${uci_id}.sub_ua="clash-ninja/openwrt"
 		uci set openclash.${uci_id}.sub_convert="0"
 		uci add_list openclash.${uci_id}.keyword="V3"
-		uci add_list openclash.${uci_id}.keyword="香港|HK|台湾|TW|日本|JP|韩国|KR"
+		uci add_list openclash.${uci_id}.keyword="香港|台湾|日本|韩国|HK|TW|JP|KR"
 	fi
 done
 # 直连域名
