@@ -1,5 +1,4 @@
 #!/bin/bash
-
 key="${1}"
 function init {
 echo -e "\e[1;36m初始化配置变量\e[0m"
@@ -16,8 +15,9 @@ Config="fstab unishare sunpanel cloudflared openlist openlist2 frp dockerd"
 }
 
 function Password(){
-[[ -n "${key}" ]] || key=$(ip -o link show eth0 | grep -Eo "permaddr ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})" |awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24 | grep -v "8f00b204e9800998")
-[[ -n "${key}" ]] || key=$(cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
+mac="$(ip -o link show eth0 2>/dev/null | grep -Eo 'permaddr ([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}' | awk '{print $NF}')"
+[ -z "${mac}" ] && mac="$(cat /sys/class/net/eth0/address 2>/dev/null)"
+[ -n "${mac}" ] && key="$(echo -n "${mac}" | md5sum | awk '{print $1}' | cut -c9-24)"
 echo -e "\e[1;31mKey:\e[0m\e[35m ${key} \e[0m"
 }
 
@@ -39,12 +39,11 @@ if [ ! -d "/mnt/Share" ]; then
     mkdir -p /mnt/Share
 fi
 # 添加挂载
-for data  in ${Fstab}
-do
-	data=$(echo ${data} | tr -d " " | tr -d "\n")
+echo "${Fstab}" | while IFS='|' read -r data; do
+	data=$(echo ${data} | tr -d ' \n')
 	[[ -n "${data}" ]] || continue
-	dir="$(echo ${data} | awk -F: '{print $1}')"
-	uuid="$(echo ${data} | awk -F: '{print $2}')"
+	dir="$(echo ${data} | awk -F: '{printf "%s",$1}')"
+	uuid="$(echo ${data} | awk -F: '{printf "%s",$2}')"
 	uci_id="$(uci -q show fstab | grep -Eo "^fstab\.@mount.*uuid='${uuid}'" | grep -Eo "^fstab\.@mount.*\]")"
 	if [ -z "${uci_id}" ]; then
 		# echo "${dir} | ${uuid}"
@@ -77,14 +76,12 @@ if [ ! -n "$(echo ${Data} | grep "$(AES_D "m3XpP/wTU5A6CztJKgOkiw==")")" ]; then
 	uci set unishare.${uci_id}.password="$(AES_D "QuEQ+o09m+be88boCYodQA==")"	
 fi
 # 添加共享
-for data  in ${Share}
-do
-	data=$(echo ${data} | tr -d " " | tr -d "\n")
-	[[ -n "${data}" ]] || continue
-	dir="$(echo ${data} | awk -F: '{print $1}')"
-	name="$(echo ${data} | awk -F: '{print $2}')"
+echo "${Share}" | while IFS='|' read -r data; do
+    data=$(echo "${data}" | tr -d ' \n')
+	[ -z "${data}" ] && continue
+	dir="$(echo ${data} | awk -F: '{printf "%s",$1}')"
+	name="$(echo ${data} | awk -F: '{printf "%s",$2}')"
 	if [ ! -n "$(echo ${Data} | grep "${dir}")" ]; then
-		# echo "${ip} | ${name}"
 		uci_id="$(uci add unishare share)"
 		uci set unishare.${uci_id}.path="${dir}"
 		uci set unishare.${uci_id}.name="${name}"
@@ -164,10 +161,9 @@ fi
 
 (cd / && {
 init # 初始化脚本
-Password # 获取key
-IFS="|" # 分割符变量
+[ -z "${key}" ] && Password # 获取key
 echo -e "\e[1;32m结果:\e[0m"
-for func in $(echo ${Config} | tr " " "|")
+for func in $(echo ${Config})
 do
 	#echo ${func}
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"

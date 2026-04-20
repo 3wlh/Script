@@ -36,12 +36,13 @@ ADB: 10.10.10.100 :false: 5555 |"
 # 卸载插件
 Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
 # 配置名称
-Config="network dhcp firewall fstab v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr"
+Config="network dhcp firewall v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr"
 }
 
 function Password(){ #解密函数
-[ -n "${key}" ] || key=$(ip -o link show eth0 | grep -Eo "permaddr ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})" |awk '{print $NF}' | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24 | grep -v "8f00b204e9800998")
-[ -n "${key}" ] || key=$(cat /sys/class/net/eth0/address | tr -d '\n' | md5sum | awk '{print $1}' | cut -c9-24)
+mac="$(ip -o link show eth0 2>/dev/null | grep -Eo 'permaddr ([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}' | awk '{print $NF}')"
+[ -z "${mac}" ] && mac="$(cat /sys/class/net/eth0/address 2>/dev/null)"
+[ -n "${mac}" ] && key="$(echo -n "${mac}" | md5sum | awk '{print $1}' | cut -c9-24)"
 echo -e "\e[1;31mKey:\e[0m\e[35m ${key} \e[0m"
 }
 
@@ -446,8 +447,6 @@ echo "$Firewall" | while IFS='|' read -r data; do
 done
 }
 
-
-
 function dhcp() {
 Data="$(uci -q show dhcp)"
 # 删除 DHCPv6 服务
@@ -500,7 +499,7 @@ uci set filebrowser.@global[0].project_directory="/usr/bin"
 #========函数入口========
 (cd / && {
 init # 初始化脚本
-Password # 获取key
+[ -z "${key}" ] && Password # 获取key
 echo -e "\e[1;32m结果:\e[0m"
 for func in $(echo ${Config})
 do
