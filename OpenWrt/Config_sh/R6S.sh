@@ -18,20 +18,14 @@ Sub_list="Dow4mIXKWbWKvxsD4++LQ3eofoBRLP0lJyXIQpJT6XA="
 URL_list="cloudflare.com | spaceship.com | openwrt.ai | age.tv"
 IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
 # 防火墙：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
-Firewall="V2ray : 10.10.10.254 :: 4333-4335 |
+Firewall="
 OpenWrt_WEB : 10.10.10.254 :: 80 : 8 |
+V2ray : 10.10.10.254 :: 4333-4335 |
 ASUS_WEB : 10.10.10.253 :: 80 : 6 |
-DS918+_WEB : 10.10.10.252 :: 80 : 2 |
-5Plus_WEB : 10.10.10.5 : false : 80 : 5 |
-Page : 10.10.10.254 :: 88 |
+FN_WEB : 10.10.10.250 ::5666|
+Page : 10.10.10.250 :: 8080 : 88 |
 Power_WEB : 10.10.10.8 : false : 80 : 4 |
-DS918+_SMB : 10.10.10.252 :: 445 : 4455 |
-DS918+_WebDAV : 10.10.10.252 :: 5005 |
-DS918+_DSM : 10.10.10.252 :: 5000 |
-DS918+_File : 10.10.10.252 ::7000-7001 |
-PVE : 10.10.10.200 :: 8006 |
-VS_Code : 10.10.10.252 :: 8001 |
-Alist : 10.10.10.254 :: 5244 |
+Openlist : 10.10.10.254 :: 5244 |
 ADB: 10.10.10.100 :false: 5555 |"
 # 卸载插件
 Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol"
