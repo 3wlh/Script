@@ -60,6 +60,15 @@ do
 done
 }
 
+function direct_domain() {
+echo "${URL_list}" | tr '|' '\n' | while read -r domain; do
+	list=$(echo "${domain}" | tr -d ' \n')
+	[ -z "${domain}" ] && continue
+	[ $(tail -c1 "${1}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${1}"
+	[ -n "$(cat "${1}" 2> /dev/null | grep "${domain}")" ] || echo "${domain}" >> "${1}"
+done
+}
+
 function ddns() {
 # 删除myddns_ipv4
 uci -q delete ddns.myddns_ipv4
@@ -178,7 +187,7 @@ uci set bypass.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/H
 uci set bypass.@server_subscribe[0].switch="0"
 # 添加订阅
 Data=$(uci -q get bypass.@server_subscribe[0].subscribe_url)
-echo "${Sub_list}" | while IFS='|' read -r list; do
+echo "${Sub_lis}" | tr '|' '\n' | while read -r list; do
 	list=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
@@ -187,16 +196,11 @@ echo "${Sub_list}" | while IFS='|' read -r list; do
 done
 # 直连域名
 url_path="/etc/bypass/white.list"
-echo "${URL_list}" | while IFS='|' read -r list; do
-	list=$(echo "${list}" | tr -d ' \n')
-	[ -z "${list}" ] && continue
-	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
-done
+
 # 直连IP
 uci set bypass.@access_control[0].lan_ac_mode='b'
 list_IP=$(uci -q get bypass.@access_control[0].lan_ac_ips)
-echo "${IP_list}" | while IFS='|' read -r list; do
+echo "${IP_list}" | tr '|' '\n' | while read -r list; do
 	list=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	if [ -z "$(echo ${list_IP} | grep "${list}")" ]; then
@@ -215,7 +219,7 @@ uci set vssr.@server_subscribe[0].auto_update_time="2"
 uci set vssr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
 # 添加订阅
 Data=$(uci -q get vssr.@server_subscribe[0].subscribe_url)
-echo "${Sub_list}" | while IFS='|' read -r list; do
+echo "${Sub_list}" | tr '|' '\n' | while read -r list; do
 	list=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
@@ -223,17 +227,11 @@ echo "${Sub_list}" | while IFS='|' read -r list; do
 	fi
 done
 # 直连域名
-url_path="/etc/vssr/white.list"
-echo "${URL_list}" | while IFS='|' read -r list; do
-	list=$(echo "${list}" | tr -d ' \n')
-	[ -z "${list}" ] && continue
-	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
-done
+direct_domain "/etc/vssr/white.list"
 # 直连IP
 uci set vssr.@access_control[0].lan_ac_mode='b'
 list_IP=$(uci -q get vssr.@access_control[0].lan_ac_ips)
-echo "${IP_list}" | while IFS='|' read -r list; do
+echo "${IP_list}" | tr '|' '\n' | while read -r list; do
 	list=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	if [ -z "$(echo ${list_IP} | grep "${list}")" ]; then
@@ -265,7 +263,7 @@ done
 uci add_list homeproxy.subscription.filter_keywords="V3|香港|台湾|日本|韩国|HK|YW|JP"
 # 添加订阅
 Data=$(uci -q get homeproxy.subscription.subscription_url)
-echo "${Sub_list}" | while IFS='|' read -r list; do
+echo "${Sub_lis}" | tr '|' '\n' | while read -r list; do
 	data=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
@@ -273,17 +271,11 @@ echo "${Sub_list}" | while IFS='|' read -r list; do
 	fi
 done
 # 直连域名
-url_path="/etc/homeproxy/resources/direct_list.txt"
-echo "${URL_list}" | while IFS='|' read -r list; do
-	list=$(echo "${list}" | tr -d ' \n')
-	[ -z "${list}" ] && continue
-	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
-done
+direct_domain "/etc/homeproxy/resources/direct_list.txt"
 # 直连IP
 uci set homeproxy.control.lan_proxy_mode='except_listed'
 list_IP=$(uci -q get homeproxy.control.lan_direct_ipv4_ips)
-echo "${IP_list}" | while IFS='|' read -r list; do
+echo "${IP_list}" | tr '|' '\n' | while read -r list; do
 	list=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	if [ -z "$(echo ${list_IP} | grep "${list}")" ]; then
@@ -307,7 +299,7 @@ done
 # 添加订阅
 Data=$(uci -q show passwall | grep "passwall.@subscribe_list.*.url=")
 num1=0
-echo "${Sub_list}" | while IFS='|' read -r list; do
+echo "${Sub_lis}" | tr '|' '\n' | while read -r list; do
 	list=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	if [ -z "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
@@ -335,16 +327,10 @@ echo "${Sub_list}" | while IFS='|' read -r list; do
 	fi	
 done
 # 直连域名
-url_path="/usr/share/passwall/rules/direct_host"
-echo "${URL_list}" | while IFS='|' read -r list; do
-	list=$(echo "${list}" | tr -d ' \n')
-	[ -z "${list}" ] && continue
-	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
-done
+direct_domain "/usr/share/passwall/rules/direct_host"
 # 直连IP
 ip_path="/usr/share/passwall/rules/direct_ip"
-echo "${IP_list}" | while IFS='|' read -r list; do
+echo "${IP_list}" | tr '|' '\n' | while read -r list; do
 	list=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	[ $(tail -c1 "${ip_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${ip_path}"
@@ -361,7 +347,7 @@ uci set shadowsocksr.@server_subscribe[0].auto_update_time="2"
 # 关键字保留
 uci set shadowsocksr.@server_subscribe[0].save_words="V3/香港/台湾/日本/韩国/HK/YW/JP"
 # 添加订阅
-echo "${Sub_list}" | while IFS='|' read -r list; do
+echo "${Sub_list}" | tr '|' '\n' | while read -r list; do
 	data=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	if [ ! -n "$(echo ${Data} | grep "$(AES_D "${list}")")" ]; then
@@ -387,7 +373,7 @@ uci set openclash.config.enable_custom_domain_dns_server="1"
 # 添加订阅
 Data="$(uci -q show openclash)"
 count="0"
-echo "${Sub_list}" | while IFS='|' read -r list; do
+echo "${Sub_lis}" | tr '|' '\n' | while read -r list; do
 	list=$(echo "${list}" | tr -d ' \n')
 	[ -z "${list}" ] && continue
 	count=$(( count + 1 ))
@@ -403,13 +389,7 @@ echo "${Sub_list}" | while IFS='|' read -r list; do
 	fi
 done
 # 直连域名
-url_path="/etc/openclash/custom/openclash_custom_domain_dns.list"
-echo "${URL_list}" | while IFS='|' read -r list; do
-	list=$(echo "${list}" | tr -d ' \n')
-	[ -z "${list}" ] && continue
-	[ $(tail -c1 "${url_path}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${url_path}"
-	[ -n "$(cat "${url_path}" 2> /dev/null | grep "${list}")" ] || echo "${list}" >> "${url_path}"
-done
+direct_domain "/etc/openclash/custom/openclash_custom_domain_dns.list"
 }
 
 function firewall() {
