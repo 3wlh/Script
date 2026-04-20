@@ -74,6 +74,7 @@ uci set mddns.config.enabled="1"
 uci set mddns.config.online_config="https://cnb.cool/3wlh/Script/-/git/raw/main/OpenWrt/mddns/config.json"
 }
 
+function v2ray_server() {
 function v2ray_config() { #v2ray_server配置函数
 uuid="64iOHzGUb4ndh9kuxyEdLunzaiFkzNd8nOOROnv7MWqMTSw/YvzqvS78SDodQ7Db"
 if [ ! -n "$(uci -q get v2ray_server.${1})" ]; then
@@ -99,8 +100,6 @@ if [ ! -n "$(uci -q get v2ray_server.${1})" ]; then
 	uci set v2ray_server.${1}.accept_lan="1"
 fi	
 }
-
-function v2ray_server() {
 uci set v2ray_server.@global[0].enable="1"
 v2ray_config "293af8e569f3446d92ff5cd9ce332ba8" "Home_VLESS" "vless" "4333"
 v2ray_config "ed6e87dd84844c9d9881872a1c660725" "Home_VMESS" "vmess" "4334"
