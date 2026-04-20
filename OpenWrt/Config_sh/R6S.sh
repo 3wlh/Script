@@ -413,7 +413,7 @@ uci set openclash.config.enable_custom_domain_dns_server="1"
 for data in ${Sub_list}
 do
 	count=$(( count + 1 ))
-	if [ ! -n "$(echo ${Data} | grep "Clash_${count}" ]; then
+	if [ -z "$(echo "${data}" | grep "Clash_${count}")" ]; then
 		uci_id="$(uci add openclash config_subscribe)"
 		uci set openclash.${uci_id}.enabled="1"
 		uci set openclash.${uci_id}.name="Clash_${count}"
