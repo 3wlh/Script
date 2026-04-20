@@ -421,10 +421,7 @@ do
 		uci set openclash.${uci_id}.sub_ua="clash-ninja/openwrt"
 		uci set openclash.${uci_id}.sub_convert="0"
 		uci add_list openclash.${uci_id}.keyword="V3"
-		uci add_list openclash.${uci_id}.keyword="香港&HK"
-		uci add_list openclash.${uci_id}.keyword="台湾&YW"
-		uci add_list openclash.${uci_id}.keyword="日本&JP&韩国"
-		
+		uci add_list openclash.${uci_id}.keyword="香港|HK|台湾|TW|日本|JP|韩国|KR"
 	fi
 done
 # 直连域名
