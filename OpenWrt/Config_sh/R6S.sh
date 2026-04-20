@@ -501,9 +501,8 @@ uci set filebrowser.@global[0].project_directory="/usr/bin"
 (cd / && {
 init # 初始化脚本
 Password # 获取key
-IFS="|" # 分割符变量
 echo -e "\e[1;32m结果:\e[0m"
-for func in $(echo ${Config} | tr " " "|")
+for func in $(echo ${Config})
 do
 	#echo ${func}
 	[ -n "$(uci -q show ${func})" ] && ${func} && uci commit ${func} && echo "${func}配置......OK"
