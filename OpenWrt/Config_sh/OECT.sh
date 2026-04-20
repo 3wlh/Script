@@ -39,7 +39,7 @@ if [ ! -d "/mnt/Share" ]; then
     mkdir -p /mnt/Share
 fi
 # 添加挂载
-echo "${Fstab}" | while IFS='|' read -r data; do
+echo "${Fstab}" | tr '|' '\n' | while read -r data; do
 	data=$(echo ${data} | tr -d ' \n')
 	[[ -n "${data}" ]] || continue
 	dir="$(echo ${data} | awk -F: '{printf "%s",$1}')"
@@ -76,7 +76,7 @@ if [ ! -n "$(echo ${Data} | grep "$(AES_D "m3XpP/wTU5A6CztJKgOkiw==")")" ]; then
 	uci set unishare.${uci_id}.password="$(AES_D "QuEQ+o09m+be88boCYodQA==")"	
 fi
 # 添加共享
-echo "${Share}" | while IFS='|' read -r data; do
+echo "${Share}" | tr '|' '\n' | while read -r data; do
     data=$(echo "${data}" | tr -d ' \n')
 	[ -z "${data}" ] && continue
 	dir="$(echo ${data} | awk -F: '{printf "%s",$1}')"
