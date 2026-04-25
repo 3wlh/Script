@@ -15,7 +15,7 @@ Share="/mnt/SD : SD|
 # 节点
 Sub_list="Dow4mIXKWbWKvxsD4++LQ3eofoBRLP0lJyXIQpJT6XA="
 # 直连域名
-URL_list="cloudflare.com | spaceship.com | openwrt.ai | age.tv"
+URL_list="pool.ntp.org | cloudflare.com | spaceship.com | age.tv"
 IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
 # 防火墙：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
 Firewall="
