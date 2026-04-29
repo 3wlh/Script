@@ -1,0 +1,13 @@
+name: Actions Remove Workflow Runs
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  Call_Actions:
+    uses: 3wlh/Actions/.github/workflows/Call_Remove_Workflows.yml@main
+    secrets: inherit
+    with:
+      all: false
