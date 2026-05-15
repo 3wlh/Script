@@ -6,12 +6,9 @@ function init {
 echo -e "\e[1;36m初始化配置变量\e[0m"
 #======= 初始化配置变量 =======
 # 挂载 挂载目录 : uuid
-Fstab="/mnt/SD : 3519c925-6c5e-7242-baa9-027d8a399db6 |
-/mnt/HDD : 32ccc041-95e8-524e-aebb-b0501f7156a4"
+Fstab=""
 # 共享 共享目录 : 名称
-Share="/mnt/SD : SD|
-/mnt/HDD : HDD|
-/mnt/SD/存储 : 文件存储|"
+Share=""
 # 节点
 Sub_list="Dow4mIXKWbWKvxsD4++LQ3eofoBRLP0lJyXIQpJT6XA="
 # 直连域名
