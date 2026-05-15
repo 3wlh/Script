@@ -1,79 +1,15 @@
 name: Actions_GitHub_Push_CNB
 on:
-  #push:
-    #branches: [main]
+  push:
+    branches: [main]
   #schedule:
     #- cron: "0 16 * * 0"
   workflow_dispatch:
-    
-env:
-  repo_url: https://3wlh:${{ secrets.TOKEN_CNB }}@cnb.cool/3wlh/Script
-
 
 jobs:
-  jobs_Actions:
-    runs-on: ubuntu-22.04
-    steps:
-    - name: init
-      run : |
-        # 初始化数据
-        sudo timedatectl set-timezone "Asia/Shanghai"
-        echo "repo_dir=$(mktemp -d)" >> $GITHUB_ENV
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-      
-    - name: Git Clone Repositories
-      working-directory: ${{ env.repo_dir }}
-      run : |
-        git clone ${{ env.repo_url }} $(pwd)
-        find . -mindepth 1 -maxdepth 1 ! -name ".git" -exec rm -fr {} +
-        git add -A >/dev/null 2>&1
-        git commit -m "${COMMIT_MESSAGE:-Reset commit history} - $(date +%Y-%m-%d\ %H:%M:%S)"
-
-    - name: Repository Remove Commits
-      working-directory: ${{ env.repo_dir }}
-      run: |
-        # 移除 Git 所有提交
-        branch=$(git rev-parse --abbrev-ref HEAD)
-        echo "✅ 当前分支: $branch"
-
-        echo "✅ 创建孤儿分支（无任何提交历史）"
-        git checkout --orphan latest_branch
-
-        echo "✅ 添加所有文件到暂存区"
-        git add -A >/dev/null 2>&1
-
-        echo "✅ 提交更改"
-        git commit -m "${COMMIT_MESSAGE:-Reset commit history} - $(date +%Y-%m-%d\ %H:%M:%S)" || true
-
-        echo "✅ 强制删除原分支（-D 强制删除）"
-        git branch -D ${branch}
-
-        echo "✅ 将新分支重命名为原分支名"
-        git branch -m ${branch}
-        
-        echo "✅ 清理Git仓库（优化空间，删除无用对象）"
-        git gc --prune=now --aggressive
-    
-    - name: Checkout
-      uses: actions/checkout@main
-    
-    - name: Git Clone Repositories
-      run : |
-        rm -fr .git .github
-        cp -r $(pwd)/* ${{ env.repo_dir }}/
-    
-    - name: Repository Push
-      working-directory: ${{ env.repo_dir }}
-      run: |
-        # 强制推送仓库
-        echo "✅ 添加所有文件到暂存区"
-        git add -A >/dev/null 2>&1
-
-        echo "✅ 提交更改"
-        git commit -m "${COMMIT_MESSAGE:-Reset commit history} - $(date +%Y-%m-%d\ %H:%M:%S)"
-        
-        echo "✅ 强制推送到远程仓库"
-        branch=$(git rev-parse --abbrev-ref HEAD)
-        git push --force origin ${branch}
-    
+  job_push:
+    uses: 3wlh/Actions/.github/workflows/Call_GitHub_Push_CNB.yml@main
+    secrets: inherit
+    with:
+      pull_repo: "3wlh/Script"
+      push_repo: "3wlh/Script"
