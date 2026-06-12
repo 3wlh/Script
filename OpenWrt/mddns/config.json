@@ -22,7 +22,7 @@
     {
       "provider": "alibaba",
       "domain": "3wlh.cn",
-      "sub_domain": "@",
+      "sub_domain": "home",
       "type": "A",
       "ttl": 600,
       "txt_ip_type": "ipv4"
