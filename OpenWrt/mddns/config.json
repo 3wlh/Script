@@ -23,14 +23,6 @@
       "provider": "alibaba",
       "domain": "3wlh.cn",
       "sub_domain": "home",
-      "type": "A",
-      "ttl": 600,
-      "txt_ip_type": "ipv4"
-    },
-    {
-      "provider": "alibaba",
-      "domain": "3wlh.cn",
-      "sub_domain": "home",
       "type": "TXT",
       "ttl": 600,
       "txt_ip_type": "ipv4"
