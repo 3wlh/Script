@@ -2,7 +2,7 @@ NapCat:
     webPort: "6099"
     apiPort: "3000"
     wsPort: "3001"
-    qqDataDir: /mnt/SD/Configs/Napcat/QQ
-    napCatDir: /mnt/SD/Configs/Napcat/config
+    qqDataDir: /mnt/SD/Config/Napcat/QQ
+    napCatDir: /mnt/SD/Config/Napcat/config
     autoRestart: true
     networkMode: host
