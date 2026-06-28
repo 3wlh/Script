@@ -7,9 +7,9 @@ echo -e "\e[1;36m初始化配置变量\e[0m"
 Fstab="/mnt/SD : 3519c925-6c5e-7242-baa9-027d8a399db6 |
 /mnt/HDD : 20e90bf5-d880-684d-a087-3786846280ea"
 # 共享 共享目录 : 名称
-Share="/mnt/SD : SD|
-/mnt/HDD : HDD|
-/mnt/SD/存储 : 文件存储"
+Share="/mnt/SD/@Share : SD存储|
+/mnt/SD/Config : Config|
+/mnt/HDD/@Share : HDD存储"
 # 配置名称
 Config="fstab unishare sunpanel cloudflared openlist openlist2 frp dockerd"
 }
