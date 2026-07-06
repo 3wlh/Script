@@ -30,14 +30,14 @@ Package="luci-app-partexp luci-app-diskman luci-app-webadmin luci-app-syscontrol
 Config="network dhcp firewall v2ray_server passwall bypass vssr openclash homeproxy shadowsocksr"
 }
 
-function Password(){ #解密函数
+function Password(){	#获取解密密码
 mac="$(ip -o link show eth0 2>/dev/null | grep -Eo 'permaddr ([0-9A-Fa-f]{2}:){5}[0-9A-Fa-f]{2}' | awk '{print $NF}')"
 [ -z "${mac}" ] && mac="$(cat /sys/class/net/eth0/address 2>/dev/null)"
 [ -n "${mac}" ] && key="$(echo -n "${mac}" | md5sum | awk '{print $1}' | cut -c9-24)"
 echo -e "\e[1;31mKey:\e[0m\e[35m ${key} \e[0m"
 }
 
-function AES_D(){ #解密函数
+function AES_D(){	#解密函数
 [ -z "$1" ] || echo "$1" | openssl enc -e -aes-128-cbc -a -K ${key} -iv ${key} -base64 -d 2>/dev/null
 }
 
@@ -51,13 +51,14 @@ do
 done
 }
 
-function direct_domain() {
+function direct_domain() {	#添加直连域名
+sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "${1}"	#清理空行
 echo "${URL_list}" | tr '|' '\n' | while read -r domain; do
-	list=$(echo "${domain}" | tr -d ' \n')
 	[ -z "${domain}" ] && continue
 	[ $(tail -c1 "${1}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${1}"
 	[ -n "$(cat "${1}" 2> /dev/null | grep "${domain}")" ] || echo "${domain}" >> "${1}"
 done
+sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "${1}" #清理空行
 }
 
 function mddns() {
