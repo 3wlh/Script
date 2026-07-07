@@ -12,7 +12,8 @@ Share=""
 # 节点
 Sub_list="Dow4mIXKWbWKvxsD4++LQ3eofoBRLP0lJyXIQpJT6XA="
 # 直连域名
-URL_list="pool.ntp.org | cloudflare.com | spaceship.com | openwrt.ai | age.tv"
+URL_list="pool.ntp.org | cloudflare.com | spaceship.com | openwrt.ai | age.tv | qq.com | qq.cn | 19970101.xyz"
+Domain_list="pool.ntp.org | *.cloudflare.com | *.spaceship.com | *.openwrt.ai | *.age.tv | *.qq.com | *.qq.cn | *.19970101.xyz"
 IP_list="10.10.10.5 | 10.10.10.100 | 10.10.10.101 | 10.10.10.102"
 # 防火墙：名称 : IP : [空或true:启用;false:禁用] : LAN端口 : WAN端口
 Firewall="
@@ -52,11 +53,15 @@ done
 }
 
 function direct_domain() {	#添加直连域名
+# 如果 $2 存在则使用$2，否则使用 URL_list
+local target_list="${2:-$URL_list}"
+# 清理文件末尾空行
 sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "${1}"	#清理空行
-echo "${URL_list}" | tr '|' '\n' | while read -r domain; do
+# 循环处理列表
+echo "${target_list}" | tr '|' '\n' | while read -r domain; do
 	[ -z "${domain}" ] && continue
 	[ $(tail -c1 "${1}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${1}"
-	[ -n "$(cat "${1}" 2> /dev/null | grep "${domain}")" ] || echo "${domain}" >> "${1}"
+	grep -qxF "${domain}" "${1}" 2>/dev/null || echo "${domain}" >> "${1}"
 done
 sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "${1}" #清理空行
 }
@@ -155,7 +160,7 @@ echo "${Sub_list}" | tr '|' '\n' | while read -r list; do
 	fi
 done
 # 直连域名
-direct_domain "/etc/vssr/white.list"
+direct_domain "/etc/vssr/white.list" "$URL_list"
 # 直连IP
 uci set vssr.@access_control[0].lan_ac_mode='b'
 list_IP=$(uci -q get vssr.@access_control[0].lan_ac_ips)
@@ -199,7 +204,7 @@ echo "${Sub_lis}" | tr '|' '\n' | while read -r list; do
 	fi
 done
 # 直连域名
-direct_domain "/etc/homeproxy/resources/direct_list.txt"
+direct_domain "/etc/homeproxy/resources/direct_list.txt" "$URL_list"
 # 直连IP
 uci set homeproxy.control.lan_proxy_mode='except_listed'
 list_IP=$(uci -q get homeproxy.control.lan_direct_ipv4_ips)
@@ -255,7 +260,7 @@ echo "${Sub_lis}" | tr '|' '\n' | while read -r list; do
 	fi	
 done
 # 直连域名
-direct_domain "/usr/share/passwall/rules/direct_host"
+direct_domain "/usr/share/passwall/rules/direct_host" "$URL_list"
 # 直连IP
 ip_path="/usr/share/passwall/rules/direct_ip"
 echo "${IP_list}" | tr '|' '\n' | while read -r list; do
@@ -298,6 +303,8 @@ uci set openclash.config.intranet_allowed="1"
 #本地 DNS 劫持
 uci set openclash.config.enable_redirect_dns="1"
 uci set openclash.config.enable_custom_domain_dns_server="1"
+#Fake-IP-Filter
+uci set openclash.config.custom_fakeip_filter="1"
 # 添加订阅
 Data="$(uci -q show openclash)"
 count="0"
@@ -317,7 +324,8 @@ echo "${Sub_lis}" | tr '|' '\n' | while read -r list; do
 	fi
 done
 # 直连域名
-direct_domain "/etc/openclash/custom/openclash_custom_domain_dns.list"
+direct_domain "/etc/openclash/custom/openclash_custom_domain_dns.list" "$URL_list"
+direct_domain "/etc/openclash/custom/openclash_custom_fake_filter.list" "$Domain_list"
 }
 
 function firewall() {
