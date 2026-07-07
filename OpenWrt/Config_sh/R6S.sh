@@ -55,15 +55,14 @@ done
 function direct_domain() {	#添加直连域名
 # 如果 $2 存在则使用$2，否则使用 URL_list
 local target_list="${2:-$URL_list}"
-# 清理文件末尾空行
-sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "${1}"	#清理空行
+sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "${1}"	#清理文件末尾空行
 # 循环处理列表
 echo "${target_list}" | tr '|' '\n' | while read -r domain; do
 	[ -z "${domain}" ] && continue
 	[ $(tail -c1 "${1}" 2> /dev/null | wc -w) -eq 0 ] || echo "" >> "${1}"
 	grep -qxF "${domain}" "${1}" 2>/dev/null || echo "${domain}" >> "${1}"
 done
-sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "${1}" #清理空行
+sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' "${1}" #再次清理文件末尾空行
 }
 
 function mddns() {
