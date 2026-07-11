@@ -34,13 +34,14 @@ else
 ```sh
 #preinst  //系统服务端
 api_url="http://127.0.0.1:5000/Synoapi.cgi"
-status_code=$(curl -s -o /dev/null -w "%{http_code}" -X POST $api_url)
+status_code=$(curl -s -o /dev/null -w "%{http_code}" -X POST "$api_url")
 if [[ $status_code == 200 ]]; then
-	dir=$(cd `dirname $0`;pwd)
-	privilege="`echo $dir | awk -F '/scripts' '{print $1}'`/conf/privilege"
-	ret=$(curl -d "dir=$privilege" -X POST $api_url)
-	if ! echo $ret | grep "OK" >/dev/null 2>&1; then
+	script_dir=$(cd "$(dirname "$0")" && pwd)
+	privilege="${script_dir%%/scripts*}/conf/privilege"
+	ret=$(curl -d "dir=$privilege" -X POST "$api_url")
+	 if ! echo "$ret" | grep -q '"status":"success"'; then
 		echo "<br><p style=\"color:red;\">调用api失败.</p>"
+		echo "<br><p style=\"color:red;\">返回内容: ${ret:-空响应}</p>"
 		echo "<p style=\"color:red;\">退出安装.</p>"
 		exit 1
 	fi
@@ -48,7 +49,7 @@ else
 	echo "<br><p style=\"color:red;\">未启用api.</p>"
 	echo "<p style=\"color:red;\">退出安装.</p>"
 	exit 1
-	fi
+fi
 ```
 
 ##### 删除api
