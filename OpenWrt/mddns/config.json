@@ -1,59 +1,14 @@
 {
   "interval": 600,
+  "ipv4": {"method":"network","api":"https://myip.ipip.net,https://ddns.oray.com/checkip,https://ip.3322.net,https://4.ipw.cn,https://v4.yinghualuo.cn/bejson","network":"pppoe-wan","command":""},
+  "ipv6": {"method":"network","api":"https://v6.ident.me,https://v6.yinghualuo.cn/bejson","network":"pppoe-wan","command":""},
   "providers": {
-    "alibaba": {
-      "access_key_id": "fNy8pBCFd6IL7Fwu801mSp6GuRMxvjJAH75XD/lf+Zw=",
-      "access_key_secret": "79Foo9YpOUv8YTvxMISnMsyscA8v+5EHVaG9yrv3LpI="
-    },
-    "cloudflare": {
-      "api_token": "dOLXGKCfgl7YhVI8dcTysDdVq1xZhcA0KbCdtHwePZZKUyWoPeavq3LjD2Fs6zld",
-      "zone_id": "l5i+SlZ/Ot9jOTow7rqZiA=="
-    },
-    "dnspod": {
-      "secret_id": "",
-      "secret_key": ""
-    },
-    "spaceship": {
-      "api_key": "U4MoWBk/dHN0OWOhpBtKt8IlGgmZvapVZyOVJfT7SUc=",
-      "api_secret": "qgSvPjy5QIqw/L/LdrSfZbuz1ctt4yFKjdmy4ZJKn6Q5AJWF8re6GKg4rpI0GwLXBKlDipcgxCs89q3d/doU8A0xuk7SfJNSXnORfbmGriw="
-    }
+    "cloudflare": {"key":"","secret":"Enc:cM40xzWBHKJcI0B4dntk+9aNrcvKIrDm2UnJ+KlbcA5D45xFslIbur/d+zUMMlG3C2mq2MAgOjAlRjpXdT62L6TBzaVzZ2en"},
+    "aliyun": {"key":"Enc:mBWPpbwVQRe8uNHkHoBoHSgzffcqU+k/UqAxUwHge9ZYdJaHhf4naJA7MFFndvR7Kdek0EP4Xuk=","secret":"Enc:PwtPibwhqXTbXRwIqp0/c2udUWLjB1fpf8K64BhcAImasabFWfSz7cC1SaMsPO+YqBT8dKkIXZQ="}
   },
   "records": [
-    {
-      "provider": "alibaba",
-      "domain": "3wlh.cn",
-      "sub_domain": "home",
-      "type": "TXT",
-      "ttl": 600,
-      "txt_ip_type": "ipv4"
-    },
-    {
-      "provider": "cloudflare",
-      "domain": "19970101.xyz",
-      "sub_domain": "@",
-      "type": "A",
-      "ttl": 60,
-      "txt_ip_type": "ipv4"
-    },
-    {
-      "provider": "cloudflare",
-      "domain": "19970101.xyz",
-      "sub_domain": " home",
-      "type": "TXT",
-      "ttl": 60,
-      "txt_ip_type": "ipv4"
-    }
-  ],
-  "ipv4": {
-    "method": "network",
-    "api": "https://ddns.oray.com/checkip,https://ip.3322.net,https://4.ipw.cn,https://v4.yinghualuo.cn/bejson,https://myip.ipip.net",
-    "command": "",
-    "network": "pppoe-wan"
-  },
-  "ipv6": {
-    "method": "network",
-    "api": "https://speed.neu6.edu.cn/getIP.php,https://v6.ident.me,https://6.ipw.cn,https://v6.yinghualuo.cn/bejson",
-    "command": "",
-    "network": "pppoe-wan"
-  }
+    {"provider":"cloudflare","domain":"19970101.xyz","sub_domain":"@","type":"A","ttl":60,"txt_ip_type":"ipv4"},
+    {"provider":"cloudflare","domain":"19970101.xyz","sub_domain":"home","type":"TXT","ttl":60,"txt_ip_type":"ipv4"},
+    {"provider":"aliyun","domain":"3wlh.cn","sub_domain":"home","type":"TXT","ttl":600,"txt_ip_type":"ipv4"}
+  ]
 }
