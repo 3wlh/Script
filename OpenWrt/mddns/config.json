@@ -3,11 +3,12 @@
   "ipv4": {"method":"network","api":"https://myip.ipip.net,https://ddns.oray.com/checkip,https://ip.3322.net,https://4.ipw.cn,https://v4.yinghualuo.cn/bejson","network":"pppoe-wan","command":""},
   "ipv6": {"method":"network","api":"https://v6.ident.me,https://v6.yinghualuo.cn/bejson","network":"pppoe-wan","command":""},
   "providers": {
-    "cloudflare": {"key":"","secret":"Enc:cM40xzWBHKJcI0B4dntk+9aNrcvKIrDm2UnJ+KlbcA5D45xFslIbur/d+zUMMlG3C2mq2MAgOjAlRjpXdT62L6TBzaVzZ2en"},
-    "aliyun": {"key":"Enc:mBWPpbwVQRe8uNHkHoBoHSgzffcqU+k/UqAxUwHge9ZYdJaHhf4naJA7MFFndvR7Kdek0EP4Xuk=","secret":"Enc:PwtPibwhqXTbXRwIqp0/c2udUWLjB1fpf8K64BhcAImasabFWfSz7cC1SaMsPO+YqBT8dKkIXZQ="}
+    "cloudflare": {"key":"","secret":"Enc:m7vKMnqf4b2KRpmHbnF1zfT3NuRz0pihyCiux9Z9PGs7Y35cV0P+cAAac2dKoiSfoMrKxavjZxjsdC5jeLDFsKfa/BVWTSRb"},
+    "aliyun": {"key":"Enc:GMYkCGik5Cj9KHGym5k6UYgMEpPgC5a97Jprk4LTzZJwbAHdpFRIzbbiA//+P9ZmmiBx7TIF4Gg=","secret":"Enc:T1MrAr35Rmy+n0EyUEmspftuc/YCp4X2J7xZDNqQPdax4YfUHS5YTfz1MPgUr2d7BXDwcmaAbtI="}
   },
   "records": [
-    {"provider":"cloudflare","domain":"19970101.xyz","sub_domain":"@","type":"A","ttl":60,"txt_ip_type":"ipv4"},
+    {"provider":"cloudflare","domain":"19970101.xyz","sub_domain":"@","type":"A","ttl":60},
+    {"provider":"cloudflare","domain":"19970101.xyz","sub_domain":"ipv6","type":"AAAA","ttl":60},
     {"provider":"cloudflare","domain":"19970101.xyz","sub_domain":"home","type":"TXT","ttl":60,"txt_ip_type":"ipv4"},
     {"provider":"aliyun","domain":"3wlh.cn","sub_domain":"home","type":"TXT","ttl":600,"txt_ip_type":"ipv4"}
   ]
