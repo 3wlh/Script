@@ -26,7 +26,7 @@ CleanHosts() {
 
 # 图形菜单
 CHOICE=$(osascript <<'EOF'
-set options to {"🔒 一键屏蔽所有系统更新", "🔓 一键恢复系统更新", "🧹 清除更新小红点", "⚙️ 只屏蔽大版本，保留安全更新（无限期）", "🛡️ 安装大版本推迟描述文件（90天）"}
+set options to {"🔒 一键屏蔽所有系统更新", "🔓 一键恢复系统更新（手动安装）", "🧹 清除更新小红点", "⚙️ 只屏蔽大版本，保留安全更新（无限期）", "🛡️ 安装大版本推迟描述文件（90天）"}
 choose from list options with title "macOS 更新屏蔽工具" with prompt "选择一个操作：" default items {"🧹 清除更新小红点"}
 EOF
 )
@@ -88,9 +88,9 @@ elif [[ $CHOICE == *"恢复系统更新"* ]]; then
 
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled -bool TRUE
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool TRUE
-sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticallyInstallMacOSUpdates -bool TRUE
-sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool TRUE
-sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool TRUE
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticallyInstallMacOSUpdates -bool FALSE
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool FALSE
+sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool FALSE
 sudo softwareupdate --schedule on
 
 sudo launchctl enable system/com.apple.softwareupdated
@@ -110,7 +110,7 @@ CleanHosts
 sudo dscacheutil -flushcache
 sudo killall -HUP mDNSResponder
 
-osascript -e 'display dialog ("✅ 系统更新已恢复！" & return & return & "如安装过「推迟大版本描述文件」，请到 系统设置 > 隐私与安全性 > 描述文件 中删除。") buttons {"OK"}'
+osascript -e 'display dialog ("✅ 系统更新已恢复（手动安装模式）！" & return & return & "更新会自动检查和下载，但不会自动安装，需手动确认；安全响应同样改为手动。" & return & return & "如安装过「推迟大版本描述文件」，请到 系统设置 > 隐私与安全性 > 描述文件 中删除。") buttons {"OK"}'
 
 # ======================
 # 3. 清除小红点
