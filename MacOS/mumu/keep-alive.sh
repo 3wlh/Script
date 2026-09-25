@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# 强制 UTF-8 locale：osascript 按 locale 解析脚本内中文，
+# 若环境是 GBK 等编码会导致弹窗文字乱码（LC_ALL 优先级最高，可覆盖 SSH 注入的值）
+export LANG=zh_CN.UTF-8
+export LC_ALL=zh_CN.UTF-8
+
 # ==============================
 # MuMu 模拟器保活工具（macOS）
 # 功能：禁用/恢复 App Nap（后台休眠）、查看状态
