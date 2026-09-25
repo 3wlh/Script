@@ -8,3 +8,7 @@ curl -sSL http://3wlh.github.io/Script/MacOS/update/update-blocker.sh | sudo bas
 ```sh
 curl -sSL http://3wlh.github.io/Script/MacOS/cleanup/hidden-cleaner.sh | sudo bash
 ```
+##### Win键盘适配
+```sh
+curl -sSL http://3wlh.github.io/Script/MacOS/keyboard/win-keyboard.sh | sudo bash
+```
