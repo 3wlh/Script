@@ -12,3 +12,7 @@ curl -sSL http://3wlh.github.io/Script/MacOS/cleanup/hidden-cleaner.sh | sudo ba
 ```sh
 curl -sSL http://3wlh.github.io/Script/MacOS/keyboard/win-keyboard.sh | sudo bash
 ```
+##### MuMu模拟器保活
+```sh
+curl -sSL http://3wlh.github.io/Script/MacOS/mumu/keep-alive.sh | sudo bash
+```
