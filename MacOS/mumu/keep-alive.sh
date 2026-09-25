@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# 强制 UTF-8 locale：osascript 按 locale 解析脚本内中文，
-# 若环境是 GBK 等编码会导致弹窗文字乱码（LC_ALL 优先级最高，可覆盖 SSH 注入的值）
-export LANG=zh_CN.UTF-8
-export LC_ALL=zh_CN.UTF-8
-
 # ==============================
 # MuMu 模拟器保活工具（macOS）
 # 功能：禁用/恢复 App Nap（后台休眠）、查看状态
@@ -31,7 +26,10 @@ FindMumu() {
     COUNT=$(echo "$APP_LIST" | wc -l | tr -d ' ')
     if [ "$COUNT" -gt 1 ]; then
         APP_ITEMS=$(echo "$APP_LIST" | sed 's/.*/"&"/' | tr '\n' ',' | sed 's/,$//')
-        APP_PATH=$(osascript -e "choose from list {$APP_ITEMS} with title \"选择应用\" with prompt \"找到多个 MuMu 相关应用，请选择：\"" 2>/dev/null)
+        APP_PATH=$(osascript 2>/dev/null <<EOF
+choose from list {$APP_ITEMS} with title "选择应用" with prompt "找到多个 MuMu 相关应用，请选择："
+EOF
+)
         if [ -z "$APP_PATH" ] || [ "$APP_PATH" = "false" ]; then
             return 1
         fi
@@ -57,7 +55,9 @@ fi
 
 # 定位应用：找不到或取消则退出
 if ! FindMumu; then
-    osascript -e 'display dialog "❌ 未在 /Applications 找到 MuMu 相关应用！" buttons {"OK"}'
+    osascript <<'EOF'
+display dialog "❌ 未在 /Applications 找到 MuMu 相关应用！" buttons {"OK"}
+EOF
     exit 1
 fi
 
@@ -68,7 +68,9 @@ if [[ $CHOICE == *"开启保活"* ]]; then
 
 sudo defaults write "$BUNDLE_ID" NSAppSleepDisabled -bool YES
 
-osascript -e "display dialog (\"✅ 已为「$APP_NAME」开启保活（App Nap 已禁用）！\" & return & return & \"Bundle ID：$BUNDLE_ID\" & return & return & \"注意：需完全退出并重新打开应用后生效。\") buttons {\"OK\"}"
+osascript <<EOF
+display dialog ("✅ 已为「$APP_NAME」开启保活（App Nap 已禁用）！" & return & return & "Bundle ID：$BUNDLE_ID" & return & return & "注意：需完全退出并重新打开应用后生效。") buttons {"OK"}
+EOF
 
 # ======================
 # 2. 关闭保活（恢复默认）
@@ -77,7 +79,9 @@ elif [[ $CHOICE == *"关闭保活"* ]]; then
 
 sudo defaults delete "$BUNDLE_ID" NSAppSleepDisabled 2>/dev/null
 
-osascript -e "display dialog \"✅ 已关闭「$APP_NAME」保活（恢复系统默认）！\" buttons {\"OK\"}"
+osascript <<EOF
+display dialog "✅ 已关闭「$APP_NAME」保活（恢复系统默认）！" buttons {"OK"}
+EOF
 
 # ======================
 # 3. 查看保活状态
@@ -90,7 +94,9 @@ else
     STATUS="保活未开启（系统默认，后台可能被休眠降速）"
 fi
 
-osascript -e "display dialog \"「$APP_NAME」当前状态：$STATUS\" buttons {\"OK\"}"
+osascript <<EOF
+display dialog "「$APP_NAME」当前状态：$STATUS" buttons {"OK"}
+EOF
 
 fi
 
