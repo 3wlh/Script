@@ -55,9 +55,10 @@ fi
 
 # 定位应用：找不到或取消则退出
 if ! FindMumu; then
-    osascript <<'EOF'
-display dialog "❌ 未在 /Applications 找到 MuMu 相关应用！" buttons {"OK"}
-EOF
+    printf '❌ 未在 /Applications 找到 MuMu 相关应用！\n'
+    #osascript <<'EOF'
+    #display dialog "❌ 未在 /Applications 找到 MuMu 相关应用！" buttons {"OK"}
+    #EOF
     exit 1
 fi
 
@@ -68,9 +69,11 @@ if [[ $CHOICE == *"开启保活"* ]]; then
 
 sudo defaults write "$BUNDLE_ID" NSAppSleepDisabled -bool YES
 
-osascript <<EOF
-display dialog ("✅ 已为「$APP_NAME」开启保活（App Nap 已禁用）！" & return & return & "Bundle ID：$BUNDLE_ID" & return & return & "注意：需完全退出并重新打开应用后生效。") buttons {"OK"}
-EOF
+printf '✅ 已为「%s」开启保活（App Nap 已禁用）！\nBundle ID：%s\n注意：需完全退出并重新打开应用后生效。\n' "$APP_NAME" "$BUNDLE_ID"
+
+#osascript <<EOF
+#display dialog ("✅ 已为「$APP_NAME」开启保活（App Nap 已禁用）！" & return & return & "Bundle ID：$BUNDLE_ID" & return & return & "注意：需完全退出并重新打开应用后生效。") buttons {"OK"}
+#EOF
 
 # ======================
 # 2. 关闭保活（恢复默认）
@@ -79,9 +82,11 @@ elif [[ $CHOICE == *"关闭保活"* ]]; then
 
 sudo defaults delete "$BUNDLE_ID" NSAppSleepDisabled 2>/dev/null
 
-osascript <<EOF
-display dialog "✅ 已关闭「$APP_NAME」保活（恢复系统默认）！" buttons {"OK"}
-EOF
+printf '✅ 已关闭「%s」保活（恢复系统默认）！\n' "$APP_NAME"
+
+#osascript <<EOF
+#display dialog "✅ 已关闭「$APP_NAME」保活（恢复系统默认）！" buttons {"OK"}
+#EOF
 
 # ======================
 # 3. 查看保活状态
@@ -94,9 +99,11 @@ else
     STATUS="保活未开启（系统默认，后台可能被休眠降速）"
 fi
 
-osascript <<EOF
-display dialog "「$APP_NAME」当前状态：$STATUS" buttons {"OK"}
-EOF
+printf '「%s」当前状态：%s\n' "$APP_NAME" "$STATUS"
+
+#osascript <<EOF
+#display dialog "「$APP_NAME」当前状态：$STATUS" buttons {"OK"}
+#EOF
 
 fi
 
