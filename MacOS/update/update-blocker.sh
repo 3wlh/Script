@@ -110,7 +110,7 @@ CleanHosts
 sudo dscacheutil -flushcache
 sudo killall -HUP mDNSResponder
 
-osascript -e 'display dialog ("✅ 系统更新已恢复！" & return & return & "如安装过「推迟大版本描述文件」，请到 系统设置 > 隐私与安全性 > 描述文件 中删除。") buttons {"好"}'
+osascript -e 'display dialog ("✅ 系统更新已恢复！" & return & return & "如安装过「推迟大版本描述文件」，请到 系统设置 > 隐私与安全性 > 描述文件 中删除。") buttons {"OK"}'
 
 # ======================
 # 3. 清除小红点
@@ -127,7 +127,7 @@ sudo rm -rf ~/Library/Preferences/com.apple.SoftwareUpdate.plist
 defaults write com.apple.systempreferences AttentionPrefBundleIDs 0
 killall Dock
 
-osascript -e 'display dialog "✅ 小红点已清除！如仍显示请重启电脑" buttons {"好"}'
+osascript -e 'display dialog "✅ 小红点已清除！如仍显示请重启电脑" buttons {"OK"}'
 
 # ======================
 # 4. 只屏蔽大版本，保留安全更新（无限期）
@@ -149,7 +149,7 @@ CleanHosts
 sudo dscacheutil -flushcache
 sudo killall -HUP mDNSResponder
 
-osascript -e 'display dialog ("✅ 已设置：仅屏蔽大版本，保留安全更新（无限期）" & return & return & "注意：大版本提醒已推迟到 2099 年；尽量少手动打开「软件更新」页面，避免系统重置该日期。" & return & return & "如需更彻底，可再安装「大版本推迟描述文件」，两种方式可叠加。") buttons {"好"}'
+osascript -e 'display dialog ("✅ 已设置：仅屏蔽大版本，保留安全更新（无限期）" & return & return & "注意：大版本提醒已推迟到 2099 年；尽量少手动打开「软件更新」页面，避免系统重置该日期。" & return & return & "如需更彻底，可再安装「大版本推迟描述文件」，两种方式可叠加。") buttons {"OK"}'
 
 # ======================
 # 5. 大版本推迟描述文件（最长 90 天）
@@ -202,7 +202,7 @@ EOF
 
 open "$PROFILE"
 
-osascript -e 'display dialog ("✅ 描述文件已生成并打开！" & return & return & "请在 系统设置 > 隐私与安全性 > 描述文件 中点击「安装」。" & return & return & "注意：最长有效 90 天，到期后重新运行本工具；卸载也在同一位置。") buttons {"好"}'
+osascript -e 'display dialog ("✅ 描述文件已生成并打开！" & return & return & "请在 系统设置 > 隐私与安全性 > 描述文件 中点击「安装」。" & return & return & "注意：最长有效 90 天，到期后重新运行本工具；卸载也在同一位置。") buttons {"OK"}'
 
 fi
 
