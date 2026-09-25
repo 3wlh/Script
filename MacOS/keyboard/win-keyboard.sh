@@ -2,12 +2,13 @@
 
 # ==============================
 # Win 键盘适配工具（macOS）
-# 功能：交换 Command/Option 键位（Alt=⌘，Win=⌥）、
+# 功能：交换 Alt/Win 键位（Alt=⌘，Win=⌥）、
 #       恢复默认键位、查看当前状态
 # 原理：hidutil UserKeyMapping 立即生效 +
 #       LaunchDaemon 开机自动重载（同 systemd 思路）
-# 说明：macOS 默认 Win=⌘、Alt=⌥，但物理位置与 Mac
-#       键盘相反；交换后紧邻空格的 Alt 键 = ⌘，符合 Mac 习惯
+# 说明：macOS 默认 Win=⌘、Alt=⌥，导致 ⌘ 不在空格旁；
+#       交换后底排与 Mac 键盘完全对齐（Ctrl,⌥,⌘,空格），
+#       即 Apple 官方推荐做法（修饰键里互换 ⌘/⌥）
 # 注意：hidutil 映射全局生效，会影响所有键盘（含内置键盘）
 # ==============================
 
@@ -20,8 +21,8 @@ clear
 
 # 图形菜单
 CHOICE=$(osascript <<'EOF'
-set options to {"🔄 一键交换 Command/Option（Win键盘习惯）", "🔓 一键恢复默认键位", "👀 查看当前键位状态"}
-choose from list options with title "Win 键盘适配工具" with prompt "选择一个操作：" default items {"🔄 一键交换 Command/Option（Win键盘习惯）"}
+set options to {"🔄 一键交换 Alt/Win（对齐Mac键盘）", "🔓 一键恢复默认键位", "👀 查看当前键位状态"}
+choose from list options with title "Win 键盘适配工具" with prompt "选择一个操作：" default items {"🔄 一键交换 Alt/Win（对齐Mac键盘）"}
 EOF
 )
 
@@ -33,9 +34,9 @@ fi
 KEYMAP='{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x7000000E2,"HIDKeyboardModifierMappingDst":0x7000000E3},{"HIDKeyboardModifierMappingSrc":0x7000000E3,"HIDKeyboardModifierMappingDst":0x7000000E2},{"HIDKeyboardModifierMappingSrc":0x7000000E6,"HIDKeyboardModifierMappingDst":0x7000000E7},{"HIDKeyboardModifierMappingSrc":0x7000000E7,"HIDKeyboardModifierMappingDst":0x7000000E6}]}'
 
 # ======================
-# 1. 交换 Command/Option
+# 1. 交换 Alt/Win
 # ======================
-if [[ $CHOICE == *"交换 Command/Option"* ]]; then
+if [[ $CHOICE == *"交换 Alt/Win"* ]]; then
 
 # 立即生效
 hidutil property --set "$KEYMAP"
@@ -63,7 +64,7 @@ EOF
 
 launchctl load /Library/LaunchDaemons/com.local.keymap.plist 2>/dev/null
 
-osascript -e 'display dialog ("✅ 已交换 Command/Option（立即生效，重启后依然有效）！" & return & return & "现在：Alt 键 = ⌘ Command，Win 键 = ⌥ Option。" & return & return & "注意：全局生效，会影响所有键盘（含 MacBook 内置键盘）。") buttons {"OK"}'
+osascript -e 'display dialog ("✅ 已交换 Alt/Win（立即生效，重启后依然有效）！" & return & return & "现在：Alt 键 = ⌘ Command，Win 键 = ⌥ Option，底排与 Mac 键盘对齐。" & return & return & "注意：全局生效，会影响所有键盘（含 MacBook 内置键盘）。") buttons {"OK"}'
 
 # ======================
 # 2. 恢复默认键位
