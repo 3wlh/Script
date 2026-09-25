@@ -17,17 +17,19 @@ fi
 clear
 
 # 查找所有 MuMu 应用并逐个读取 bundle ID（不再选择，全部处理）
+# 注意：应用名可能带空格（如 MuMuPlayer Pro.app），必须按行遍历，不能按空格切分
 FindMumu() {
     APP_LIST=$(ls -d /Applications/*[Mm][Uu][Mm][Uu]*.app 2>/dev/null)
     [ -z "$APP_LIST" ] && return 1
 
     BUNDLE_IDS=""
-    for APP_PATH in $APP_LIST; do
-        BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP_PATH/Contents/Info.plist" 2>/dev/null)
-        if [ -n "$BUNDLE_ID" ]; then
-            BUNDLE_IDS="$BUNDLE_IDS$BUNDLE_ID "
+    while IFS= read -r APP_PATH; do
+        BUNDLE_ID=""
+        if [ -f "$APP_PATH/Contents/Info.plist" ]; then
+            BUNDLE_ID=$(/usr/libexec/PlistBuddy -c 'Print CFBundleIdentifier' "$APP_PATH/Contents/Info.plist" 2>/dev/null)
         fi
-    done
+        [ -n "$BUNDLE_ID" ] && BUNDLE_IDS="$BUNDLE_IDS$BUNDLE_ID "
+    done <<< "$APP_LIST"
 
     [ -n "$BUNDLE_IDS" ]
 }
