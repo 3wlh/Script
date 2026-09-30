@@ -20,3 +20,7 @@ curl -sSL http://3wlh.github.io/Script/MacOS/keepalive/keep-alive.sh | sudo bash
 ```sh
 curl -sSL http://3wlh.github.io/Script/MacOS/mumu/keep-alive.sh | sudo bash
 ```
+##### 缓存盘隐藏（nobrowse）
+```sh
+curl -sSL http://3wlh.github.io/Script/MacOS/disk/hide-disk.sh | sudo bash
+```
