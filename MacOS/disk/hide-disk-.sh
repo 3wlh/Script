@@ -5,8 +5,8 @@
 # 功能：隐藏/恢复缓存盘显示、查看挂载状态、开机自动隐藏
 # 原理：以 nobrowse 选项重新挂载，卷不再出现在桌面/Finder，
 #       用户目录放符号链接作为入口（链接无「推出」按钮）；
-#       卸载的卷由守护进程按 UUID 自动挂回（整盘推出后设备已分离，
-#       需重新插拔，插回自动挂回并隐藏）；
+#       已隐藏的卷由看门进程占住 cwd——单卷盘整盘推出后系统无法自动挂回，
+#       用看门进程让访达「推出」直接失败，从根上防误推（拔线不受影响）；
 #       开机持久化用 LaunchDaemon 开机重挂 + 监听 /Volumes 事件，
 #       登录时由 LaunchAgent 再触发一次
 # 流程：先弹菜单 → 🔒隐藏=当场隐藏+登记进配置；🔓恢复=从配置移除+恢复显示；
@@ -30,7 +30,7 @@ fi
 clear
 
 # 自报版本指纹：字节数对不上说明传的是旧文件
-printf '脚本字节数：%s（最新版为 19592+）\n' "$(wc -c < "$0" | tr -d ' ')"
+printf '脚本字节数：%s（最新版为 21575+）\n' "$(wc -c < "$0" | tr -d ' ')"
 
 # sudo 运行时 $HOME 是 /var/root，入口快捷方式需建到实际用户目录下
 # dscl 输出的路径同样被隐形 Unicode 字符包裹（终端显示为 ??，导致链接建到
@@ -115,6 +115,7 @@ if [ -s "$CONF_FILE" ]; then
 fi
 
 # 停服务并删除所有生成文件（守护服务、登录触发 Agent、重挂脚本、配置）
+pkill -f "HideDiskKeep /Volumes/" 2>/dev/null
 launchctl bootout system/com.user.hide-disk 2>/dev/null
 launchctl unload -w "$DAEMON_PLIST" 2>/dev/null
 [ -n "$SUDO_UID" ] && launchctl bootout "gui/$SUDO_UID/com.user.hide-disk-login" 2>/dev/null
@@ -169,6 +170,7 @@ awk -v u="$UUID" -F'|' '$2 != u' "$CONF_FILE" > "$CONF_FILE.tmp"
 mv "$CONF_FILE.tmp" "$CONF_FILE"
 
 MOUNT_POINT="/Volumes/$VOL_LABEL"
+pkill -f "HideDiskKeep $MOUNT_POINT" 2>/dev/null
 
 # 盘在场且 UUID 相符：恢复默认挂载；否则仅移除记录
 REAL_UUID=$(diskutil info "$MOUNT_POINT" 2>/dev/null | awk '/Volume UUID/{print $NF}' | LC_ALL=C tr -dc '0-9A-Fa-f-')
@@ -273,16 +275,24 @@ while [ $n -lt 3 ]; do
             # device; nothing can auto-remount that, replug re-triggers us.
             DEV=$(diskutil info "$VUUID" 2>/dev/null | awk -F': *' '/Device Node/{print $2}')
             [ -n "$DEV" ] && diskutil mount -mountOptions nobrowse "$DEV" >/dev/null 2>&1
-            # device gone (whole-disk eject/unplug): nothing can auto-remount
-            # that; replug re-triggers us via the /Volumes watch
-            [ -d "$MP" ] || continue
+            # device gone (eject/unplug): kill the keeper right away via this
+            # /Volumes-watch trigger; don't wait for its 30-min self-check
+            [ -d "$MP" ] || { pkill -f "HideDiskKeep $MP" 2>/dev/null; continue; }
         fi
         U=$(diskutil info "$MP" 2>/dev/null | awk '/Volume UUID/{print $NF}' | LC_ALL=C tr -dc '0-9A-Fa-f-')
         [ "$U" = "$VUUID" ] || continue
         if mount | grep " on $MP (" | grep -q nobrowse; then
+            # anti-eject keeper: a process with cwd inside the volume makes
+            # Finder "Eject" fail loudly. Event-managed by this daemon
+            # (/Volumes-watch: pkill + respawn, so a stale keeper from a
+            # fast unplug/replug is always replaced); the keeper also re-cds
+            # every 30min as a cheap fallback (48 syscalls/day, zero CPU).
+            pkill -f "HideDiskKeep $MP" 2>/dev/null
+            nohup bash -c 'while :; do cd "$1" 2>/dev/null || exit; sleep 1800; done' HideDiskKeep "$MP" >/dev/null 2>&1 </dev/null &
             continue
         fi
         DEV=$(diskutil info "$MP" | awk -F': *' '/Device Node/{print $2}')
+        pkill -f "HideDiskKeep $MP" 2>/dev/null
         diskutil unmount "$MP" >/dev/null 2>&1
         diskutil mount -mountOptions nobrowse "$DEV" >/dev/null 2>&1
         # verify the real mount state: busy unmount must not count as success
@@ -389,6 +399,18 @@ IsNoBrowse() {
     mount | grep " on $MOUNT_POINT (" | grep -q nobrowse
 }
 
+# 防推出看门进程：cwd 落在卷内会让访达「推出」失败（弹“正在使用”）。
+# 单卷盘整盘弹出后系统层面无法自动挂回，只能靠这个防误推。
+# 看门双层回收：主路径是守护进程监听 /Volumes——盘消失当场 pkill、
+# 盘在场时 pkill 旧看门再拉新的（防快速拔插后旧看门占着死文件系统）；
+# 兜底是看门每 30 分钟重新 cd 自检一次——进程挂起零 CPU、每天 48 次
+# 系统调用可忽略，卷没了自退、拔后速插能重锚 cwd，防守护服务丢失后变孤儿。
+# 有意拔盘：走「🔓 恢复显示」或直接拔线
+StartKeeper() {
+    pkill -f "HideDiskKeep $MOUNT_POINT" 2>/dev/null
+    nohup bash -c 'while :; do cd "$1" 2>/dev/null || exit; sleep 1800; done' HideDiskKeep "$MOUNT_POINT" >/dev/null 2>&1 </dev/null &
+}
+
 # ======================
 # 隐藏缓存盘（nobrowse 重挂 + 用户目录入口）
 # ======================
@@ -423,6 +445,7 @@ chmod 644 "$CONF_FILE"
 # 立即以 nobrowse 重新挂载（已是则跳过）；unmount 被占用时不误报成功
 if ! IsNoBrowse; then
     DEV=$(diskutil info "$MOUNT_POINT" | awk -F': *' '/Device Node/{print $2}')
+    pkill -f "HideDiskKeep $MOUNT_POINT" 2>/dev/null
     if sudo diskutil unmount "$MOUNT_POINT"; then
         sudo diskutil mount -mountOptions nobrowse "$DEV"
         if IsNoBrowse; then
@@ -451,7 +474,13 @@ diskutil info "$MOUNT_POINT" | grep -E "Mounted|Mount Point"
 # mount 行里的 nobrowse 即隐藏生效的直接证据
 mount | grep " on $MOUNT_POINT ("
 
-printf '\n✅ 缓存盘「%s」已隐藏！\n\n%s\n%s\n%s\n' "$VOL_LABEL" "$REMOUNT_MSG" "$LINK_MSG" "已登记进开机自动隐藏配置（服务安装后开机生效，卸载会自动挂回）"
+if IsNoBrowse; then
+    StartKeeper
+    KEEPER_MSG="防推出保护已开启：访达误点「推出」会失败，移除请走「🔓 恢复显示」或直接拔线"
+else
+    KEEPER_MSG="⚠️ 防推出保护未开启（挂载状态异常，请重跑本工具）"
+fi
+printf '\n✅ 缓存盘「%s」已隐藏！\n\n%s\n%s\n%s\n%s\n' "$VOL_LABEL" "$REMOUNT_MSG" "$LINK_MSG" "$KEEPER_MSG" "已登记进开机自动隐藏配置（服务安装后开机生效）"
 
 # 未装 LaunchDaemon 时提醒：重启后隐藏不生效
 if [ ! -f /Library/LaunchDaemons/com.user.hide-disk.plist ]; then
