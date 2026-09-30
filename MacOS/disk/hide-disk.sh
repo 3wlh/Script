@@ -5,7 +5,8 @@
 # 功能：隐藏/恢复缓存盘显示、查看挂载状态、开机自动隐藏
 # 原理：以 nobrowse 选项重新挂载，卷不再出现在桌面/Finder，
 #       用户目录放符号链接作为入口（链接无「推出」按钮，防误推出）；
-#       开机持久化用 LaunchDaemon 开机重挂（本机 fstab 重启不生效，已弃用）
+#       开机持久化用 LaunchDaemon 开机重挂 + 监听 /Volumes 事件，
+#       登录时由 LaunchAgent 再触发一次
 # 流程：先弹菜单 → 🔒隐藏=当场隐藏+登记进配置；🔓恢复=从配置移除+恢复显示；
 #       👀状态=遍历配置所有盘；🚀安装=只装服务；🗑卸载=删服务及所有生成文件
 # 说明：图形界面（菜单/选卷）用静态中文 heredoc 走 stdin（从未乱码）；
@@ -17,8 +18,6 @@
 export LANG=zh_CN.UTF-8
 export LC_ALL=zh_CN.UTF-8
 
-FSTAB="/etc/fstab"
-FSTAB_TMP="/tmp/.hide-disk-fstab"
 CHOICE_FILE="/tmp/.hide-disk-choice"
 
 if [ $UID -ne 0 ]; then
@@ -29,7 +28,7 @@ fi
 clear
 
 # 自报版本指纹：字节数对不上说明传的是旧文件
-printf '脚本字节数：%s（最新版为 17747+）\n' "$(wc -c < "$0" | tr -d ' ')"
+printf '脚本字节数：%s（最新版为 18802+）\n' "$(wc -c < "$0" | tr -d ' ')"
 
 # sudo 运行时 $HOME 是 /var/root，入口快捷方式需建到实际用户目录下
 # dscl 输出的路径同样被隐形 Unicode 字符包裹（终端显示为 ??，导致链接建到
@@ -104,30 +103,26 @@ DAEMON_SCRIPT="/Library/HideDisk/hide-disk-remount.sh"
 DAEMON_PLIST="/Library/LaunchDaemons/com.user.hide-disk.plist"
 CONF_FILE="/Library/HideDisk/hide-disk.conf"
 
-# 按配置清理各盘的用户目录入口链接 + fstab 历史残留
+# 按配置清理各盘的用户目录入口链接
 if [ -s "$CONF_FILE" ]; then
     while IFS='|' read -r LABEL VUUID; do
         [ -n "$LABEL" ] || continue
         LINK="$USER_HOME/$LABEL"
         [ -L "$LINK" ] && rm -f "$LINK"
-        if [ -n "$VUUID" ] && [ -f "$FSTAB" ] && grep -q "UUID=$VUUID" "$FSTAB" 2>/dev/null; then
-            awk -v u="$VUUID" '{l=$0; gsub(/[^0-9A-Fa-f-]/,"",l); if (index(l,u)==0) print}' "$FSTAB" > "$FSTAB_TMP" 2>/dev/null
-            sudo cp "$FSTAB_TMP" "$FSTAB"
-            rm -f "$FSTAB_TMP"
-        fi
     done < "$CONF_FILE"
 fi
 
-# 停服务并删除所有生成文件（服务、重挂脚本、配置）
+# 停服务并删除所有生成文件（守护服务、登录触发 Agent、重挂脚本、配置）
 launchctl bootout system/com.user.hide-disk 2>/dev/null
 launchctl unload -w "$DAEMON_PLIST" 2>/dev/null
-rm -f "$DAEMON_PLIST" "$DAEMON_SCRIPT" "$CONF_FILE"
+[ -n "$SUDO_UID" ] && launchctl bootout "gui/$SUDO_UID/com.user.hide-disk-login" 2>/dev/null
+rm -f "$DAEMON_PLIST" "/Library/LaunchAgents/com.user.hide-disk-login.plist" /tmp/.hide-disk-login
+rm -f "$DAEMON_SCRIPT" "$CONF_FILE"
 # /Library/HideDisk 若为本脚本创建且已空则删除（rmdir 只删空目录，安全）
 rmdir /Library/HideDisk 2>/dev/null
 
 printf '\n✅ 已卸载开机自动隐藏，并删除所有生成文件！\n'
-printf '   已删：服务（LaunchDaemon）、重挂脚本、配置、用户目录入口链接\n'
-printf '   已清：fstab 历史残留条目\n'
+printf '   已删：服务（LaunchDaemon）、登录触发器（LaunchAgent）、重挂脚本、配置、用户目录入口链接\n'
 printf '   当前会话的挂载状态不受影响（如需恢复显示请重挂）\n'
 exit 0
 fi
@@ -173,18 +168,9 @@ mv "$CONF_FILE.tmp" "$CONF_FILE"
 
 MOUNT_POINT="/Volumes/$VOL_LABEL"
 
-# 盘在场且 UUID 相符：恢复默认挂载 + 清理；否则仅移除记录
+# 盘在场且 UUID 相符：恢复默认挂载；否则仅移除记录
 REAL_UUID=$(diskutil info "$MOUNT_POINT" 2>/dev/null | awk '/Volume UUID/{print $NF}' | LC_ALL=C tr -dc '0-9A-Fa-f-')
 if [ -d "$MOUNT_POINT" ] && [ "$REAL_UUID" = "$UUID" ]; then
-    # 清 fstab 历史残留
-    if [ -f "$FSTAB" ] && grep -q "UUID=$UUID" "$FSTAB" 2>/dev/null; then
-        awk -v u="$UUID" '{l=$0; gsub(/[^0-9A-Fa-f-]/,"",l); if (index(l,u)==0) print}' "$FSTAB" > "$FSTAB_TMP" 2>/dev/null
-        sudo cp "$FSTAB_TMP" "$FSTAB"
-        rm -f "$FSTAB_TMP"
-        FSTAB_MSG="已清理 fstab 残留"
-    else
-        FSTAB_MSG="fstab 无残留"
-    fi
     # 恢复默认（可浏览）挂载（当前 nobrowse 才需要重挂）
     if mount | grep " on $MOUNT_POINT (" | grep -q nobrowse; then
         DEV=$(diskutil info "$MOUNT_POINT" | awk -F': *' '/Device Node/{print $2}')
@@ -202,7 +188,7 @@ if [ -d "$MOUNT_POINT" ] && [ "$REAL_UUID" = "$UUID" ]; then
     else
         LINK_MSG="无快捷方式，跳过"
     fi
-    printf '\n✅ 已从开机自动隐藏移除「%s」，盘已恢复显示！\n\n%s\n%s\n%s\n' "$VOL_LABEL" "$FSTAB_MSG" "$REMOUNT_MSG" "$LINK_MSG"
+    printf '\n✅ 已从开机自动隐藏移除「%s」，盘已恢复显示！\n\n%s\n%s\n' "$VOL_LABEL" "$REMOUNT_MSG" "$LINK_MSG"
 else
     printf '\n✅ 已从开机自动隐藏移除「%s」（盘当前不在场，插入后即正常显示）\n' "$VOL_LABEL"
 fi
@@ -257,7 +243,8 @@ DAEMON_SCRIPT="/Library/HideDisk/hide-disk-remount.sh"
 DAEMON_PLIST="/Library/LaunchDaemons/com.user.hide-disk.plist"
 
 # 生成重挂脚本：纯 ASCII、静态（遍历配置文件，无写死值），幂等 + 事件驱动
-# （配合 plist 的 WatchPaths 监听 /Volumes：只在挂载/卸载事件时被拉起，零轮询）
+# （配合 plist 的 WatchPaths 监听 /Volumes：只在挂载/卸载事件时被拉起，零轮询；
+#   开机/挂载竞态与 unmount 被占用时按真实挂载态判定，最长重试约 6 秒）
 mkdir -p /Library/HideDisk
 cat > "$DAEMON_SCRIPT" <<'DAEMON'
 #!/bin/bash
@@ -265,30 +252,37 @@ cat > "$DAEMON_SCRIPT" <<'DAEMON'
 CONF="/Library/HideDisk/hide-disk.conf"
 [ -f "$CONF" ] || exit 0
 
-# WatchPaths may fire just before mounts complete: retry briefly
+# Keep the login-trigger file present and user-writable (/tmp is wiped at
+# boot); the LaunchAgent touches it at each login to wake this daemon up.
+touch /tmp/.hide-disk-login 2>/dev/null && chmod 666 /tmp/.hide-disk-login 2>/dev/null
+
+# Boot races: WatchPaths may fire before mounts finish, and diskutil unmount
+# can fail while Spotlight still holds the fresh volume. Retry up to ~6s;
+# exit early only when every present+matched volume is confirmed nobrowse.
 n=0
-while [ $n -lt 5 ]; do
-    FOUND=0
+while [ $n -lt 3 ]; do
+    PENDING=0
     while IFS='|' read -r LABEL VUUID; do
         [ -n "$LABEL" ] || continue
         MP="/Volumes/$LABEL"
         [ -d "$MP" ] || continue
-        FOUND=1
         mount | grep " on $MP (" | grep -q nobrowse && continue
         U=$(diskutil info "$MP" 2>/dev/null | awk '/Volume UUID/{print $NF}' | LC_ALL=C tr -dc '0-9A-Fa-f-')
         [ "$U" = "$VUUID" ] || continue
         DEV=$(diskutil info "$MP" | awk -F': *' '/Device Node/{print $2}')
         diskutil unmount "$MP" >/dev/null 2>&1
         diskutil mount -mountOptions nobrowse "$DEV" >/dev/null 2>&1
+        # verify the real mount state: busy unmount must not count as success
+        mount | grep " on $MP (" | grep -q nobrowse || PENDING=1
     done < "$CONF"
-    [ "$FOUND" = "1" ] && exit 0
-    sleep 1
+    [ "$PENDING" = "0" ] && exit 0
+    sleep 2
     n=$((n + 1))
 done
 exit 0
 DAEMON
 
-# LaunchDaemon 配置（静态 XML，纯 ASCII）：开机跑 + 监听 /Volumes 事件（零轮询）
+# LaunchDaemon 配置（静态 XML，纯 ASCII）：开机跑 + 监听 /Volumes 及登录触发文件（零轮询）
 cat > "$DAEMON_PLIST" <<'PLIST'
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -306,6 +300,7 @@ cat > "$DAEMON_PLIST" <<'PLIST'
     <key>WatchPaths</key>
     <array>
         <string>/Volumes</string>
+        <string>/tmp/.hide-disk-login</string>
     </array>
 </dict>
 </plist>
@@ -314,13 +309,42 @@ PLIST
 chown root:wheel "$DAEMON_SCRIPT" "$DAEMON_PLIST"
 chmod 755 "$DAEMON_SCRIPT"
 chmod 644 "$DAEMON_PLIST"
+# 触发文件需先于守护服务存在且可被普通用户 touch（/tmp 开机会被清空）
+touch /tmp/.hide-disk-login && chmod 666 /tmp/.hide-disk-login
+
 # 已装旧版时先停掉再装新版（bootstrap 对已加载服务会报错）
 launchctl bootout system/com.user.hide-disk 2>/dev/null
 # 新版 launchctl 用 bootstrap，旧版回退 load
 launchctl bootstrap system "$DAEMON_PLIST" 2>/dev/null || launchctl load -w "$DAEMON_PLIST"
 
-printf '\n✅ 开机自动隐藏服务已安装（LaunchDaemon）！\n'
-printf '   开机监听 /Volumes 事件，自动隐藏配置中登记的所有盘（零轮询，不占性能）\n'
+# 登录触发器（LaunchAgent）：任意用户登录成功即 touch 触发文件，
+# 唤醒上面的 LaunchDaemon 再隐藏一轮（Agent 无 root，不能直接重挂，走事件触发）
+AGENT_PLIST="/Library/LaunchAgents/com.user.hide-disk-login.plist"
+cat > "$AGENT_PLIST" <<'AGENT'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.hide-disk-login</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/touch</string>
+        <string>/tmp/.hide-disk-login</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+AGENT
+chown root:wheel "$AGENT_PLIST"
+chmod 644 "$AGENT_PLIST"
+# Agent 每次登录自动加载；当前已登录会话立即生效（失败不影响下次登录）
+[ -n "$SUDO_UID" ] && launchctl bootout "gui/$SUDO_UID/com.user.hide-disk-login" 2>/dev/null
+[ -n "$SUDO_UID" ] && launchctl bootstrap "gui/$SUDO_UID" "$AGENT_PLIST" 2>/dev/null
+
+printf '\n✅ 开机自动隐藏服务已安装（LaunchDaemon + 登录触发）！\n'
+printf '   开机监听 /Volumes 事件，用户登录时也会再触发一次隐藏（零轮询，不占性能）\n'
 printf '   登记盘请用「🔒 一键隐藏缓存盘」；移除登记用「🔓 一键恢复显示」\n'
 exit 0
 fi
@@ -342,7 +366,7 @@ USER_LINK="$USER_HOME/$VOL_LABEL"
 
 # 读取卷 UUID（各分支共用）
 # 新版 macOS 的 diskutil 会在值两侧包不可见 Unicode 字符（终端显示为 ??，
-# 直接用会污染 fstab 导致重启后隐藏失效）；tr 必须加 LC_ALL=C：UTF-8
+# 直接用会写坏配置）；tr 必须加 LC_ALL=C：UTF-8
 # locale 下 tr 按排序展开字符集，多字节隐形字符会漏网（即 ?? 的根因）
 UUID=$(diskutil info "$MOUNT_POINT" | awk '/Volume UUID/{print $NF}' | LC_ALL=C tr -dc '0-9A-Fa-f-')
 
@@ -353,7 +377,7 @@ IsNoBrowse() {
 }
 
 # ======================
-# 隐藏缓存盘（清理 fstab 残留 + nobrowse 重挂 + 用户目录入口）
+# 隐藏缓存盘（nobrowse 重挂 + 用户目录入口）
 # ======================
 # 菜单匹配用 grep：bash 3.2 解析 [[ == *"中文"* ]] 这类带引号模式会报 EOF 错
 if printf '%s' "$CHOICE" | grep -q '隐藏缓存盘'; then
@@ -362,7 +386,7 @@ if [ -z "$UUID" ]; then
     printf '\n❌ 未取到卷 UUID！\n'
     exit 1
 fi
-# UUID 形状校验：应为 36 位十六进制；异常时现形原始字节并拒绝写 fstab（排查 ??）
+# UUID 形状校验：应为 36 位十六进制；异常时现形原始字节（排查 ??）
 if ! printf '%s' "$UUID" | grep -qE '^[0-9A-F-]{36}$'; then
     printf '\n❌ UUID 异常（%s 字节），原始字节：\n' "$(printf '%s' "$UUID" | wc -c | tr -d ' ')"
     printf '%s' "$UUID" | od -c | head -2
@@ -372,17 +396,6 @@ if ! printf '%s' "$UUID" | grep -qE '^[0-9A-F-]{36}$'; then
 fi
 
 printf '检测到缓存盘：UUID=%s\n' "$UUID"
-
-# fstab 机制本机重启不生效（实测），已弃用；这里只清掉本卷历史残留条目
-# （含旧标识行：awk 按 UUID 匹配连带删除）
-if [ -f "$FSTAB" ] && grep -q "UUID=$UUID" "$FSTAB" 2>/dev/null; then
-    awk -v u="$UUID" '{l=$0; gsub(/[^0-9A-Fa-f-]/,"",l); if (index(l,u)==0) print}' "$FSTAB" > "$FSTAB_TMP" 2>/dev/null
-    sudo cp "$FSTAB_TMP" "$FSTAB"
-    rm -f "$FSTAB_TMP"
-    FSTAB_MSG="已清理本卷旧 fstab 条目（fstab 已弃用）"
-else
-    FSTAB_MSG="fstab 已弃用（开机隐藏靠 LaunchDaemon）"
-fi
 
 # 写入开机自动隐藏配置（登记本盘；同 UUID 更新条目，改名一并刷新）
 mkdir -p /Library/HideDisk
@@ -394,12 +407,19 @@ mv "$CONF_FILE.tmp" "$CONF_FILE"
 chown root:wheel "$CONF_FILE"
 chmod 644 "$CONF_FILE"
 
-# 立即以 nobrowse 重新挂载（已是则跳过）
+# 立即以 nobrowse 重新挂载（已是则跳过）；unmount 被占用时不误报成功
 if ! IsNoBrowse; then
     DEV=$(diskutil info "$MOUNT_POINT" | awk -F': *' '/Device Node/{print $2}')
-    sudo diskutil unmount "$MOUNT_POINT"
-    sudo diskutil mount -mountOptions nobrowse "$DEV"
-    REMOUNT_MSG="已以 nobrowse 重新挂载"
+    if sudo diskutil unmount "$MOUNT_POINT"; then
+        sudo diskutil mount -mountOptions nobrowse "$DEV"
+        if IsNoBrowse; then
+            REMOUNT_MSG="已以 nobrowse 重新挂载"
+        else
+            REMOUNT_MSG="⚠️ 重挂后验证未通过（仍非 nobrowse），请重跑本工具"
+        fi
+    else
+        REMOUNT_MSG="⚠️ 卸载失败（卷被 Spotlight 等占用），本次未隐藏，请稍后重试"
+    fi
 else
     REMOUNT_MSG="当前已是 nobrowse，无需重挂"
 fi
@@ -418,9 +438,9 @@ diskutil info "$MOUNT_POINT" | grep -E "Mounted|Mount Point"
 # mount 行里的 nobrowse 即隐藏生效的直接证据
 mount | grep " on $MOUNT_POINT ("
 
-printf '\n✅ 缓存盘「%s」已隐藏！\n\n%s\n%s\n%s\n%s\n' "$VOL_LABEL" "$FSTAB_MSG" "$REMOUNT_MSG" "$LINK_MSG" "已登记进开机自动隐藏配置（服务安装后开机生效）"
+printf '\n✅ 缓存盘「%s」已隐藏！\n\n%s\n%s\n%s\n' "$VOL_LABEL" "$REMOUNT_MSG" "$LINK_MSG" "已登记进开机自动隐藏配置（服务安装后开机生效）"
 
-# 未装 LaunchDaemon 时提醒：fstab 在本机重启后不生效
+# 未装 LaunchDaemon 时提醒：重启后隐藏不生效
 if [ ! -f /Library/LaunchDaemons/com.user.hide-disk.plist ]; then
     printf '\n⚠️ 开机自动隐藏未安装，重启后访达会重新显示本卷\n'
     printf '   请选「🚀 安装开机自动隐藏（LaunchDaemon）」\n'
