@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==============================
-# 缓存盘隐藏工具（macOS）
+# 硬盘隐藏工具（macOS）
 # 功能：隐藏/恢复缓存盘显示、查看挂载状态、开机自动隐藏
 # 原理：以 nobrowse 选项重新挂载，卷不再出现在桌面/Finder，
 #       用户目录放符号链接作为入口（链接无「推出」按钮）；
@@ -22,6 +22,10 @@ export LC_ALL=zh_CN.UTF-8
 
 CHOICE_FILE="/tmp/.hide-disk-choice"
 
+# 入口链接指向的卷内子目录名：MacOS=用户目录的盘符链接指向卷内 MacOS 文件夹；
+# 留空、或卷内不存在该目录时，默认链接到卷根目录
+LINK_SUBDIR="MacOS"
+
 if [ $UID -ne 0 ]; then
     echo "需要管理员权限，请重新运行：sudo $0"
     exit 1
@@ -30,7 +34,7 @@ fi
 clear
 
 # 自报版本指纹：字节数对不上说明传的是旧文件
-printf '脚本字节数：%s（最新版为 19592+）\n' "$(wc -c < "$0" | tr -d ' ')"
+printf '脚本字节数：%s\n' "$(wc -c < "$0" | tr -d ' ')"
 
 # sudo 运行时 $HOME 是 /var/root，入口快捷方式需建到实际用户目录下
 # dscl 输出的路径同样被隐形 Unicode 字符包裹（终端显示为 ??，导致链接建到
@@ -437,12 +441,23 @@ else
     REMOUNT_MSG="当前已是 nobrowse，无需重挂"
 fi
 
-# 用户目录快捷入口（无推出按钮）
-if [ -e "$USER_LINK" ]; then
-    LINK_MSG="用户目录入口已存在：$USER_LINK"
+# 用户目录快捷入口（无推出按钮）：LINK_SUBDIR 变量控制链接目标——
+# 不为空则链接到卷内该子目录（不存在就创建），留空则默认链接卷根目录；
+# 恢复/卸载分支按链接名删除、不删卷内目录（里面是数据）
+if [ -n "$LINK_SUBDIR" ]; then
+    DATA_DIR="$MOUNT_POINT/$LINK_SUBDIR"
+    mkdir -p "$DATA_DIR"
+    LINK_TARGET_MSG="卷内 $LINK_SUBDIR 文件夹"
 else
-    ln -s "$MOUNT_POINT" "$USER_LINK"
-    LINK_MSG="已创建用户目录入口：$USER_LINK（可拖到 Finder 侧边栏）"
+    DATA_DIR="$MOUNT_POINT"
+    LINK_TARGET_MSG="卷根目录"
+fi
+if [ -L "$USER_LINK" ] && [ "$(readlink "$USER_LINK" 2>/dev/null)" = "$DATA_DIR" ]; then
+    LINK_MSG=$(printf '用户目录入口已存在：%s → %s' "$USER_LINK" "$LINK_TARGET_MSG")
+else
+    rm -f "$USER_LINK"
+    ln -s "$DATA_DIR" "$USER_LINK"
+    LINK_MSG=$(printf '已创建用户目录入口：%s → %s（可拖到 Finder 侧边栏）' "$USER_LINK" "$LINK_TARGET_MSG")
 fi
 
 # 验证（mount 行里的 nobrowse 即隐藏生效的直接证据）

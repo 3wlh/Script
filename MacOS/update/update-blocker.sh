@@ -79,7 +79,7 @@ sudo dscacheutil -flushcache
 sudo killall -HUP mDNSResponder
 sudo rm -rf /Library/Updates/*
 
-osascript -e 'display dialog "✅ 所有系统更新已屏蔽（含 macOS 26 增强）！" buttons {"好"}'
+osascript -e 'display dialog "✅ 所有系统更新已屏蔽（含 macOS 26 增强）！" buttons {"OK"}'
 
 # ======================
 # 2. 恢复更新
@@ -140,6 +140,7 @@ sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticallyI
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool TRUE
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool TRUE
 sudo softwareupdate --schedule on
+
 
 # 大版本升级提醒推迟到 2099 年（无 90 天限制）
 sudo defaults write /Library/Preferences/com.apple.SoftwareUpdate MajorOSUserNotificationDate -date "2099-01-01 00:00:00"
