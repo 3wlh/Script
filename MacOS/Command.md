@@ -17,11 +17,19 @@ sudo spctl --master-enable
 ## 应用程序
 #### 程序清除隔离属性
 ```
-xattr -dr com.apple.quarantine /Applications/YourApp.app
+xattr -dr com.apple.quarantine /<path>/<*>.app
 ```
 #### 程序重新[ad-hoc]签名
 ```
-codesign --force --deep --sign - /Applications/YourApp.app
+codesign --force --deep --sign - /<path>/<*>.app
+```
+#### 锁定app文件
+```
+chflags uchg /<path>/<*>.app
+```
+#### 解除锁定app文件
+```
+chflags nouchg /<path>/<*>.app
 ```
 
 ## 图标缓存
