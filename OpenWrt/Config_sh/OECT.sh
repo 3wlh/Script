@@ -4,7 +4,7 @@ function init {
 echo -e "\e[1;36m初始化配置变量\e[0m"
 #======= 初始化配置变量 =======
 # 挂载 挂载目录 : uuid
-Fstab="/mnt/SD : 3519c925-6c5e-7242-baa9-027d8a399db6 |
+Fstab="/mnt/SD : 1d405d2a-c01c-ee41-ad7f-2d02ba1d600c |
 /mnt/HDD : 20e90bf5-d880-684d-a087-3786846280ea"
 # 共享 共享目录 : 名称
 Share="/mnt/SD/@Share : SD存储|
