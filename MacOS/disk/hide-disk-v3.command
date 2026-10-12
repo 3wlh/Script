@@ -363,9 +363,9 @@ DoUninstallService() {
 while true; do
     clear
     echo ""
-    echo "===================================================="
-    echo -e "  ${BLU}硬盘隐藏工具V3 @ ${SCRIPT_VERSION}${NC}"
-    echo "===================================================="
+    echo "===================================="
+    echo -e "  硬盘隐藏工具V3 @ ${SCRIPT_VERSION}"
+    echo "===================================="
     echo ""
     echo "  1) 🔒 打上隐藏属性（藏桌面图标）"
     echo "  2) 🔓 删除隐藏属性（恢复图标）"
@@ -384,11 +384,12 @@ while true; do
         4) DoRemoveRemount ;;
         5) DoInstallService ;;
         6) DoUninstallService ;;
-        0|q) echo ""; echo "再见！"; break ;;
-        "") echo -e "${RED}未输入任何内容，请输入数字 0-6！${NC}" ;;
-        *) echo -e "${RED}错误的选项：${choice}，请输入数字 0-6！${NC}" ;;
+        0|q) echo -e "\n" ; echo "再见！" ; sleep 1 ; break ;;
+        "") echo -e "\n${RED}未输入任何内容，请输入数字 0-6！${NC}" ;;
+        *) echo -e "\n${RED}错误的选项：${choice}，请输入数字 0-6！${NC}" ;;
     esac
     echo ""
     read -n 1 -s -p "按任意键返回主菜单..." _KEY </dev/tty || break
-    echo ""
+    echo -e "\n"
 done
+osascript -e 'tell application "Terminal" to close front window' & exit

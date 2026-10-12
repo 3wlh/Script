@@ -120,10 +120,10 @@ while true; do
     read -n 1 -p "请直接按下数字键 (0-3): " choice </dev/tty || break
     echo ""
     case "$choice" in
-        1) DoEnable ;;
-        2) DoDisable ;;
+        1) DoEnable ; sleep 1 ; break ;;
+        2) DoDisable ; sleep 1 ; break ;;
         3) DoStatus ;;
-        0|q) echo ""; echo "再见！"; break ;;
+        0|q) echo -e "\n" ; echo "再见！" ; sleep 1 ; break ;;
         "") printf '%b\n' "${RED}未输入任何内容，请输入数字 0-3！${NC}" ;;
         *) printf '%b\n' "${RED}错误的选项：${choice}，请输入数字 0-3！${NC}" ;;
     esac
@@ -131,3 +131,4 @@ while true; do
     read -n 1 -s -p "按任意键返回主菜单..." _KEY </dev/tty || break
     echo ""
 done
+osascript -e 'tell application "Terminal" to close front window' & exit
