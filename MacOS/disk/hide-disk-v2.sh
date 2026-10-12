@@ -33,7 +33,7 @@ if [ $UID -ne 0 ]; then
 fi
 
 # 脚本版本号：每次修改脚本更新此值（格式：日期_时分秒），运行时对版本就知道跑的是哪一版
-SCRIPT_VERSION="26-10-12_214127"
+SCRIPT_VERSION="26-10-12_220012"
 
 # sudo 运行时 $HOME 是 /var/root，入口快捷方式需建到实际用户目录下
 # dscl 输出的路径同样被隐形 Unicode 字符包裹（终端显示为 ??，导致链接建到
@@ -609,22 +609,20 @@ DoUninstallService() {
 while true; do
     clear
     echo ""
-    echo "================================"
-    echo -e "  ${BLU}硬盘隐藏工具（nobrowse + 属性开关）${NC}"
-    echo "================================"
+    echo "===================================================="
+    echo -e "  ${BLU}硬盘隐藏工具V2 @ ${SCRIPT_VERSION}${NC}"
+    echo "===================================================="
     echo ""
     echo "  1) 🔒 隐藏挂载硬盘显示（nobrowse 挂载）"
     echo "  2) 🔓 恢复挂载硬盘显示（默认挂载）"
     echo "  3) 👀 查看挂载状态"
     echo "  4) ✅ 打上隐藏属性（仅藏桌面图标）"
     echo "  5) ❌ 删除隐藏属性（恢复桌面图标）"
-    echo "  6) 🚀 安装开机自动隐藏（LaunchDaemon）"
-    echo "  7) 🗑 卸载开机自动隐藏"
+    echo "  6) 🚀 安装开机自动隐藏服务（LaunchDaemon）"
+    echo "  7) 🗑  卸载开机自动隐藏服务"
     echo "  0) 退出"
     echo ""
-    echo "（脚本版本：${SCRIPT_VERSION}）"
-    echo ""
-    read -n 1 -p "请直接按下数字键 (0-7): " choice || break
+    read -n 1 -p "请直接按下数字键 (0-7): " choice </dev/tty || break
     echo ""
     case "$choice" in
         1) DoHide ;;
@@ -639,6 +637,6 @@ while true; do
         *) echo -e "${RED}错误的选项：${choice}，请输入数字 0-7！${NC}" ;;
     esac
     echo ""
-    read -n 1 -s -p "按任意键返回主菜单..." _KEY || break
+    read -n 1 -s -p "按任意键返回主菜单..." _KEY </dev/tty || break
     echo ""
 done

@@ -23,14 +23,13 @@ NC='\033[0m'
 # 留空、或卷内不存在该目录时，默认链接到卷根目录
 LINK_SUBDIR="MacOS"
 
-# 自动提权：非 root 运行时自动以 sudo 重新执行本脚本（密码在终端窗口输入，无需手动 sudo）
 if [ $UID -ne 0 ]; then
-    printf '\n需要管理员权限，正在自动提权，请在下方输入管理员密码...\n\n'
-    exec sudo /bin/bash "$0"
+    echo "需要管理员权限，请重新运行：sudo $0"
+    exit 1
 fi
 
 # 脚本版本号：每次修改脚本更新此值（格式：日期_时分秒），运行时对版本就知道跑的是哪一版
-SCRIPT_VERSION="26-10-12_214127"
+SCRIPT_VERSION="26-10-12_225100"
 
 # sudo 运行时 $HOME 是 /var/root，入口快捷方式需建到实际用户目录下
 # dscl 输出的路径同样被隐形 Unicode 字符包裹（终端显示为 ??，导致链接建到
@@ -367,7 +366,7 @@ DoInstallService() {
     mkdir -p /Library/HideDisk
     cat > "$DAEMON_SCRIPT" <<'DAEMON'
 #!/bin/bash
-# 以 nobrowse 重挂各注册卷（幂等、事件驱动）。由 hide-disk.sh 生成
+# 以 nobrowse 重挂各注册卷（幂等、事件驱动）。由 hide-disk-v1.sh 生成
 CONF="/Library/HideDisk/hide-disk.conf"
 [ -f "$CONF" ] || exit 0
 
@@ -552,20 +551,18 @@ DoUninstallService() {
 while true; do
     clear
     echo ""
-    echo "================================"
-    echo -e "  ${BLU}硬盘隐藏工具（nobrowse 方案）${NC}"
-    echo "================================"
+    echo "===================================================="
+    echo -e "  ${BLU}硬盘隐藏工具V1 @ ${SCRIPT_VERSION}${NC}"
+    echo "===================================================="
     echo ""
     echo "  1) 🔒 隐藏挂载硬盘显示（nobrowse 挂载）"
     echo "  2) 🔓 恢复挂载硬盘显示（默认挂载）"
     echo "  3) 👀 查看挂载状态"
-    echo "  4) 🚀 安装开机自动隐藏（LaunchDaemon）"
-    echo "  5) 🗑 卸载开机自动隐藏"
+    echo "  4) 🚀 安装开机自动隐藏服务（LaunchDaemon）"
+    echo "  5) 🗑  卸载开机自动隐藏服务"
     echo "  0) 退出"
     echo ""
-    echo "（脚本版本：${SCRIPT_VERSION}）"
-    echo ""
-    read -n 1 -p "请直接按下数字键 (0-5): " choice || break
+    read -n 1 -p "请直接按下数字键 (0-5): " choice </dev/tty || break
     echo ""
     case "$choice" in
         1) DoHide ;;
@@ -578,6 +575,6 @@ while true; do
         *) echo -e "${RED}错误的选项：${choice}，请输入数字 0-5！${NC}" ;;
     esac
     echo ""
-    read -n 1 -s -p "按任意键返回主菜单..." _KEY || break
+    read -n 1 -s -p "按任意键返回主菜单..." _KEY </dev/tty || break
     echo ""
 done

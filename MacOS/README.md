@@ -20,14 +20,17 @@ curl -sSL http://3wlh.github.io/Script/MacOS/keepalive/keep-alive.sh | sudo bash
 ```sh
 curl -sSL http://3wlh.github.io/Script/MacOS/mumu/keep-alive.sh | sudo bash
 ```
-##### 缓存盘隐藏（nobrowse）
+##### 挂载盘隐藏
 ```sh
-curl -sSL http://3wlh.github.io/Script/MacOS/disk/hide-disk.sh | sudo bash
+curl -sSL http://3wlh.github.io/Script/MacOS/disk/hide-disk-v1.sh | sudo bash
 ```
-##### 重置 macOS 本地网络权限
 ```sh
-curl -sSL http://3wlh.github.io/Script/MacOS/localnetwork/reset_localnetwork.sh | sudo bash
+curl -sSL http://3wlh.github.io/Script/MacOS/disk/hide-disk-v2.sh | sudo bash
 ```
+```sh
+curl -sSL http://3wlh.github.io/Script/MacOS/disk/hide-disk-v3.sh | sudo bash
+```
+
 ## 双击运行（.command）
 各脚本在同目录提供 `.command` 版本（内容与 `.sh` 一致 + 自动提权），拷到 Mac 后首次运行前赋一次执行权限：
 ```sh

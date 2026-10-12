@@ -24,7 +24,7 @@ if [ $UID -ne 0 ]; then
 fi
 
 # 脚本版本号：每次修改脚本更新此值（格式：日期_时分秒），运行时对版本就知道跑的是哪一版
-SCRIPT_VERSION="26-10-12_214127"
+SCRIPT_VERSION="26-10-12_220012"
 
 # 编号选择：选项经管道传入（一行一个），列出后读编号；
 # 选中项存入 PICK_RESULT，取消（0）或列表为空返回 1。
@@ -363,9 +363,9 @@ DoUninstallService() {
 while true; do
     clear
     echo ""
-    echo "================================"
-    echo -e "  ${BLU}硬盘隐藏工具（chflags 方案）${NC}"
-    echo "================================"
+    echo "===================================================="
+    echo -e "  ${BLU}硬盘隐藏工具V3 @ ${SCRIPT_VERSION}${NC}"
+    echo "===================================================="
     echo ""
     echo "  1) 🔒 打上隐藏属性（藏桌面图标）"
     echo "  2) 🔓 删除隐藏属性（恢复图标）"
@@ -375,9 +375,7 @@ while true; do
     echo "  6) 🗑 卸载服务（删除所有生成文件）"
     echo "  0) 退出"
     echo ""
-    echo "（脚本版本：${SCRIPT_VERSION}）"
-    echo ""
-    read -n 1 -p "请直接按下数字键 (0-6): " choice || break
+    read -n 1 -p "请直接按下数字键 (0-6): " choice </dev/tty || break
     echo ""
     case "$choice" in
         1) DoLockAttr ;;
@@ -391,6 +389,6 @@ while true; do
         *) echo -e "${RED}错误的选项：${choice}，请输入数字 0-6！${NC}" ;;
     esac
     echo ""
-    read -n 1 -s -p "按任意键返回主菜单..." _KEY || break
+    read -n 1 -s -p "按任意键返回主菜单..." _KEY </dev/tty || break
     echo ""
 done
