@@ -372,7 +372,7 @@ while true; do
     echo "  3) ✅ 选择回挂硬盘（登记进配置）"
     echo "  4) ❌ 删除回挂硬盘（从配置移除）"
     echo "  5) 🚀 安装服务（事件驱动回挂）"
-    echo "  6) 🗑 卸载服务（删除所有生成文件）"
+    echo "  6) 🗑️ 卸载服务（删除所有生成文件）"
     echo "  0) 退出"
     echo ""
     read -n 1 -p "请直接按下数字键 (0-6): " choice </dev/tty || break

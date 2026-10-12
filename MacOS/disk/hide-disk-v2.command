@@ -620,7 +620,7 @@ while true; do
     echo "  4) ✅ 打上隐藏属性（仅藏桌面图标）"
     echo "  5) ❌ 删除隐藏属性（恢复桌面图标）"
     echo "  6) 🚀 安装开机自动隐藏服务（LaunchDaemon）"
-    echo "  7) 🗑  卸载开机自动隐藏服务"
+    echo "  7) 🗑️ 卸载开机自动隐藏服务"
     echo "  0) 退出"
     echo ""
     read -n 1 -p "请直接按下数字键 (0-7): " choice </dev/tty || break

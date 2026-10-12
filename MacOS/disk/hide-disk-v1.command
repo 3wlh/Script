@@ -560,7 +560,7 @@ while true; do
     echo "  2) 🔓 恢复挂载硬盘显示（默认挂载）"
     echo "  3) 👀 查看挂载状态"
     echo "  4) 🚀 安装开机自动隐藏服务（LaunchDaemon）"
-    echo "  5) 🗑  卸载开机自动隐藏服务"
+    echo "  5) 🗑️ 卸载开机自动隐藏服务"
     echo "  0) 退出"
     echo ""
     read -n 1 -p "请直接按下数字键 (0-5): " choice </dev/tty || break
