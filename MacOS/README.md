@@ -30,6 +30,11 @@ curl -sSL http://3wlh.github.io/Script/MacOS/disk/hide-disk-v2.sh | sudo bash
 ```sh
 curl -sSL http://3wlh.github.io/Script/MacOS/disk/hide-disk-v3.sh | sudo bash
 ```
+## PKG软件包卸载
+#### 卸载命令
+```sh
+curl -sSL http://3wlh.github.io/Script/MacOS/pkg/卸载pkg软件包.sh | sudo bash
+```
 
 ## 双击运行（.command）
 各脚本在同目录提供 `.command` 版本（内容与 `.sh` 一致 + 自动提权），拷到 Mac 后首次运行前赋一次执行权限：
