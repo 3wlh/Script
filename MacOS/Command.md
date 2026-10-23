@@ -13,6 +13,22 @@ sudo spctl --master-disable
 ```
 sudo spctl --master-enable
 ```
+## 挂载
+#### autodiskmount 开关
+```
+sudo defaults write /Library/Preferences/SystemConfiguration/autodiskmount AutomountDisksWithoutUserLogin -bool true
+```
+#### 编辑 /Library/Preferences/SystemConfiguration/autodiskmount.plist
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>AutomountDisksWithoutUserLogin</key>
+    <true/>
+</dict>
+</plist>
+```
 
 ## 应用程序
 #### 程序清除隔离属性
