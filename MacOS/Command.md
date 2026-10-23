@@ -29,7 +29,19 @@ sudo defaults write /Library/Preferences/SystemConfiguration/autodiskmount Autom
 </dict>
 </plist>
 ```
-
+#### 命令写入
+```
+sudo tee /Library/Preferences/SystemConfiguration/autodiskmount.plist > /dev/null <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>AutomountDisksWithoutUserLogin</key>
+    <true/>
+</dict>
+</plist>
+EOF
+```
 ## 应用程序
 #### 程序清除隔离属性
 ```
