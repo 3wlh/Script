@@ -1,0 +1,520 @@
+{
+  "exported_at": "2026-10-23T03:51:47.360Z",
+  "settings": {
+    "title": "3wlh",
+    "engines": [
+      {
+        "id": "baidu",
+        "name": "百度",
+        "url": "https://www.baidu.com/s?wd=%s"
+      },
+      {
+        "id": "bing",
+        "name": "必应",
+        "url": "https://www.bing.com/search?q=%s"
+      },
+      {
+        "id": "google",
+        "name": "谷歌",
+        "url": "https://www.google.com/search?q=%s"
+      }
+    ],
+    "default_engine": "bing",
+    "wallpaper": {
+      "type": "image",
+      "value": "/assets/default-bg.webp"
+    },
+    "wallpaper_grad": "linear-gradient(135deg, #667eea, #764ba2)",
+    "accent": "#8b129eff",
+    "visitor_mode": true,
+    "clock_seconds": true,
+    "show_search": true,
+    "hide_desc": false,
+    "text_color": "#ffffffff",
+    "icon_style": "detail",
+    "wallpaper_blur": 0,
+    "wallpaper_mask": 0,
+    "card_blur": 0,
+    "content_max_width": 1200,
+    "content_max_unit": "",
+    "content_pad_x": 0,
+    "content_margin_top": 0,
+    "content_margin_bottom": 0,
+    "custom_footer": "<div class=\"flex justify-center\" style=\"margin-top:100px; color:#fff; font-size:14px;\">Powered By <a href=\"https://github.com/3wlh/NavPage\" target=\"_blank\" class=\"ml-[20px]\" style=\"color:#fff\">3wlh</a></div>",
+    "net_mode_switch": "auto",
+    "icon_fetch_mode": ""
+  },
+  "groups": [
+    {
+      "id": 2,
+      "name": "APP",
+      "items": [
+        {
+          "id": 1,
+          "name": "Openwrt",
+          "url": "http://location.hostname:8",
+          "intranet_url": "http://10.10.10.254",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/8a378d54e4d6616d4b2d3515547c05f0.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 2,
+          "name": "OEC_Turbo",
+          "url": "http://10.10.10.250",
+          "intranet_url": "https://",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/f3b405745d03a675e699b2b2e913547a.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 3,
+          "name": "ASUS",
+          "url": "http://location.hostname:6",
+          "intranet_url": "http://10.10.10.253/",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/a7016c5887fa9e331671036150003835.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 4,
+          "name": "光猫管理页面",
+          "url": "http://10.10.10.250/cgi-bin/page.cgi?get=modem",
+          "intranet_url": "https://",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/0c365bd1da062de54fab4dbc994ad945.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 5,
+          "name": "超微X10",
+          "url": "http://10.10.10.250/cgi-bin/page.cgi?get=supermicro",
+          "intranet_url": "https://",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/8ff2ecbd1585cc12d8abeb58c75186dc.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 8,
+          "name": "飞牛NAS-Server",
+          "url": "http://10.10.10.251:5666",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/6273e91cedf7163c6a820412154302c5.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 6,
+          "name": "飞牛NAS",
+          "url": "http://location.hostname:5666",
+          "intranet_url": "http://10.10.10.252:5666/",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/6273e91cedf7163c6a820412154302c5.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 7,
+          "name": "飞牛NAS-HP",
+          "url": "http://location.hostname:5666",
+          "intranet_url": "http://10.10.10.240:5666",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/6273e91cedf7163c6a820412154302c5.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 9,
+          "name": "Openlist",
+          "url": "http://location.hostname:5244/",
+          "intranet_url": "http://10.10.10.250:5244/",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/e198e780a9ae221f73f9802821c83778.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 10,
+          "name": "VS_Code",
+          "url": "http://10.10.10.240:5681/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/2240a3122b88cbae8b78359de03ae851.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 11,
+          "name": "NAS电源",
+          "url": "http://10.10.10.8/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/0037684322e8c90f54dad56931358b1c.png",
+          "icon_bg": "#00000000",
+          "open_mode": "modal"
+        },
+        {
+          "id": 12,
+          "name": "飞牛唤醒_HP",
+          "url": "http://10.10.10.8/mac?mac=C4:34:6B:54:6B:AD",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/0037684322e8c90f54dad56931358b1c.png",
+          "icon_bg": "#00000000",
+          "open_mode": "modal"
+        },
+        {
+          "id": 13,
+          "name": "Photopea",
+          "url": "http://location.hostname:8887",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/59b6b69a426e8232fbbbed410badc879.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 14,
+          "name": "AI Work 助手",
+          "url": "http://10.10.10.250:7864",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/7efb3b748051a489b16ae2cbf42d04df.png",
+          "icon_bg": "#00000000",
+          "open_mode": "modal"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "AI",
+      "items": [
+        {
+          "id": 15,
+          "name": "腾讯元宝",
+          "url": "https://yuanbao.tencent.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://static.yuanbao.tencent.com/m/yuanbao-web/favicon_new@32.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 16,
+          "name": "文心一言",
+          "url": "https://yiyan.baidu.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://www.baidu.com/favicon.ico",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 17,
+          "name": "MIMO",
+          "url": "https://aistudio.xiaomimimo.com/#/chat/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://aistudio.xiaomimimo.com/favicon.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 18,
+          "name": "DeepSeek",
+          "url": "https://chat.deepseek.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://fe-static.deepseek.com/chat/icon-180.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 19,
+          "name": "智谱清言",
+          "url": "https://chatglm.cn/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://chatglm.cn/favicon.ico",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "我的仓库",
+      "items": [
+        {
+          "id": 1,
+          "name": "Github仓库",
+          "url": "https://github.com/3wlh?tab=repositories/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/584db029db8e768b293d912179188c7a.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 2,
+          "name": "Gitee仓库",
+          "url": "https://gitee.com/gitee_3wlh/projects",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/9fa5f298891466ccfcfd5583d6802966.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 3,
+          "name": "CNB仓库",
+          "url": "https://cnb.cool/u/3wlh/repos",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://cnb.cool/images/favicon.svg",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 4,
+          "name": "GitLink仓库",
+          "url": "https://www.gitlink.org.cn/git_3wlh/projects",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://www.gitlink.org.cn/images/logo.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "常用",
+      "items": [
+        {
+          "id": 22,
+          "name": "OpenWrt定制",
+          "url": "https://openwrt.ai/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://openwrt.ai/wp-content/uploads/2022/04/logo.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 23,
+          "name": "在线PS",
+          "url": "https://www.tuyitu.com/ps/sources/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://www.tuyitu.com/Static/css/img/thumb128.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 24,
+          "name": "木瓜云",
+          "url": "https://muguacloud.cc/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://muguacloud.cc/favicon.ico",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 25,
+          "name": "Koolcenter",
+          "url": "https://www.koolcenter.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/bbe5aecb7ad6805b7d80d9c99806e7f9.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 26,
+          "name": "百度翻译",
+          "url": "https://fanyi.baidu.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/e95f5549e69053ffd96bf535c8cafd8a.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 27,
+          "name": "Cloudflare",
+          "url": "https://dash.cloudflare.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://dash.cloudflare.com/apple-touch-icon-57x57.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 28,
+          "name": "Docker搜索",
+          "url": "https://hub.docker.com/search/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/19e15686a125f8b0b20ee98ad3365b0c.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 29,
+          "name": "Docker代理",
+          "url": "https://dockerproxy.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/93cde672ce7e8026d9ec0259e0092399.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 30,
+          "name": "阿里图标库",
+          "url": "https://www.iconfont.cn/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/dde3f16ff0d2e15bcd1e92e683f1c1ab.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 31,
+          "name": "腾讯云",
+          "url": "https://cloud.tencent.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/7c08c9b763f0e03ff521492e7da9b43a.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 32,
+          "name": "图库",
+          "url": "https://img.660101.xyz",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/b66addcfbb1ed1894c1ed396d0959412.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 33,
+          "name": "PicGo_图床",
+          "url": "https://www.picgo.net/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/7015513cc32bad0784e1aea42779b6c2.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "视频",
+      "items": [
+        {
+          "id": 34,
+          "name": "哔哩哔哩",
+          "url": "https://www.bilibili.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/832de435c2ed1decf34a581bcdf84b4b.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 35,
+          "name": "爱奇艺",
+          "url": "https://www.iqiyi.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/8f65f2aa1dccf2a6061804ced9808f3e.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 36,
+          "name": "腾讯视频",
+          "url": "https://v.qq.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/bc9813004783c9fb5b020358aeb93d79.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 37,
+          "name": "优酷视频",
+          "url": "https://www.youku.com/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/3a0dba615ac25c1a65dab696a19dc43e.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        },
+        {
+          "id": 38,
+          "name": "ACG动漫",
+          "url": "http://www.age.tv/",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "https://img.660101.xyz/file/875bc9a26035acd27c3f9ff8fef012d4.png",
+          "icon_bg": "#0000006f",
+          "open_mode": "new"
+        }
+      ]
+    }
+  ],
+  "bookmark_groups": []
+}
