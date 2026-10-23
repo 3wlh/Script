@@ -1,5 +1,5 @@
 {
-  "exported_at": "2026-10-23T03:51:47.360Z",
+  "exported_at": "2026-10-23T15:16:35.941Z",
   "settings": {
     "title": "3wlh",
     "engines": [
@@ -22,10 +22,10 @@
     "default_engine": "bing",
     "wallpaper": {
       "type": "image",
-      "value": "/assets/default-bg.webp"
+      "value": "/assets/default-bg1.webp"
     },
     "wallpaper_grad": "linear-gradient(135deg, #667eea, #764ba2)",
-    "accent": "#8b129eff",
+    "accent": "#0000ffff",
     "visitor_mode": true,
     "clock_seconds": true,
     "show_search": true,
@@ -42,7 +42,10 @@
     "content_margin_bottom": 0,
     "custom_footer": "<div class=\"flex justify-center\" style=\"margin-top:100px; color:#fff; font-size:14px;\">Powered By <a href=\"https://github.com/3wlh/NavPage\" target=\"_blank\" class=\"ml-[20px]\" style=\"color:#fff\">3wlh</a></div>",
     "net_mode_switch": "auto",
-    "icon_fetch_mode": ""
+    "icon_fetch_mode": "",
+    "search_font": 20,
+    "search_opacity": 50,
+    "search_blur": 2
   },
   "groups": [
     {
@@ -189,6 +192,17 @@
           "desc": "",
           "emoji": "",
           "icon_url": "https://img.660101.xyz/file/59b6b69a426e8232fbbbed410badc879.png",
+          "icon_bg": "#00000000",
+          "open_mode": "new"
+        },
+        {
+          "id": 15,
+          "name": "OpenCode",
+          "url": "http://location.hostname:4096",
+          "intranet_url": "",
+          "desc": "",
+          "emoji": "",
+          "icon_url": "",
           "icon_bg": "#00000000",
           "open_mode": "new"
         },
