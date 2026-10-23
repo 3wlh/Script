@@ -7,11 +7,10 @@ echo -e "\e[1;36m初始化配置变量\e[0m"
 Fstab="/mnt/SD : 1d405d2a-c01c-ee41-ad7f-2d02ba1d600c |
 /mnt/HDD : 20e90bf5-d880-684d-a087-3786846280ea"
 # 共享 共享目录 : 名称
-Share="/mnt/SD/@Share : SD存储|
-/mnt/SD/Config : Config|
+Share="/mnt/SD/Config : Config|
 /mnt/HDD/@Share : HDD存储"
 # 配置名称
-Config="fstab unishare sunpanel cloudflared openlist openlist2 frp dockerd"
+Config="fstab unishare navpage cloudflared openlist openlist2 dockerd"
 }
 
 function Password(){
@@ -105,12 +104,13 @@ uci set openlist2.@openlist2[0].enabled='1'
 uci set openlist2.@openlist2[0].data_dir='/mnt/SD/Config/openlist'	
 }
 
-function sunpanel() {
-uci set sunpanel.@sunpanel[0].enabled="1"
-# 网页端口
-uci set sunpanel.@sunpanel[0].port="8080"
-# 数据目录
-uci set sunpanel.@sunpanel[0].config_path="/mnt/SD/Config/SunPanel"
+function navpage() {
+uci set navpage.config.enabled="1"
+uci set navpage.config.port="8080"
+uci set navpage.config.user="$(AES_D "J527zVNVjRH5lsggYJbohw==")"
+uci set navpage.config.password="$(AES_D "QuEQ+o09m+be88boCYodQA==")"
+uci set navpage.config.path_data="/etc/navpage"
+uci set navpage.config.url 'https://cnb.cool/3wlh/Script/-/git/raw/main/OpenWrt/navpage/navpage-config.json'
 }
 
 function cloudflared() {
@@ -136,27 +136,6 @@ uci add_list dockerd.globals.registry_mirrors="https://docker.nju.edu.cn"
 # Daocloud镜像站
 uci add_list dockerd.globals.registry_mirrors="https://docker.m.daocloud.io"
 uci commit dockerd
-}
-
-function frp() {
-uci set frp.common.enabled='1'
-uci set frp.common.server_port='7000'
-uci set frp.common.server_addr="$(AES_D "nzRMMNIm8K9XKX8i9AftXA==")"
-uci set frp.common.token="$(AES_D "T35GBVxiNmd119TodyLdHDB6rGmj54dqV2XwFA/T71Q=")"
-# 添加
-Data="$(uci -q show frp)"
-if [ ! -n "$(echo ${Data} | grep "NapCat_API")" ]; then
-	uci_id="$(uci add frp proxy)"
-	uci set frp.${uci_id}.enable='1'
-	uci set frp.${uci_id}.type='tcp'
-	uci set frp.${uci_id}.remote_port='8081'
-	uci set frp.${uci_id}.local_ip='localhost'
-	uci set frp.${uci_id}.local_port='80'
-	uci set frp.${uci_id}.proxy_protocol_version='disable'
-	uci set frp.${uci_id}.use_encryption='1'
-	uci set frp.${uci_id}.use_compression='1'
-	uci set frp.${uci_id}.remark='NapCat_API'
-fi
 }
 
 (cd / && {
