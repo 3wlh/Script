@@ -44,7 +44,7 @@
     "net_mode_switch": "auto",
     "icon_fetch_mode": "",
     "search_font": 20,
-    "search_opacity": 55,
+    "search_opacity": 50,
     "search_blur": 2
   },
   "groups": [
