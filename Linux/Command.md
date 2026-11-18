@@ -1,5 +1,10 @@
 # Linux命令
 
+## 应用
+#### 应用商城
+```
+sudo apt install gnome-software
+```
 ## Ubuntu Dock 显示可移动磁盘
 #### 不显示挂载的 SD 卡、U 盘
 ```
